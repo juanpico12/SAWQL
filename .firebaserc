@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "sawql-e3aca": {
+      "hosting": {
+        "SAWQL": [
+          "sawql-e3aca"
+        ]
+      }
+    }
+  }
+}
