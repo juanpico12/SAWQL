@@ -4,7 +4,7 @@ export const environment = {
   firebase: {
     apiKey: 'AIzaSyDvsD7G65jW4Zde798B3dEW_Y_7b_KmQwk',
     authDomain: 'sawql-e3aca.firebaseapp.com',
-    databaseURL: '<your-database-URL>',
+    databaseURL: 'https://sawql-e3aca-default-rtdb.firebaseio.com',
     projectId: 'sawql-e3aca',
     storageBucket: 'sawql-e3aca.appspot.com',
     messagingSenderId: '599214180647',

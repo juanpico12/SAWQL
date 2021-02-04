@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-//import  { auth }  from '@firebase/app';
+import auth from "../../../../node_modules/firebase"
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
@@ -37,7 +37,7 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['login','dashboard']);
         });
         this.SetUserData(result.user);
       }).catch((error) => {
@@ -58,34 +58,18 @@ export class AuthService {
       })
   }
 
-  // Send email verfificaiton when new user sign up
-  SendVerificationMail() {
-    return this.afAuth.currentUser.then((user)=> {user.sendEmailVerification})
-    .then(() => {
-      this.router.navigate(['verify-email-address']);
-    })
-  }
+    // Send email verfificaiton when new user sign up
+    SendVerificationMail() {
+      return this.afAuth.currentUser.then((user)=> {user.sendEmailVerification()})
+      .then(() => {
+        this.router.navigate(['login','verify-email-address']);
+      })
+    }
 
-  // Reset Forggot password
-  ForgotPassword(passwordResetEmail) {
-    return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
-    .then(() => {
-      window.alert('Password reset email sent, check your inbox.');
-    }).catch((error) => {
-      window.alert(error)
-    })
-  }
-
-  // Returns true when user is looged in and email is verified
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
-  }
-
-  // // Sign in with Google
-  // GoogleAuth() {
-  //   return this.AuthLogin(new Auth.GoogleAuthProvider());
-  // }
+  // Sign in with Google
+  GoogleAuth() {
+    return this.AuthLogin(new auth.auth.GoogleAuthProvider());
+  }  
 
   // Auth logic to run auth providers
   AuthLogin(provider) {
@@ -122,6 +106,22 @@ export class AuthService {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
+    })
+  }
+
+    // Returns true when user is looged in and email is verified
+    get isLoggedIn(): boolean {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return (user !== null && user.emailVerified !== false) ? true : false;
+    }
+
+    // Reset Forggot password
+  ForgotPassword(passwordResetEmail) {
+    return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
+    .then(() => {
+      window.alert('Password reset email sent, check your inbox.');
+    }).catch((error) => {
+      window.alert(error)
     })
   }
 
