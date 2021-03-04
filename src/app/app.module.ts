@@ -9,7 +9,9 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AuthService } from './core/services/auth.service';
-
+import { MaterialModule } from './material/material.module';
+import { HttpClientModule } from '@angular/common/http'
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,10 @@ import { AuthService } from './core/services/auth.service';
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    MaterialModule,
+    HttpClientModule,
+    AvatarModule
+    
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

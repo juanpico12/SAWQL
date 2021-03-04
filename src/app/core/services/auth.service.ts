@@ -4,14 +4,16 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { User } from 'src/app/shared/models/user';
+import { ROUTES } from '../enums/routes';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  userData: any; // Save logged in user data
-
+  public userData: any; // Save logged in user data
+  public loadingSignIn:boolean;
+  private _redirectUrl: string;
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -22,9 +24,13 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
       if (user) {
+        console.log('pasoo');
+        
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
+        this.loadingSignIn=false;
+       
       } else {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
@@ -32,12 +38,33 @@ export class AuthService {
     })
   }
 
+
+  get redirectUrl(): string {
+    return this._redirectUrl;
+  }
+
+  set redirectUrl(url: string) {
+      this._redirectUrl = url;
+  }
+
+  GetUserData(){
+    return JSON.parse(localStorage.getItem('user'));;
+  }
   // Sign in with email/password
   SignIn(email, password) {
+    console.log('pasoo');
+    this.loadingSignIn=true;
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['login','dashboard']);
+          console.log('entro');
+          console.log(result);
+          console.log('navegando a home');
+          setTimeout(() => {
+            this.router.navigate([ROUTES.HOME]);
+          },1000)  
+          
+
         });
         this.SetUserData(result.user);
       }).catch((error) => {
@@ -76,7 +103,7 @@ export class AuthService {
     return this.afAuth.signInWithPopup(provider)
     .then((result) => {
        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['app']);
         })
       this.SetUserData(result.user);
     }).catch((error) => {
@@ -105,21 +132,22 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate([ROUTES.LOGIN]);
     })
   }
 
     // Returns true when user is looged in and email is verified
     get isLoggedIn(): boolean {
-      const user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem('user'));    
       return (user !== null && user.emailVerified !== false) ? true : false;
     }
 
     // Reset Forggot password
   ForgotPassword(passwordResetEmail) {
+    
     return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
-      window.alert('Password reset email sent, check your inbox.');
+      window.alert('Email para recuperar contraseña enviado, chequea tu bandeja de entrada.');
     }).catch((error) => {
       window.alert(error)
     })

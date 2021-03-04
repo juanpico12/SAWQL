@@ -1,0 +1,81 @@
+<mat-card fxLayout="row" fxLayoutAlign="start start" class="mxs-5 mys-5 pr-0 pb-0 pt-0 sim-container" >
+
+    <!-- ARMARIO -->
+    <div fxFlex="30" class="mrs-3">
+        <h1>Armario</h1>
+        <mat-accordion  >
+            <mat-expansion-panel class=" mat-elevation-z0">
+              <mat-expansion-panel-header fxLayout="row">
+                <mat-panel-title fxFlex="80">
+                    Material de vidrio
+                </mat-panel-title>
+                <mat-panel-description fxFlex="20">
+                  <mat-icon svgIcon="matraz"></mat-icon>
+                </mat-panel-description>
+                
+              </mat-expansion-panel-header>
+              <div fxLayout="row wrap" fxLayoutAlign="space-around end"> 
+                  <div cdkDropList  [cdkDropListConnectedTo]="['group-list']">
+                    <div  [cdkDragData]="this.matrazAforado" cdkDrag>
+                        <app-sim-item [iconSvg]="this.matrazAforado.icon"  [name]="this.matrazAforado.name" id="this.matrazAforado.id"></app-sim-item>
+                    </div>
+                  </div>
+                  <div cdkDropList [cdkDropListConnectedTo]="['group-list']">
+                    <div [cdkDragData]="this.pipeta"  cdkDrag>
+                        <app-sim-item [iconSvg]="this.pipeta.icon" [iconSvgClass]="this.pipeta.iconClass" [name]="this.pipeta.name" id="this.pipeta.id"></app-sim-item>
+                    </div>
+                  </div>
+              </div>
+              <mat-divider></mat-divider>
+            </mat-expansion-panel>
+            
+            <mat-expansion-panel class=" mat-elevation-z0">
+              <mat-expansion-panel-header fxLayout="row">
+                <mat-panel-title fxFlex="80">
+                    Soluciones
+                </mat-panel-title>
+                <mat-panel-description fxFlex="20">
+                  <mat-icon svgIcon="tabla-periodica"></mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+          
+              <div cdkDropList>
+                <div  cdkDrag>
+                    Probeta
+                </div>
+              </div>
+            </mat-expansion-panel>
+          
+            <mat-expansion-panel class=" mat-elevation-z0">
+                <mat-expansion-panel-header fxLayout="row">
+                  <mat-panel-title fxFlex="80">
+                      Instrumentos
+                  </mat-panel-title>
+                  <mat-panel-description fxFlex="20">
+                    <mat-icon svgIcon="chemTools"></mat-icon>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+            
+                <div cdkDropList>
+                  <div  cdkDrag>
+                      Probeta
+                  </div>
+                </div>
+              </mat-expansion-panel>
+          
+          </mat-accordion>
+    </div>
+
+    
+    <mat-divider vertical style="height:470px"></mat-divider>
+
+    <!-- MESA DE TRABAJO -->
+
+    <div fxFlex="70" class="img-overlay-side " >
+        <div cdkDropListGroup>
+            <div class="box" cdkDropList   id="group-list" (cdkDropListDropped)="drop($event)">
+                <app-sim-item *ngIf="!!this.item1" [iconSvg]="this.item1.icon" [iconSvgClass]="this.item1.iconClass" [name]="this.item1.name" id="this.item1.id" cdkDrag></app-sim-item>
+            </div>
+        </div>  
+    </div>
+</mat-card>

@@ -1,41 +1,105 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-  
-      <div class="authBlock">
-        <h3>Sign In</h3>
-        <div class="formGroup">
-          <input type="text" class="formControl" placeholder="Username" #userName required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #userPassword required>
-        </div>
-  
-        <!-- Calling SignIn Api from AuthService -->
-        <div class="formGroup">
-          <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
-        </div>
-  
-        <div class="formGroup">
-          <span class="or"><span class="orInner">Or</span></span>
-        </div>
-  
-        <!-- Calling GoogleAuth Api from AuthService -->
-        <div class="formGroup">
-          <button type="button" class="btn googleBtn" >
-            <i class="fab fa-google-plus-g"></i>
-            Log in with Google
-          </button>
-        </div>
-  
-        <div class="forgotPassword">
-          <span routerLink="forgot-password">Forgot Password?</span>
-        </div>
+
+<div fxLayout="row" class="content">
+  <div fxHide fxShow.gt-sm fxFlex="25" fxLayout="column wrap"
+      [style.background-image]="'url(./../../../../../assets/vertical-login.jpg)'"
+      fxLayoutAlign="space-between center" class="img-overlay-side">
+      <div>
+
       </div>
-  
-      <div class="redirectToLogin">
-        <span>Don't have an account?<span class="redirect" routerLink="register-user"> Sign Up</span></span>
+      <div fxLayoutAlign="center start">
+        <!-- <img
+           src="{{env.actualTheme === themes.ADOMICILIO ? 'assets/logos/ADomicilio horizontal.png':'assets/logos/logoCompletoSinFondo.png'}}"
+           class="logo" /> -->
+        
+      <div fxLayoutAlign="center center" fxLayout="column">
+         <!-- <div fxLayoutAlign="center center">
+            <b class=" mat-h3 mts-1" style="color: white;margin: 0; opacity: 1;">
+               Powered by
+            </b>
+            <img class="logoTramontech" src="assets/logos/simfinix/logotext.png">
+         </div> -->
+         <!-- <span class="text-secondary-lighter" style=" opacity: 1;">
+            v&nbsp;{{pjson.version}}
+         </span> -->
+         
+     </div>
       </div>
-  
+   </div>
+
+
+
+
+
+  <div fxLayout="column" fxFlex.lt-md="100" fxFlex.gt-sm="75"  fxLayoutAlign="center center" fxFlexOrder.lt-md="2"
+   style="background-color: white" >
+    <div   fxLayout="column" fxLayoutAlign="center center" class="mbs-3">
+      <img  src="assets/logos/logoSawql.png" class="logo2 mbs-5"  />
+      <h3 class="text-green-darker"> SIMULADOR DE OPERACIONES QUÍMICAS DE LABORATORIO </h3>
+    </div>
+    <div fxFlex="50" class="mys-5 pxs-5 pts-5" fxLayout="column" fxLayoutAlign="start stretch">
+      <ng-container *ngIf="!this.authService.loadingSignIn; else loadingSignIn">
+        <mat-card  style="min-width: 350px;">
+          <mat-card-content >
+            <!-- Google LogIn -->
+            <div fxLayout="column" fxLayoutAlign="center center" class="mys-2">
+                <span  class="mat-h1 text-green-darker">Inicia sesión con Google</span>
+                <button mat-icon-button  color="accent" aria-label="Google LogIn" (click)="this.onClickGoogleLogIn()">
+                  <mat-icon svgIcon="google" class="google-icon"></mat-icon>
+                </button>    
+            </div>
+            <h3 fxLayout="row" fxLayoutAlign="center center" class="text-green-darker">O</h3>
+            <form [formGroup]="form" fxLayout="column" (submit)="onLogin()">
+              <!-- <mat-error *ngIf="loginInvalid">
+                The username and password were not recognised
+              </mat-error> -->
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-form-field fxFlex="75">
+                  <input matInput placeholder="Email" formControlName="email" required>
+                  <mat-error>
+                    Ingrese un email válido porfavor
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-form-field fxFlex="75">
+                  <input matInput type="password" placeholder="password" formControlName="password" required>
+                  <mat-error>
+                    Ingrese una contraseña válida porfavor
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              
+              <div fxLayout="row" fxLayoutAlign="center center" class="mts-2">
+                <button fxFlex="20" mat-raised-button color="primary" type="submit">Login</button>
+              </div>
+            </form>
+            <div fxLayout="row" fxLayoutAlign="center center" class="mts-4 mbs-2">
+              <button mat-button class="text-green-darker" routerLink="forgot-password">¿Olvidaste tu contraseña?</button>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="mys-2">
+              <span>¿No tienes una cuenta? <button mat-button  class="redirect text-green-darker" (click)="this.openDialog($event)">Registrate</button></span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </ng-container>
+      <ng-template #loadingSignIn>
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <ng-lottie [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 300px; max-width: 80vw;" ></ng-lottie>
+        </div>
+      </ng-template>
+      
+    </div>
+    
+    <div fxLayoutAlign="center center" fxLayout="column">
+      <img  src="assets/logos/logoFiunmdp.jpg" class="logo mts-5"  />
     </div>
   </div>
+</div>
+
+
+
+  
+
+
+
+

@@ -1,0 +1,154 @@
+// Import library functions for theme creation.
+@import '~@angular/material/theming';
+
+// Define a mixin that accepts a theme and outputs the theme-specific styles.
+@mixin general-mixins($theme) {
+   // Extract the palettes you need from the theme definition.
+   $primary-map: map-get($theme, primary);
+   $accent-map: map-get($theme, accent);
+   $warn-map: map-get($theme, warn);
+   $grey-map: map-get($custom-colors, cc-grey);
+   $green-darker-map: map-get($custom-colors, cc-green-darker);
+
+   $primary: mat-color($primary-map);
+   $primary-lighter: mat-color($primary-map, lighter);
+   $primary-darker: mat-color($primary-map, darker);
+   $accent: mat-color($accent-map);
+   $accent-lighter: mat-color($accent-map, lighter);
+   $accent-darker: mat-color($accent-map, darker);
+   $warn: mat-color($warn-map);
+   $warn-lighter: mat-color($warn-map, lighter);
+   $warn-darker: mat-color($warn-map, darker);
+   // Custom colors
+   $grey: mat-color($grey-map);
+   $grey-darker: mat-color($grey-map, darker);
+   $grey-lighter: mat-color($grey-map, lighter);
+   $green-darker: mat-color($green-darker-map);
+   $green-darker-darker: mat-color($green-darker-map, darker);
+   $green-darker-lighter: mat-color($green-darker-map, lighter);
+
+   // Text
+   .text-primary {
+      color: $primary !important;
+   }
+   .text-primary-darker {
+      color: $primary-darker !important;
+   }
+   .text-primary-lighter {
+      color: $primary-lighter !important;
+   }
+   .text-accent {
+      color: $accent !important;
+   }
+   .text-accent-lighter {
+      color: $accent-lighter !important;
+   }
+   .text-accent-darker {
+      color: $accent-darker !important;
+   }
+   .text-warn {
+      color: $warn !important;
+   }
+   .text-warn-lighter {
+      color: $warn-lighter !important;
+   }
+   .text-warn-darker {
+      color: $warn-darker !important;
+   }
+   .text-secondary {
+      color: $grey !important;
+   }
+   .text-secondary-darker {
+      color: $grey-darker !important;
+   }
+   .text-secondary-lighter {
+      color: $grey-lighter !important;
+   }
+
+   .text-green-darker {
+      color: $green-darker !important;
+   }
+   .text-green-darker-darker {
+      color: $green-darker-darker !important;
+   }
+   .text-green-darker-lighter {
+      color: $green-darker-lighter !important;
+   }
+
+   .bg-primary {
+      background-color: $primary !important;
+   }
+   .bg-primary-lighter {
+      background-color: $primary-lighter !important;
+   }
+   .bg-primary-darker {
+      background-color: $primary-darker !important;
+   }
+   .bg-accent {
+      background-color: $accent !important;
+   }
+   .bg-accent-lighter {
+      background-color: $accent-lighter !important;
+   }
+   .bg-accent-darker {
+      background-color: $accent-darker !important;
+   }
+   .bg-warn {
+      background-color: $warn !important;
+   }
+   .bg-warn-lighter {
+      background-color: $warn-lighter !important;
+   }
+   .bg-warn-darker {
+      background-color: $warn-darker !important;
+   }
+   .bg-secondary {
+      background-color: $grey !important;
+   }
+   .bg-secondary-darker {
+      background-color: $grey-darker !important;
+   }
+   .bg-secondary-lighter {
+      background-color: $grey-lighter !important;
+   }
+
+   .mat-card .mat-card-header .mat-card-title {
+      color: $accent-darker;
+   }
+
+   //TABLE
+   .bg-on-hover.mat-row:hover {
+      background: mat-color($primary-map, 100) !important;
+   }
+
+   th {
+      @extend .text-secondary-darker;
+      font-weight: 600 !important;
+   }
+
+   td {
+      @extend .text-secondary-darker;
+   }
+
+   .mat-cell {
+      color: $grey-darker;
+   }
+
+   .item-menu span {
+      color: $grey-darker;
+   }
+
+   .mat-snack-bar-container {
+      background-color: $warn-darker !important;
+      //   background-color: white !important;
+      color: $grey-lighter !important;
+   }
+
+   .custom-frame {
+      & .mat-checkbox-background,
+      .mat-checkbox-frame {
+         border-radius: 70% !important;
+         border-color: $primary;
+      }
+   }
+}

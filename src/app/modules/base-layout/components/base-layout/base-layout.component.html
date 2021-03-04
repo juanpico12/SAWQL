@@ -1,0 +1,30 @@
+<div fxLayout="column">
+    <mat-toolbar color="primary" style="min-height: 75px;">
+        <button mat-icon-button class="mbs-1" aria-label="Example icon-button with menu icon">
+          <mat-icon color="accent">menu</mat-icon>
+        </button>
+        <span class="text-accent" matTooltip="Simulador de aprendizaje web de operaciones químicas de laboratorio
+        "  matTooltipPosition="right" matTooltipClass="tooltip">SAWQL</span>
+        <span fxFlex="1 1 auto"></span>
+        
+        <span class="mxs-2 text-accent" >{{this.user.email}}</span>
+        <ngx-avatar src="{{this.user.photoURL}}"
+            name="{{this.user.email}}" bgColor="#6400b4" fgColor="#41ffaf"   size="50" >
+        </ngx-avatar>
+        <button  mat-icon-button class="mr-0 pr-0 mls-2"
+            [matMenuTriggerFor]="menuUser">
+            <mat-icon color="accent">logout</mat-icon>
+        </button>
+
+        <mat-menu #menuUser="matMenu">
+            <!-- <button mat-menu-item   fxLayoutAlign="start center">
+            <mat-icon>face</mat-icon>
+            <span>Mi perfil</span>
+         </button> -->
+            <button (click)="onLogOut()" mat-menu-item fxLayoutAlign="start center">
+               <span>Cerrar Sesión</span>
+            </button>
+         </mat-menu>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+ </div>

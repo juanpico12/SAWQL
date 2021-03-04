@@ -17,6 +17,7 @@
     "@angular/compiler": "~11.1.2",
     "@angular/core": "~11.1.2",
     "@angular/fire": "^6.1.4",
+    "@angular/flex-layout": "^11.0.0-beta.33",
     "@angular/forms": "~11.1.2",
     "@angular/material": "^9.2.4",
     "@angular/platform-browser": "~11.1.2",
@@ -24,6 +25,9 @@
     "@angular/router": "~11.1.2",
     "bootstrap": "^4.6.0",
     "firebase": "^8.2.5",
+    "lottie-web": "^5.7.6",
+    "ngx-avatar": "^4.0.0",
+    "ngx-lottie": "^6.4.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

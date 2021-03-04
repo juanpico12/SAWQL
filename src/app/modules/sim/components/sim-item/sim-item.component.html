@@ -1,0 +1,5 @@
+<div fxLayout="column" class=" mys-4" fxLayoutAlign="center center">
+    <mat-icon  class="icon-size " *ngIf="this.icon" >{{ icon }}</mat-icon>
+    <mat-icon   class="icon-size "  [ngClass]="iconSvgClass"  *ngIf="this.iconSvg" [svgIcon]="iconSvg" ></mat-icon>
+    <h3 class="mbs-0 text-accent"  >{{this.name}}</h3>
+</div>

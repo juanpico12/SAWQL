@@ -1,27 +1,27 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-  
-      <div class="authBlock">
-        <h3>Thank You for Registering</h3>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <ng-lottie [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 300px; max-width: 80vw;" ></ng-lottie>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <h1 class=" mat-h1 text-primary ">Gracias por Registrarte</h1>
   
         <div class="formGroup" *ngIf="authService.userData as user">
-          <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
-          <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
+          <div fxLayout="row" fxLayoutAlign="center start" class="mat-h3">Te enviamos un email a <strong>{{user.email}}</strong>.</div>
+          <div fxLayout="row" fxLayoutAlign="center start" class="mat-h3 mxs-5">Porfavor revisa tu bandeja de entrada y hace click en el link que te enviamos para verificar tu cuenta. No olvides de revisar tu carpeta de 'spam' o 'correo no deseado'.</div>
         </div>
         
         <!-- Calling SendVerificationMail() method using authService Api -->
         <div class="formGroup">
-          <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
+          <button mat-button (click)="authService.SendVerificationMail()" class="text-green-darker">
             <i class="fas fa-redo-alt"></i>
-            Resend Verification Email
+            <h3>Reenviar email de verificación.</h3>
           </button>
         </div>
   
       </div>
   
-      <div class="redirectToLogin">
-        <span>Go back to?<span class="redirect" routerLink=""> Sign in</span></span>
+      <div fxLayout="row" fxLayoutAlign="center center" >
+        <h3 class="mbs-0">Volver al Inicio</h3><button mat-icon-button class="redirect" routerLink="" class="text-green-darker-darker"><mat-icon class="mat-18 mbs-1">reply</mat-icon> </button>
       </div>
-  
-    </div>
-  </div>
+</div>
