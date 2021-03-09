@@ -1,11 +1,53 @@
 .sim-container{
-    height: 500px;
+    min-height: 600px;
 }
 
 .box{
-    height: 200px;
-    width: 200px;
-    border: black solid;
+    height: 75px;
+    width: 150px;
+    max-width: 250px;
+    border-width: 3px;
+    border-style: solid;
+    overflow: hidden;
+    border-image: 
+        linear-gradient(
+        to bottom, 
+        #41ffaf, 
+        rgba(0, 0, 0, 0)
+        ) 1 100%;
+      
 }
+.middle-items{
+  height: 120px;
+}
+.table {
+    max-width: 100%;
+    min-height: 100px;
+    display: flex;
+    flex-direction: row;
+    background: white;
+    overflow: hidden;
+    border-bottom: 10px solid;
+    border-image-slice: 1;
+    border-width: 2px;
+    border-image-source: linear-gradient(to left, #41ffaf, #e8fff5 );
+  }
+
+  .example-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+
+
+  }
+  
+
+  
+ 
+
+
 
  

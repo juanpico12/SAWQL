@@ -30,5 +30,10 @@ export class AppComponent {
     this.generalService.addIcon('tabla-periodica', 'tabla-periodica.svg');
     this.generalService.addIcon('matraz-aforado-item', 'matraz-aforado-item.svg');
     this.generalService.addIcon('pipeta-item', 'pipeta-item.svg');
+    this.generalService.addIcon('erlenmeyer-item', 'erlenmeyer.svg');
+    this.generalService.addIcon('vasos-de-precipitados-item', 'vasos-de-precipitados-item.svg');
+    this.generalService.addIcon('probeta-item', 'probeta-item.svg');
+    this.generalService.addIcon('bureta-item', 'bureta-item.svg');
   }
+  
 }

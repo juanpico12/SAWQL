@@ -4,14 +4,20 @@ import { SimComponent } from './components/sim/sim.component';
 import { MaterialModule } from 'src/app/material/material.module';
 import { SimRoutingModule } from './sim-routing.module';
 import { SimItemComponent } from './components/sim-item/sim-item.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [SimComponent, SimItemComponent],
   imports: [
     CommonModule,
     SimRoutingModule,
-    MaterialModule
+    MaterialModule,
+    LottieModule.forRoot({ player: playerFactory })
   ]
 })
 export class SimModule { }

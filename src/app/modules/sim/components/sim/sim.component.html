@@ -1,4 +1,4 @@
-<mat-card fxLayout="row" fxLayoutAlign="start start" class="mxs-5 mys-5 pr-0 pb-0 pt-0 sim-container" >
+<mat-card fxLayout="row" fxLayoutAlign="start start" class="mxs-5 mys-5  sim-container" >
 
     <!-- ARMARIO -->
     <div fxFlex="30" class="mrs-3">
@@ -14,18 +14,27 @@
                 </mat-panel-description>
                 
               </mat-expansion-panel-header>
-              <div fxLayout="row wrap" fxLayoutAlign="space-around end"> 
-                  <div cdkDropList  [cdkDropListConnectedTo]="['group-list']">
-                    <div  [cdkDragData]="this.matrazAforado" cdkDrag>
-                        <app-sim-item [iconSvg]="this.matrazAforado.icon"  [name]="this.matrazAforado.name" id="this.matrazAforado.id"></app-sim-item>
-                    </div>
+              <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mys-1">
+                  <div class="mxs-2 mys-2"  [cdkDragData]="this.matrazAforado" cdkDrag>
+                      <app-sim-item [iconSvg]="this.matrazAforado.icon"  [name]="this.matrazAforado.name" [id]="this.matrazAforado.id"></app-sim-item>
                   </div>
-                  <div cdkDropList [cdkDropListConnectedTo]="['group-list']">
-                    <div [cdkDragData]="this.pipeta"  cdkDrag>
-                        <app-sim-item [iconSvg]="this.pipeta.icon" [iconSvgClass]="this.pipeta.iconClass" [name]="this.pipeta.name" id="this.pipeta.id"></app-sim-item>
-                    </div>
+                  <div class="mxs-2 mys-2" [cdkDragData]="this.pipeta"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.pipeta.icon" [iconSvgClass]="this.pipeta.iconClass" [name]="this.pipeta.name" [id]="this.pipeta.id"></app-sim-item>
+                  </div>
+                  <div class="mxs-2 mys-2" [cdkDragData]="this.erlenmeyer"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.erlenmeyer.icon" [iconSvgClass]="this.erlenmeyer.iconClass" [name]="this.erlenmeyer.name" [id]="this.erlenmeyer.id"></app-sim-item>
+                  </div>
+                  <div class="mxs-2 mys-2" [cdkDragData]="this.vasoDePrecipitados"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.vasoDePrecipitados.icon" [iconSvgClass]="this.vasoDePrecipitados.iconClass" [name]="this.vasoDePrecipitados.name" [id]="this.vasoDePrecipitados.id"></app-sim-item>
+                  </div>
+                  <div class="mxs-2 mys-2" [cdkDragData]="this.probeta"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.probeta.icon" [iconSvgClass]="this.probeta.iconClass" [name]="this.probeta.name" [id]="this.probeta.id"></app-sim-item>
+                  </div>
+                  <div class="mxs-2 mys-2" [cdkDragData]="this.bureta"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.bureta.icon" [iconSvgClass]="this.bureta.iconClass" [name]="this.bureta.name" [id]="this.bureta.id"></app-sim-item>
                   </div>
               </div>
+
               <mat-divider></mat-divider>
             </mat-expansion-panel>
             
@@ -67,15 +76,49 @@
     </div>
 
     
-    <mat-divider vertical style="height:470px"></mat-divider>
+    <mat-divider vertical style="height:570px"></mat-divider>
 
     <!-- MESA DE TRABAJO -->
 
-    <div fxFlex="70" class="img-overlay-side " >
-        <div cdkDropListGroup>
-            <div class="box" cdkDropList   id="group-list" (cdkDropListDropped)="drop($event)">
-                <app-sim-item *ngIf="!!this.item1" [iconSvg]="this.item1.icon" [iconSvgClass]="this.item1.iconClass" [name]="this.item1.name" id="this.item1.id" cdkDrag></app-sim-item>
+    <div fxFlex="70" class="img-overlay-side " cdkDropListGroup>
+      <h1 fxLayout="row" fxLayoutAlign="start start" class="mbs-1 mls-3">Mesa de Trabajo</h1>
+      <div cdkDropList cdkDropListOrientation="horizontal" id="table" class="table mxs-2 mys-1" (cdkDropListDropped)="dropTable($event)" [cdkDropListData]="this.itemsOnTable">
+        <app-sim-item *ngFor="let item of this.itemsOnTable" class="example-box mrs-1"  [iconSvg]="this.item.icon" [iconSvgClass]="this.item.iconClass" [name]="this.item.name" [id]="this.item.id" [cdkDragData]="this.item" cdkDrag></app-sim-item>
+        
+      </div>
+      <div fxLayout="row" class="mts-5" fxLayoutAlign="space-around start" >
+            <div fxFlex="25" fxLayout="row" fxLayoutAlign="center center" class="middle-items">
+              <ng-lottie [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 100px;" ></ng-lottie>
+              <span class="text-accent mts-3" >Items a Interactuar</span>
+              <!-- <mat-icon class="mat-18 text-primary">sync_alt</mat-icon> -->
+              
             </div>
-        </div>  
+            <div fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+              <span class="text-accent">Item 1</span>
+              <div  class="box pys-2"
+                cdkDropList
+                id="item1"
+                (cdkDropListDropped)="dropItem1($event) "
+                [cdkDropListAutoScrollDisabled]="true" 
+                [cdkDropListData]="this.item1"
+                >
+                <app-sim-item *ngIf="!!this.item1[0]"  [iconSvg]="this.item1[0].icon" [iconSvgClass]="this.item1[0].iconClass" [name]="this.item1[0].name" [id]="this.item1[0].id" [cdkDragData]="this.item1[0]" cdkDrag></app-sim-item>
+              </div>
+            </div>
+            <mat-icon fxFlex="15" fxLayout="row" fxLayoutAlign="center center"  class="mat-18 text-primary middle-items">sync_alt</mat-icon> 
+            <div fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+              <span class="text-accent">Item 2</span>
+              <div  class="box pys-2"  
+                cdkDropList   
+                id="item2" 
+                (cdkDropListDropped)="dropItem2($event) " 
+                [cdkDropListAutoScrollDisabled]="true"
+                [cdkDropListData]="this.item2"
+                >
+                <app-sim-item  *ngIf="!!this.item2[0]" [iconSvg]="this.item2[0].icon" [iconSvgClass]="this.item2[0].iconClass" [name]="this.item2[0].name" [id]="this.item2[0].id" [cdkDragData]="this.item2[0]"  cdkDrag></app-sim-item>
+              </div>
+            </div>
+      </div>  
+
     </div>
 </mat-card>
