@@ -43,6 +43,33 @@
 
 
   }
+
+  .icon-size-description-panel {
+ 
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+}
+
+.box-toolboard{
+  border-right-width: 3px;
+  border-left-width: 0px;
+  border-style: solid;
+  border-image: 
+      linear-gradient(
+      to bottom, 
+      #41ffaf, 
+      rgba(0, 0, 0, 0)
+      ) 1 100%;
+}
+
+.item-toolboard-box{
+  border-bottom: 10px solid;
+  border-image-slice: 1;
+  border-width: 2px;
+  border-image-source: linear-gradient(to left, #41ffaf, #e8fff5 );
+}
   
 
   

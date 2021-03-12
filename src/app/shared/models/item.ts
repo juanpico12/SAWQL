@@ -1,7 +1,12 @@
+import { from } from "rxjs";
+import {Chemical} from './chemical'
 export interface Item {
-    name: number;
+    name: string;
     id: number;
     icon:string;
+    unit:string;
+    volMax:number;
     iconClass:string;
-    data: any;
+    data?: any;
+    chemical? : Chemical;
  }

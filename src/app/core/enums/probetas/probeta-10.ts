@@ -1,7 +1,9 @@
 
-export enum PROBETA {
+export enum PROBETA_10 {
     name = 'probeta',
-    id='5',
+    id=13,
     icon='probeta-item',
+    unit='ml',
+    volMax=10,
     iconClass = '',
  }

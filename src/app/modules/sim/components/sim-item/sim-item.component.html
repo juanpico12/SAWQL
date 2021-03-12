@@ -1,7 +1,9 @@
 
 <div class="container-item"  fxLayout="column"  fxLayoutAlign="center center" [matTooltip]="this.tooltipData" matTooltipClass="tooltip">
+    <span *ngIf="!!this.chemicalNameString" class="text-green-darker" [innerHTML]="chemicalNameString"></span>
     <mat-icon  class="icon-size " *ngIf="this.icon" >{{ icon }}</mat-icon>
     <mat-icon   class="icon-size "  [ngClass]="iconSvgClass"  *ngIf="this.iconSvg" [svgIcon]="iconSvg" ></mat-icon>
     <!-- <h4 class="mbs-0 "  [ngClass]="class">{{this.name}}</h4> -->
+    <span class="">{{ this.volumeString}}</span>
 </div>
 
