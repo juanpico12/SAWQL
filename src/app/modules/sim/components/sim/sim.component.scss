@@ -18,7 +18,7 @@
       
 }
 .middle-items{
-  height: 120px;
+  height: 80px;
 }
 .table {
     max-width: 100%;
@@ -69,6 +69,34 @@
   border-image-slice: 1;
   border-width: 2px;
   border-image-source: linear-gradient(to left, #41ffaf, #e8fff5 );
+}
+
+.data-item1-box{
+  height: auto;
+  border-right-width: 3px;
+  border-left-width: 0px;
+  border-style: solid;
+  overflow: hidden;
+  border-image: 
+      linear-gradient(
+      to bottom, 
+      #41ffaf, 
+      rgba(0, 0, 0, 0)
+      ) 1 100%;
+}
+
+.data-item2-box{
+  height: auto;
+  border-right-width: 0px;
+  border-left-width: 3px;
+  border-style: solid;
+  overflow: hidden;
+  border-image: 
+      linear-gradient(
+      to bottom, 
+      #41ffaf, 
+      rgba(0, 0, 0, 0)
+      ) 1 100%;
 }
   
 

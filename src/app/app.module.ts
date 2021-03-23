@@ -10,9 +10,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AuthService } from './core/services/auth.service';
 import { MaterialModule } from './material/material.module';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { AvatarModule } from 'ngx-avatar';
-
 @NgModule({
   declarations: [
     AppComponent

@@ -20,7 +20,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-//import { MatRadioModule } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -35,7 +35,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 //import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { MatStepperModule } from '@angular/material/stepper';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 
@@ -53,7 +54,7 @@ const material = [
    MatDatepickerModule,
    MatToolbarModule,
    MatSidenavModule,
-   //MatRadioModule,
+   MatRadioModule,
    MatCheckboxModule,
    MatMenuModule,
    MatListModule,
@@ -74,6 +75,8 @@ const material = [
    // MatCarouselModule,
    MatStepperModule,
    DragDropModule,
+   MatProgressBarModule,
+   MatSliderModule
 ];
 
 // const md2 = [Md2Module]

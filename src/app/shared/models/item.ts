@@ -6,6 +6,7 @@ export interface Item {
     icon:string;
     unit:string;
     volMax:number;
+    vol : number;
     iconClass:string;
     data?: any;
     chemical? : Chemical;

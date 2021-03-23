@@ -1,0 +1,219 @@
+{"items" : [
+        {
+            "acidos": [
+                {
+                    "name" : "acido acetico",
+                    "id" : 100,
+                    "icon" : "acid-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "H<sub>3</sub>BO<sub>3</sub>",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L"
+                    }
+                }
+            ]
+        },
+        {
+            "bases": [
+                {
+                    "name" : "borax",
+                    "id" : 200,
+                    "icon" : "base-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "NA<sub>2</sub>[B<sub>4</sub>O<sub>5</sub>(OH)<sub>4</sub>].8H<sub>2</sub>O",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L"
+                    }
+                }
+            ]
+        },
+        {
+            "buretas": [
+                {
+                    "name" : "bureta",
+                    "id" : 4,
+                    "icon" : "bureta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 25,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "bureta",
+                    "id" : 60,
+                    "icon" : "bureta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 50,
+                    "iconClass" : ""
+                }
+            ]
+        },
+        {
+            "erlenmeyers": [
+                {
+                    "name" : "erlenmeyer",
+                    "id" : 30,
+                    "icon" : "erlenmeyer-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 50,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "erlenmeyer",
+                    "id" : 30,
+                    "icon" : "erlenmeyer-item",
+                    "unit" : "mL",
+                    "volMax" : 100,
+                    "vol" : 0,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "erlenmeyer",
+                    "id" : 30,
+                    "icon" : "erlenmeyer-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 250,
+                    "iconClass" : ""
+                }
+            ]
+        },
+        {
+            "matraces": [
+                {
+                    "name" : "matraz",
+                    "id" : 10,
+                    "icon" : "matraz-aforado-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 50,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "matraz",
+                    "id" : 10,
+                    "icon" : "matraz-aforado-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 100,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "matraz",
+                    "id" : 10,
+                    "icon" : "matraz-aforado-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 250,
+                    "iconClass" : ""
+                }
+            ]
+        },
+        {
+            "pipetas": [
+                {
+                    "name" : "pipeta",
+                    "id" : 20,
+                    "icon" : "pipeta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 1,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "pipeta",
+                    "id" : 20,
+                    "icon" : "pipeta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 5,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "pipeta",
+                    "id" : 20,
+                    "icon" : "pipeta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 10,
+                    "iconClass" : ""
+                }
+            ]
+        },
+        {
+            "probetas": [
+                {
+                    "name" : "probeta",
+                    "id" : 50,
+                    "icon" : "probeta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 5,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "probeta",
+                    "id" : 50,
+                    "icon" : "probeta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 10,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "probeta",
+                    "id" : 50,
+                    "icon" : "probeta-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 25,
+                    "iconClass" : ""
+                }
+            ]
+        },
+        {
+            "vasoDePrecipitados": [
+                {
+                    "name" : "vaso de precipitados",
+                    "id" : 40,
+                    "icon" : "vasos-de-precipitados-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 50,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "vaso de precipitados",
+                    "id" : 40,
+                    "icon" : "vasos-de-precipitados-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 100,
+                    "iconClass" : ""
+                },
+                {
+                    "name" : "vaso de precipitados",
+                    "id" : 40,
+                    "icon" : "vasos-de-precipitados-item",
+                    "unit" : "mL",
+                    "vol" : 0,
+                    "volMax" : 250,
+                    "iconClass" : ""
+                }
+            ]
+        }
+        
+
+    ]   
+}
+

@@ -31,7 +31,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
    }
 
    checkLogin(url): boolean {
-      //console.log(this.authService.isLoggedIn)
       if (this.authService.isLoggedIn == true) {
          return true;
       }

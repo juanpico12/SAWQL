@@ -11,19 +11,13 @@
                     Matraces
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.matrazAforado100.icon" ></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.matraces[0].icon" ></mat-icon>
                 </mat-panel-description>
                 
               </mat-expansion-panel-header>
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div class="mxs-2 mys-2"  [cdkDragData]="this.matrazAforado100" cdkDrag>
-                      <app-sim-item [iconSvg]="this.matrazAforado100.icon" [vol]="0"  [name]="this.matrazAforado100.name" [id]="this.matrazAforado100.id" [unit]="this.matrazAforado100.unit" [volMax]="this.matrazAforado100.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2"  [cdkDragData]="this.matrazAforado250" cdkDrag>
-                    <app-sim-item [iconSvg]="this.matrazAforado250.icon" [vol]="0" [name]="this.matrazAforado250.name" [id]="this.matrazAforado250.id" [unit]="this.matrazAforado250.unit" [volMax]="this.matrazAforado250.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2"  [cdkDragData]="this.matrazAforado1000" cdkDrag>
-                      <app-sim-item [iconSvg]="this.matrazAforado1000.icon" [vol]="0" [name]="this.matrazAforado1000.name" [id]="this.matrazAforado1000.id " [unit]="this.matrazAforado1000.unit" [volMax]="this.matrazAforado1000.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2"  *ngFor="let matraz of this.matraces" [cdkDragData]="matraz" cdkDrag>
+                      <app-sim-item [iconSvg]="matraz.icon" [vol]="matraz.vol"  [name]="matraz.name" [id]="matraz.id" [unit]="matraz.unit" [volMax]="matraz.volMax"></app-sim-item>
                   </div>
               </div>
             </mat-expansion-panel>
@@ -34,19 +28,13 @@
                     Pipetas
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.pipeta5.icon" ></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.pipetas[0].icon" ></mat-icon>
                 </mat-panel-description>
                 
               </mat-expansion-panel-header>
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end"class="mts-1 pbs-1 item-toolboard-box">
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.pipeta5"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.pipeta5.icon" [vol]="0" [iconSvgClass]="this.pipeta5.iconClass" [name]="this.pipeta5.name" [id]="this.pipeta5.id" [unit]="this.pipeta5.unit" [volMax]="this.pipeta5.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.pipeta10"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.pipeta10.icon" [vol]="0" [iconSvgClass]="this.pipeta10.iconClass" [name]="this.pipeta10.name" [id]="this.pipeta10.id" [unit]="this.pipeta10.unit" [volMax]="this.pipeta10.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.pipeta25"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.pipeta25.icon" [vol]="0" [iconSvgClass]="this.pipeta25.iconClass" [name]="this.pipeta25.name" [id]="this.pipeta25.id" [unit]="this.pipeta25.unit" [volMax]="this.pipeta25.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2" *ngFor="let pipeta of this.pipetas" [cdkDragData]="pipeta"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.pipeta.icon" [vol]="this.pipeta.vol" [iconSvgClass]="this.pipeta.iconClass" [name]="this.pipeta.name" [id]="this.pipeta.id" [unit]="this.pipeta.unit" [volMax]="this.pipeta.volMax"></app-sim-item>
                   </div>
               </div>
 
@@ -58,19 +46,13 @@
                     Erlenmeyers
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.erlenmeyer250.icon" ></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.erlenmeyers[0].icon" ></mat-icon>
                 </mat-panel-description>
                 
               </mat-expansion-panel-header>
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.erlenmeyer250"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.erlenmeyer250.icon" [vol]="0" [iconSvgClass]="this.erlenmeyer250.iconClass" [name]="this.erlenmeyer250.name" [id]="this.erlenmeyer250.id" [unit]="this.erlenmeyer250.unit" [volMax]="this.erlenmeyer250.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.erlenmeyer500"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.erlenmeyer500.icon" [vol]="0" [iconSvgClass]="this.erlenmeyer500.iconClass" [name]="this.erlenmeyer500.name" [id]="this.erlenmeyer500.id" [unit]="this.erlenmeyer500.unit" [volMax]="this.erlenmeyer500.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.erlenmeyer1000"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.erlenmeyer1000.icon" [vol]="0" [iconSvgClass]="this.erlenmeyer1000.iconClass" [name]="this.erlenmeyer1000.name" [id]="this.erlenmeyer1000.id" [unit]="this.erlenmeyer1000.unit" [volMax]="this.erlenmeyer1000.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2" *ngFor="let erlenmeyer of this.erlenmeyers" [cdkDragData]="erlenmeyer"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.erlenmeyer.icon" [vol]="this.erlenmeyer.vol" [iconSvgClass]="this.erlenmeyer.iconClass" [name]="this.erlenmeyer.name" [id]="this.erlenmeyer.id" [unit]="this.erlenmeyer.unit" [volMax]="this.erlenmeyer.volMax"></app-sim-item>
                   </div>
               </div>
 
@@ -82,22 +64,13 @@
                     Vaso de Precipitados
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.vasoDePrecipitados100.icon" ></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.vasoDePrecipitados[0].icon" ></mat-icon>
                 </mat-panel-description>
                 
               </mat-expansion-panel-header>
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.vasoDePrecipitados100"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.vasoDePrecipitados100.icon" [vol]="0" [iconSvgClass]="this.vasoDePrecipitados100.iconClass" [name]="this.vasoDePrecipitados100.name" [id]="this.vasoDePrecipitados100.id" [unit]="this.vasoDePrecipitados100.unit" [volMax]="this.vasoDePrecipitados100.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.vasoDePrecipitados250"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.vasoDePrecipitados250.icon" [vol]="0" [iconSvgClass]="this.vasoDePrecipitados250.iconClass" [name]="this.vasoDePrecipitados250.name" [id]="this.vasoDePrecipitados250.id" [unit]="this.vasoDePrecipitados250.unit" [volMax]="this.vasoDePrecipitados250.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.vasoDePrecipitados500"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.vasoDePrecipitados500.icon" [vol]="0" [iconSvgClass]="this.vasoDePrecipitados500.iconClass" [name]="this.vasoDePrecipitados500.name" [id]="this.vasoDePrecipitados500.id" [unit]="this.vasoDePrecipitados500.unit" [volMax]="this.vasoDePrecipitados500.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.vasoDePrecipitados1000"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.vasoDePrecipitados1000.icon" [vol]="0" [iconSvgClass]="this.vasoDePrecipitados1000.iconClass" [name]="this.vasoDePrecipitados1000.name" [id]="this.vasoDePrecipitados1000.id" [unit]="this.vasoDePrecipitados1000.unit" [volMax]="this.vasoDePrecipitados1000.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2" *ngFor="let vasoDePrecipitados of this.vasoDePrecipitados" [cdkDragData]="vasoDePrecipitados"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.vasoDePrecipitados.icon" [vol]="this.vasoDePrecipitados.vol" [iconSvgClass]="this.vasoDePrecipitados.iconClass" [name]="this.vasoDePrecipitados.name" [id]="this.vasoDePrecipitados.id" [unit]="this.vasoDePrecipitados.unit" [volMax]="this.vasoDePrecipitados.volMax"></app-sim-item>
                   </div>
               </div>
 
@@ -109,22 +82,13 @@
                     Probetas
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.probeta10.icon" ></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.probetas[0].icon" ></mat-icon>
                 </mat-panel-description>
                 
               </mat-expansion-panel-header>
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.probeta10"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.probeta10.icon" [vol]="0" [iconSvgClass]="this.probeta10.iconClass" [name]="this.probeta10.name" [id]="this.probeta10.id" [unit]="this.probeta10.unit" [volMax]="this.probeta10.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.probeta25"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.probeta25.icon" [vol]="0" [iconSvgClass]="this.probeta25.iconClass" [name]="this.probeta25.name" [id]="this.probeta25.id" [unit]="this.probeta25.unit" [volMax]="this.probeta25.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.probeta50"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.probeta50.icon" [vol]="0" [iconSvgClass]="this.probeta50.iconClass" [name]="this.probeta50.name" [id]="this.probeta50.id" [unit]="this.probeta50.unit" [volMax]="this.probeta50.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.probeta100"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.probeta100.icon" [vol]="0" [iconSvgClass]="this.probeta100.iconClass" [name]="this.probeta100.name" [id]="this.probeta100.id" [unit]="this.probeta100.unit" [volMax]="this.probeta100.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2" *ngFor="let probeta of this.probetas" [cdkDragData]="probeta"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.probeta.icon" [vol]="this.probeta.vol" [iconSvgClass]="this.probeta.iconClass" [name]="this.probeta.name" [id]="this.probeta.id" [unit]="this.probeta.unit" [volMax]="this.probeta.volMax"></app-sim-item>
                   </div>
               </div>
 
@@ -136,78 +100,56 @@
                     Buretas
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.bureta10.icon" ></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.buretas[0].icon" ></mat-icon>
                 </mat-panel-description>
                 
               </mat-expansion-panel-header>
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.bureta10"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.bureta10.icon" [vol]="0" [iconSvgClass]="this.bureta10.iconClass" [name]="this.bureta10.name" [id]="this.bureta10.id" [unit]="this.bureta10.unit" [volMax]="this.bureta10.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.bureta25"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.bureta25.icon" [vol]="0" [iconSvgClass]="this.bureta25.iconClass" [name]="this.bureta25.name" [id]="this.bureta25.id" [unit]="this.bureta25.unit" [volMax]="this.bureta25.volMax"></app-sim-item>
-                  </div>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.bureta50"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.bureta50.icon" [vol]="0" [iconSvgClass]="this.bureta50.iconClass" [name]="this.bureta50.name" [id]="this.bureta50.id" [unit]="this.bureta50.unit" [volMax]="this.bureta50.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2" *ngFor="let bureta of this.buretas" [cdkDragData]="bureta"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.bureta.icon" [vol]="this.bureta.vol" [iconSvgClass]="this.bureta.iconClass" [name]="this.bureta.name" [id]="this.bureta.id" [unit]="this.bureta.unit" [volMax]="this.bureta.volMax"></app-sim-item>
                   </div>
               </div>
 
             </mat-expansion-panel>
-            
+            <!-- ACIDOS -->
             <mat-expansion-panel class="mb-0 mat-elevation-z0">
               <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
                 <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
                     Ácidos
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.acidoAcetico.icon"></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.acidos[0].icon"></mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
           
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
                 <div  cdkDrag>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.acidoAcetico"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.acidoAcetico.icon" [chemical]="this.acidoAceticoChemical"  [vol]="this.acidoAcetico.volMax" [iconSvgClass]="this.acidoAcetico.iconClass" [name]="this.acidoAcetico.name" [id]="this.acidoAcetico.id" [unit]="this.acidoAcetico.unit" [volMax]="this.acidoAcetico.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2" *ngFor="let acido of this.acidos" [cdkDragData]="acido"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
+
                   </div>
                 </div>
               </div>
             </mat-expansion-panel>
-
+            <!-- BASES -->
             <mat-expansion-panel class="mb-0 mat-elevation-z0">
               <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
                 <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
                     Bases
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.baseBorax.icon"></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.bases[0].icon"></mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
           
               <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
                 <div  cdkDrag>
-                  <div class="mxs-2 mys-2" [cdkDragData]="this.acidoAcetico"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.baseBorax.icon" [chemical]="this.baseBoraxChemical"  [vol]="this.baseBorax.volMax" [iconSvgClass]="this.baseBorax.iconClass" [name]="this.baseBorax.name" [id]="this.baseBorax.id" [unit]="this.baseBorax.unit" [volMax]="this.baseBorax.volMax"></app-sim-item>
+                  <div class="mxs-2 mys-2" *ngFor="let base of this.bases" [cdkDragData]="base"  cdkDrag>
+                    <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical"  [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
                   </div>
                 </div>
               </div>
             </mat-expansion-panel>
-          
-            <mat-expansion-panel class="mb-0 mat-elevation-z0">
-                <mat-expansion-panel-header fxLayout="row">
-                  <mat-panel-title fxFlex="80">
-                      Instrumentos
-                  </mat-panel-title>
-                  <mat-panel-description fxFlex="20">
-                    <mat-icon svgIcon="chemTools"></mat-icon>
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-            
-                <div cdkDropList class="mts-1 pbs-1 item-toolboard-box">
-                  <div  cdkDrag>
-                      Probeta
-                  </div>
-                </div>
-              </mat-expansion-panel>
           
           </mat-accordion>
     </div>
@@ -220,17 +162,12 @@
     <div fxFlex="70" class="img-overlay-side " cdkDropListGroup>
       <h1 fxLayout="row" fxLayoutAlign="start start" class="mbs-1 mls-3">Mesa de Trabajo</h1>
       <div cdkDropList cdkDropListOrientation="horizontal" id="table" class="table mxs-2 mys-1" (cdkDropListDropped)="dropTable($event)" [cdkDropListData]="this.itemsOnTable">
-        <app-sim-item *ngFor="let item of this.itemsOnTable" class="example-box mrs-1"  [iconSvg]="this.item.icon" [iconSvgClass]="this.item.iconClass" [name]="this.item.name" [id]="this.item.id" [unit]="this.item.unit" [volMax]="this.item.volMax" [cdkDragData]="this.item" cdkDrag></app-sim-item>
+        <app-sim-item *ngFor="let item of this.itemsOnTable" class="example-box mrs-1"  [iconSvg]="this.item.icon" [iconSvgClass]="this.item.iconClass" [name]="this.item.name" [id]="this.item.id" [unit]="this.item.unit" [volMax]="this.item.volMax" [vol]="this.item.vol" [cdkDragData]="this.item" cdkDrag></app-sim-item>
         
       </div>
       <div fxLayout="row" class="mts-5" fxLayoutAlign="space-around start" >
-            <div fxFlex="25" fxLayout="row" fxLayoutAlign="center center" class="middle-items">
-              <ng-lottie [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 100px;" ></ng-lottie>
-              <span class="text-accent mts-3" >Items a Interactuar</span>
-              <!-- <mat-icon class="mat-18 text-primary">sync_alt</mat-icon> -->
-              
-            </div>
-            <div fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+
+            <div fxFlex="35" fxLayout="column" fxLayoutAlign="center center">
               <span class="text-accent">Item 1</span>
               <div  class="box pys-2"
                 cdkDropList
@@ -239,11 +176,11 @@
                 [cdkDropListAutoScrollDisabled]="true" 
                 [cdkDropListData]="this.item1"
                 >
-                <app-sim-item *ngIf="!!this.item1[0]"  [iconSvg]="this.item1[0].icon" [iconSvgClass]="this.item1[0].iconClass" [name]="this.item1[0].name" [id]="this.item1[0].id" [unit]="this.item1[0].unit" [volMax]="this.item1[0].volMax"  [cdkDragData]="this.item1[0]" cdkDrag></app-sim-item>
+                <app-sim-item *ngIf="!!this.item1[0]"  [iconSvg]="this.item1[0].icon" [iconSvgClass]="this.item1[0].iconClass" [name]="this.item1[0].name" [id]="this.item1[0].id" [unit]="this.item1[0].unit" [volMax]="this.item1[0].volMax" [vol]="this.item1[0].vol"  [cdkDragData]="this.item1[0]" cdkDrag></app-sim-item>
               </div>
             </div>
-            <mat-icon fxFlex="15" fxLayout="row" fxLayoutAlign="center center"  class="mat-18 text-primary middle-items">sync_alt</mat-icon> 
-            <div fxFlex="20" fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon fxFlex="15" fxLayout="row" fxLayoutAlign="center center"  class="mat-18 mts-5 text-primary middle-items">sync_alt</mat-icon> 
+            <div fxFlex="35" fxLayout="column" fxLayoutAlign="center center">
               <span class="text-accent">Item 2</span>
               <div  class="box pys-2"  
                 cdkDropList   
@@ -252,10 +189,58 @@
                 [cdkDropListAutoScrollDisabled]="true"
                 [cdkDropListData]="this.item2"
                 >
-                <app-sim-item  *ngIf="!!this.item2[0]" [iconSvg]="this.item2[0].icon" [iconSvgClass]="this.item2[0].iconClass" [name]="this.item2[0].name" [id]="this.item2[0].id" [unit]="this.item2[0].unit" [volMax]="this.item2[0].volMax"  [cdkDragData]="this.item2[0]"   cdkDrag></app-sim-item>
+                <app-sim-item  *ngIf="!!this.item2[0]" [iconSvg]="this.item2[0].icon" [iconSvgClass]="this.item2[0].iconClass" [name]="this.item2[0].name" [id]="this.item2[0].id" [unit]="this.item2[0].unit" [volMax]="this.item2[0].volMax" [vol]="this.item2[0].vol"  [cdkDragData]="this.item2[0]"   cdkDrag></app-sim-item>
               </div>
             </div>
       </div>  
+      <div  fxLayout="row" fxLayoutAlign="center center" class="middle-items">
+        <ng-lottie [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 100px;" ></ng-lottie>
+        <span class="text-accent mts-3" >Items a Interactuar</span>
+        
+      </div>
+      <div fxLayout="row" class="mys-2">
+        <div *ngIf="!!this.item1[0]" fxFlex="31" fxLayout="column" fxLayoutAlign="center center" class="data-item1-box">
+          <span *ngIf="!!this.item1[0].chemical" class="text-green-darker" [innerHTML]="this.item1[0].chemical.name"></span>     
+          <br>   
+          <span class="text-accent">{{this.item1[0].name}}</span> 
+          <br>
+          <span class="text-accent">{{this.item1[0].vol}}/{{this.item1[0].volMax}} {{this.item1[0].unit}}</span>
+          <br>
 
+        </div>
+        <!-- ACTION PANEL -->
+        <div fxFlex="38">
+
+          
+          <div *ngIf="!!this.item2[0] && !!this.item1[0]" fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon fxFlex="100" fxLayout="row" fxLayoutAlign="center center"  class="material-icons-50 text-primary">arrow_right_alt</mat-icon> 
+            <div fxLayout="row" fxLayoutAlign="space-around center" style="height: 50px;">
+                <button mat-stroked-button color="primary" class="mys-1" >Retirar</button>
+                <mat-slider class="example-margin"
+                 [color]="'primary'"
+                 thumbLabel
+                  tickInterval="1000"
+                  min="1"
+                  max="1000"
+                  (change)="this.onChangeWithdrawSlider($event)"
+                ></mat-slider>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center" style="height: 50px;">
+              <button mat-stroked-button color="primary" class="mys-1">Verter</button>
+              <mat-slider class="example-margin" [color]="'primary'"></mat-slider>
+            </div>   
+            <span class="my-0 mx-0">{{'de '+ this.item1[0].name+' a '+this.item2[0].name  }}</span>
+          </div>
+        </div>
+        <div *ngIf="!!this.item2[0]" fxFlex="31" fxLayout="column" fxLayoutAlign="center center" class="data-item2-box">
+          <span *ngIf="!!this.item2[0].chemical" class="text-green-darker" [innerHTML]="this.item2[0].chemical.name"></span>     
+          <br>   
+          <span class="text-accent">{{this.item2[0].name}}</span> 
+          <br>
+          <span class="text-accent">{{this.item2[0].vol}}/{{this.item2[0].volMax}} {{this.item2[0].unit}}</span>
+          <br>
+
+        </div>
+      </div>
     </div>
 </mat-card>

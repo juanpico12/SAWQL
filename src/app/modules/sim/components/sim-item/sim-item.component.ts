@@ -24,8 +24,7 @@ export class SimItemComponent implements OnInit,OnChanges {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.chemical);
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,6 +42,18 @@ export class SimItemComponent implements OnInit,OnChanges {
     if(!!this.chemical?.concentration){
       this.tooltipData =this.tooltipData + ' Concentración: '+ this.chemical.concentration +' ' + this.chemical.unitConcentration;
     }
+  }
+
+  getActualVolume(): number{
+    return this.vol;
+  }
+
+  setVolume(number : number){
+    this.vol = number;
+  }
+
+  getVolMax():number {
+    return this.volMax;
   }
 
 }
