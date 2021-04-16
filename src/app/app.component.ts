@@ -37,6 +37,7 @@ export class AppComponent {
     this.generalService.addIcon('acid-item', 'acid-item.svg');
     this.generalService.addIcon('base-item', 'base-item.svg');
     this.generalService.addIcon('water-item', 'water-item.svg');
+    this.generalService.addIcon('ph-meter-item', 'ph-meter-item.svg');
   }
   
 }

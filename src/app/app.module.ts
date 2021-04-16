@@ -12,6 +12,7 @@ import { AuthService } from './core/services/auth.service';
 import { MaterialModule } from './material/material.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { AvatarModule } from 'ngx-avatar';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,7 +27,8 @@ import { AvatarModule } from 'ngx-avatar';
     AngularFireAuthModule,
     MaterialModule,
     HttpClientModule,
-    AvatarModule
+    AvatarModule,
+    FormsModule
     
   ],
   providers: [AuthService],

@@ -118,18 +118,44 @@
                     Ácidos
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.acidos[0].icon"></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.acidosFuertes[0].icon"></mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-          
-              <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                <div  cdkDrag>
-                  <div class="mxs-2 mys-2" *ngFor="let acido of this.acidos" [cdkDragData]="acido"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
-
+              <!-- ACIDOS FUERTES -->
+              <mat-expansion-panel class="mb-0 mat-elevation-z0">
+                <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
+                  <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                      Ácidos fuertes
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+            
+                <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
+                  <div  cdkDrag>
+                    <div class="mxs-2 mys-2" *ngFor="let acido of this.acidosFuertes" [cdkDragData]="acido"  cdkDrag>
+                      <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
+  
+                    </div>
                   </div>
                 </div>
-              </div>
+              </mat-expansion-panel>
+              <!-- ACIDOS DEBILES -->
+              <mat-expansion-panel class="mb-0 mat-elevation-z0">
+                <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
+                  <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                      Ácidos debiles
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+            
+                <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
+                  <div  cdkDrag>
+                    <div class="mxs-2 mys-2" *ngFor="let acido of this.acidosDebiles" [cdkDragData]="acido"  cdkDrag>
+                      <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
+  
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+
             </mat-expansion-panel>
             <!-- BASES -->
             <mat-expansion-panel class="mb-0 mat-elevation-z0">
@@ -138,18 +164,61 @@
                     Bases
                 </mat-panel-title>
                 <mat-panel-description fxFlex="20">
-                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.bases[0].icon"></mat-icon>
+                  <mat-icon class="icon-size-description-panel" [svgIcon]="this.basesFuertes[0].icon"></mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-          
-              <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                <div  cdkDrag>
-                  <div class="mxs-2 mys-2" *ngFor="let base of this.bases" [cdkDragData]="base"  cdkDrag>
-                    <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical"  [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
+              <!-- BASES FUERTES -->
+              <mat-expansion-panel class="mb-0 mat-elevation-z0">
+                <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
+                  <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                      Bases Fuertes
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+            
+                <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
+                  <div  cdkDrag>
+                    <div class="mxs-2 mys-2" *ngFor="let base of this.basesFuertes" [cdkDragData]="base"  cdkDrag>
+                      <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical"  [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </mat-expansion-panel>
+              <!-- BASES DEBILES -->
+              <mat-expansion-panel class="mb-0 mat-elevation-z0">
+                <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
+                  <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                      Bases Debiles
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+            
+                <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
+                  <div  cdkDrag>
+                    <div class="mxs-2 mys-2" *ngFor="let base of this.basesDebiles" [cdkDragData]="base"  cdkDrag>
+                      <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical"  [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+
             </mat-expansion-panel>
+            <!-- INSTRUMENTOS -->
+            <mat-expansion-panel class="mb-0 mat-elevation-z0">
+            <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
+              <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                  Instrumentos
+              </mat-panel-title>
+              <mat-panel-description fxFlex="20">
+                <mat-icon class="icon-size-description-panel" [svgIcon]="'chemTools'" ></mat-icon>
+              </mat-panel-description>
+              
+            </mat-expansion-panel-header>
+            <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
+                <div class="mxs-2 mys-2" *ngFor="let instrument of this.instrumentos" [cdkDragData]="instrument"  cdkDrag>
+                  <app-sim-item [iconSvg]="this.instrument.icon" [iconSvgClass]="this.instrument.iconClass" [vol]="this.instrument.vol" [name]="this.instrument.name" [id]="this.instrument.id" [unit]="this.instrument.unit" [volMax]="this.instrument.volMax"></app-sim-item>
+                </div>
+            </div>
+
+          </mat-expansion-panel>
           
           </mat-accordion>
     </div>
@@ -165,7 +234,7 @@
         <app-sim-item *ngFor="let item of this.itemsOnTable" class="example-box mrs-1"  [iconSvg]="this.item.icon" [iconSvgClass]="this.item.iconClass" [name]="this.item.name" [id]="this.item.id" [unit]="this.item.unit" [volMax]="this.item.volMax" [vol]="this.item.vol" [cdkDragData]="this.item" cdkDrag></app-sim-item>
         
       </div>
-      <div fxLayout="row" class="mts-5" fxLayoutAlign="space-around start" >
+      <div fxLayout="row" class="mys-5" fxLayoutAlign="space-around start" >
 
             <div fxFlex="35" fxLayout="column" fxLayoutAlign="center center">
               <span class="text-accent">Item 1</span>
@@ -179,7 +248,12 @@
                 <app-sim-item *ngIf="!!this.item1[0]"  [iconSvg]="this.item1[0].icon" [iconSvgClass]="this.item1[0].iconClass" [name]="this.item1[0].name" [id]="this.item1[0].id" [unit]="this.item1[0].unit" [volMax]="this.item1[0].volMax" [vol]="this.item1[0].vol"  [cdkDragData]="this.item1[0]" cdkDrag></app-sim-item>
               </div>
             </div>
-            <mat-icon fxFlex="15" fxLayout="row" fxLayoutAlign="center center"  class="mat-18 mts-5 text-primary middle-items">sync_alt</mat-icon> 
+            <div  fxLayout="column" fxLayoutAlign="center center" class="middle-items">
+              <ng-lottie [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 100px;" ></ng-lottie>
+              <span class="text-accent " >Items a Interactuar</span>
+              
+            </div>
+            <!-- <mat-icon fxFlex="15" fxLayout="row" fxLayoutAlign="center center"  class="mat-18 mts-5 text-primary middle-items">sync_alt</mat-icon>  -->
             <div fxFlex="35" fxLayout="column" fxLayoutAlign="center center">
               <span class="text-accent">Item 2</span>
               <div  class="box pys-2"  
@@ -193,53 +267,89 @@
               </div>
             </div>
       </div>  
-      <div  fxLayout="row" fxLayoutAlign="center center" class="middle-items">
-        <ng-lottie [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 100px;" ></ng-lottie>
-        <span class="text-accent mts-3" >Items a Interactuar</span>
-        
-      </div>
-      <div fxLayout="row" class="mys-2">
-        <div *ngIf="!!this.item1[0]" fxFlex="31" fxLayout="column" fxLayoutAlign="center center" class="data-item1-box">
+
+      <div fxLayout="row" fxLayoutAlign="center center" class="mys-4">
+         <!-- ITEM 1 INFO -->
+        <div *ngIf="!!this.item1[0]" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" class="data-item1-box">
           <span *ngIf="!!this.item1[0].chemical" class="text-green-darker" [innerHTML]="this.item1[0].chemical.name"></span>     
           <br>   
           <span class="text-accent">{{this.item1[0].name}}</span> 
           <br>
-          <span class="text-accent">{{this.item1[0].vol}}/{{this.item1[0].volMax}} {{this.item1[0].unit}}</span>
+          <span class="text-accent" *ngIf="this.item1[0].vol != null && this.item1[0].vol != undefined">{{this.item1[0].vol}}/{{this.item1[0].volMax}} {{this.item1[0].unit}}</span>
           <br>
-
+          <span class="text-accent" *ngIf="!!this.item1[0].data">{{this.item1[0].data}}</span>
+          <br>
         </div>
         <!-- ACTION PANEL -->
-        <div fxFlex="38">
+        <div fxFlex="50">
 
-          
-          <div *ngIf="!!this.item2[0] && !!this.item1[0]" fxLayout="column" fxLayoutAlign="center center">
-            <mat-icon fxFlex="100" fxLayout="row" fxLayoutAlign="center center"  class="material-icons-50 text-primary">arrow_right_alt</mat-icon> 
-            <div fxLayout="row" fxLayoutAlign="space-around center" style="height: 50px;">
-                <button mat-stroked-button color="primary" class="mys-1" >Retirar</button>
-                <mat-slider class="example-margin"
-                 [color]="'primary'"
-                 thumbLabel
-                  tickInterval="1000"
-                  min="1"
-                  max="1000"
-                  (change)="this.onChangeWithdrawSlider($event)"
-                ></mat-slider>
+          <div *ngIf="!!this.item2[0] && !!this.item1[0]" fxLayout="column" fxLayoutAlign="space-around stretch"> 
+            <!-- pH-metro TRUE -->
+            <div *ngIf="this.phMetro" fxLayout="column" fxLayoutAlign="space-around stretch">
+              <span *ngIf="!!this.item2[0].chemical?.pH">{{this.item2[0].chemical.pH }}</span>
+              <span *ngIf="!!this.item1[0].chemical?.pH">{{this.item1[0].chemical.pH }}</span>
+            </div>    
+            <!-- Ph-metro FALSE -->
+            <div *ngIf="!this.phMetro" fxLayout="column" fxLayoutAlign="space-around stretch">
+              <div fxLayout="row" fxLayoutAlign="center center" style="height: 50px;">
+                <!-- RADIO BUTTONS (VERTER/RETIRAR) -->
+                  <mat-radio-group class="mls-3"  fxFlex="40" fxLayout="row wrap" fxLayoutAlign="space-around center"  aria-label="Select an option"  (change)="this.onChangeRadio($event)">
+                    <mat-radio-button [disabled]="!this.canWithdraw" color="primary"  value="1 ">Retirar</mat-radio-button>
+                    <mat-radio-button [disabled]="!this.canPour" color="primary" value="2">Verter</mat-radio-button>
+                  </mat-radio-group>
+                  <!-- Quantity Input and Slider -->
+                  <div class=" mxs-3" fxFlex="50" fxLayout="row" fxLayoutAlign="space-around end"> 
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center">
+                      <mat-form-field  fxFlex="35" fxFlex.lt-lg="100" class="mts-5" appearance="outline">
+                        <mat-label>Cantidad</mat-label>
+                        <input matInput type="number" [(ngModel)]="valueVol" >
+                      </mat-form-field>
+                        <mat-slider fxShow fxHide.lt-lg
+                        [color]="'primary'"
+                        thumbLabel
+                        tickInterval="1000"
+                        min="1"
+                        max="1000"
+                        [(ngModel)]="valueVol"
+                      ></mat-slider>
+                    </div>                   
+                  </div>
+              </div>
+              <!-- ACTION Button -->
+              <div  fxLayout="row" fxLayoutAlign="center center" class="mys-5">
+                <button *ngIf="this.pour!=null && this.pour!=undefined && this.pour" [disabled]="!this.canPour" fxFlex="25" mat-stroked-button color="accent" (click)="this.onClickPourOrWithdraw()" disa>Verter</button>
+                <button *ngIf="this.pour!=null && this.pour!=undefined && !this.pour" [disabled]="!this.canWithdraw" fxFlex="25" mat-stroked-button color="accent" (click)="this.onClickPourOrWithdraw()" disa>Retirar</button>
+              </div>
+              <!-- SPAN TEXT -->
+              <div *ngIf="(this.canWithdraw || this.canPour) && this.radioButtonOn">
+                <div fxLayout="row wrap" fxLayoutAlign="center start" >
+                  <span class="my-0 mx-0">{{(!!this.pour && this.pour  ? 'Verter a ' : 'Retirar de ')+ this.item1[0].name}}</span> <span class="text-primary"><sub>1 &nbsp; </sub></span><span>{{(!!this.pour && this.pour ? ' de ' : ' a ')+this.item2[0].name}}</span><span class="text-primary"><sub>2</sub></span>
+                </div>
+                <div *ngIf="this.pour !=undefined && this.pour!=null" fxLayout="row" fxLayoutAlign="center start" >
+                  <mat-icon *ngIf="this.pour" fxFlex="100" fxLayout="row" fxLayoutAlign="center center"  class="material-icons-18 text-primary">west</mat-icon>
+                  <mat-icon *ngIf="!this.pour" fxFlex="100" fxLayout="row" fxLayoutAlign="center center"  class="material-icons-18 text-primary">east</mat-icon>  
+                </div>
+              </div>
+              
+              
+            </div>      
+            <!-- alertas -->
+            <div *ngIf="this.alertQuantityInvalid" class="mys-2" fxLayout="row " fxLayoutAlign="center center">
+              <mat-icon  class="material-icons-18 text-warn mts-1">report_problem</mat-icon>
+              <span class="text-accent">{{ this.stringAlert}}</span>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-around center" style="height: 50px;">
-              <button mat-stroked-button color="primary" class="mys-1">Verter</button>
-              <mat-slider class="example-margin" [color]="'primary'"></mat-slider>
-            </div>   
-            <span class="my-0 mx-0">{{'de '+ this.item1[0].name+' a '+this.item2[0].name  }}</span>
           </div>
         </div>
-        <div *ngIf="!!this.item2[0]" fxFlex="31" fxLayout="column" fxLayoutAlign="center center" class="data-item2-box">
+        <!-- ITEM 2 INFO -->
+        <div *ngIf="!!this.item2[0]" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" class="data-item2-box">
           <span *ngIf="!!this.item2[0].chemical" class="text-green-darker" [innerHTML]="this.item2[0].chemical.name"></span>     
           <br>   
           <span class="text-accent">{{this.item2[0].name}}</span> 
           <br>
-          <span class="text-accent">{{this.item2[0].vol}}/{{this.item2[0].volMax}} {{this.item2[0].unit}}</span>
+          <span class="text-accent" *ngIf="this.item2[0].vol != null && this.item2[0].vol != undefined">{{this.item2[0].vol}}/{{this.item2[0].volMax}} {{this.item2[0].unit}}</span>
           <br>
-
+          <span class="text-accent" *ngIf="!!this.item2[0].data">{{this.item2[0].data}}</span>
+          <br>
         </div>
       </div>
     </div>

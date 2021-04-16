@@ -5,6 +5,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { SimRoutingModule } from './sim-routing.module';
 import { SimItemComponent } from './components/sim-item/sim-item.component';
 import { LottieModule } from 'ngx-lottie';
+import { FormsModule } from '@angular/forms';
 import player from 'lottie-web';
 
 export function playerFactory() {
@@ -17,6 +18,7 @@ export function playerFactory() {
     CommonModule,
     SimRoutingModule,
     MaterialModule,
+    FormsModule,
     LottieModule.forRoot({ player: playerFactory })
   ]
 })

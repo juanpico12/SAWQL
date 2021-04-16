@@ -6,6 +6,9 @@ import { AnimationItem } from 'lottie-web';
 import { SimDataService } from 'src/app/core/services/sim-data.service';
 import { Observable, of, from, Subscription } from 'rxjs';
 import { setClassMetadata } from '@angular/core/src/r3_symbols';
+import { SimMathService } from 'src/app/core/services/sim-math.service';
+import { SimPhService } from 'src/app/core/services/sim-ph.service';
+
 @Component({
   selector: 'app-sim',
   templateUrl: './sim.component.html',
@@ -15,20 +18,43 @@ export class SimComponent implements OnInit {
   optionsLottie: AnimationOptions = {
     path: 'assets/animations/microscope.json',
   };
-  value;
+  valueVol : number = 0;
   item1 : Item []= [];
   item2 : Item[]=  [];
   itemsOnTable : Item []=[] ;
   data :any[] ;
-  acidos :Item[];
-  bases : Item[];
+  acidosFuertes :Item[];
+  acidosDebiles :Item[];
+  basesFuertes : Item[];
+  basesDebiles : Item[];
+  instrumentos : Item[];
   matraces : Item[];
   buretas : Item[];
   pipetas : Item[];
   probetas : Item[];
   vasoDePrecipitados : Item[];
-  erlenmeyers : Item[];
-  constructor(public SimDataService : SimDataService) { }
+  erlenmeyers : Item[]; 
+  stringAlert : string ;
+  
+
+  //**FLAGS */
+  //pour true -> Verter , pour false -> retirar
+  pour : boolean =false;
+
+  //Alert invalid vol
+  alertQuantityInvalid : boolean =false;
+
+  //We have a phMetro on intem1 or item2 
+  phMetro : boolean = false;
+
+  //flags to recognize ac fuertes , debiles , agua , instr, bases fuertes ,debiles (cant send vol to this ones)
+  canPour : boolean = true ;
+  canWithdraw : boolean = true;
+
+  //the radio button changes for first time
+  radioButtonOn : boolean = false;
+
+  constructor(public SimDataService : SimDataService, public SimMathService : SimMathService, public SimPhService : SimPhService) { }
   
   
   ngOnInit(): void {
@@ -40,16 +66,24 @@ export class SimComponent implements OnInit {
     this.data.forEach((itemArray : any) => {
 
       switch(Object.keys(itemArray)[0]) { 
-        case 'acidos': { 
-           this.acidos= itemArray.acidos;
+        case 'acidosFuertes': { 
+           this.acidosFuertes= itemArray.acidosFuertes;
            break; 
         } 
+        case 'acidosDebiles': { 
+          this.acidosDebiles= itemArray.acidosDebiles;
+          break; 
+       } 
         case 'matraces': { 
           this.matraces= itemArray.matraces;
            break; 
         } 
-        case 'bases': { 
-          this.bases= itemArray.bases;
+        case 'basesFuertes': { 
+          this.basesFuertes= itemArray.basesFuertes;
+           break; 
+        } 
+        case 'basesDebiles': { 
+          this.basesDebiles= itemArray.basesDebiles;
            break; 
         } 
         case 'buretas': { 
@@ -72,6 +106,11 @@ export class SimComponent implements OnInit {
           this.erlenmeyers= itemArray.erlenmeyers;
            break; 
         }  
+        case 'instrumentos': { 
+          this.instrumentos= itemArray.instrumentos;
+           break; 
+        }  
+        
         default: { 
            //statements; 
            break; 
@@ -84,7 +123,18 @@ export class SimComponent implements OnInit {
   }
 
   dropItem1(event: CdkDragDrop<string[]>) {
-    let item : Item = event.item.data;
+    let item : Item = {
+      name: event.item.data.name,
+      id: event.item.data.id,
+      icon:event.item.data.icon,
+      unit:event.item.data.unit,
+      volMax:event.item.data.volMax,
+      vol : event.item.data.vol,
+      iconClass:event.item.data.iconClass,
+      data: !!event.item.data.data ? event.item.data.data : null,
+      chemical : !!event.item.data.chemical? event.item.data.chemical : null , 
+    }
+    console.log(event.item.data)
     let actualItem : Item = this.item1[0]; 
     console.log(event)
     console.log('nuevo:'+ event.item.data);
@@ -119,6 +169,7 @@ export class SimComponent implements OnInit {
     }
     this.item1 = [];
     this.item1[0] = item;
+    this.checkItemType();
     console.log(this.item1);
     console.log(this.item2);
     console.log(this.itemsOnTable);
@@ -126,7 +177,17 @@ export class SimComponent implements OnInit {
   }
 
   dropItem2(event: CdkDragDrop<string[]>) {   
-    let item : Item = event.item.data;
+    let item : Item = {
+      name: event.item.data.name,
+      id: event.item.data.id,
+      icon:event.item.data.icon,
+      unit:event.item.data.unit,
+      volMax:event.item.data.volMax,
+      vol : event.item.data.vol,
+      iconClass:event.item.data.iconClass,
+      data: !!event.item.data.data ? event.item.data.data : null,
+      chemical : !!event.item.data.chemical? event.item.data.chemical : null , 
+    }
     let actualItem : Item = this.item2[0]; 
     console.log(item);
     console.log(actualItem);
@@ -160,6 +221,7 @@ export class SimComponent implements OnInit {
     }
     this.item2 = [];
     this.item2[0] = item;
+    this.checkItemType();
     console.log(this.item1);
     console.log(this.item2);
     console.log(this.itemsOnTable);
@@ -167,6 +229,10 @@ export class SimComponent implements OnInit {
 
   dropTable(e: CdkDragDrop<string[]>){
     console.log(e.item);
+    //SET FALSE THIS.POUR TO RESET THE ACTION PANEL VIEW
+    if((!!this.item1 && !!this.item2)){
+      this.pour = false;
+    }
     if (e.previousContainer === e.container) {
       moveItemInArray(this.itemsOnTable, e.previousIndex, e.currentIndex);
     } else { 
@@ -176,19 +242,129 @@ export class SimComponent implements OnInit {
                           e.previousIndex,
                           e.currentIndex);
       }else{
-        this.itemsOnTable.push(e.item.data);
+        let item : Item = {
+          name: e.item.data.name,
+          id: e.item.data.id,
+          icon:e.item.data.icon,
+          unit:e.item.data.unit,
+          volMax:e.item.data.volMax,
+          vol : e.item.data.vol,
+          iconClass:e.item.data.iconClass,
+          data: !!e.item.data.data ? e.item.data.data : null,
+          chemical : !!e.item.data.chemical? e.item.data.chemical : null , 
+        }
+        this.itemsOnTable.push(item);
       }
     }
+    this.checkItemType();
     console.log(this.item1);
     console.log(this.item2);
     console.log(this.itemsOnTable);
     
   }
 
-  onChangeWithdrawSlider(e){
-    console.log(e.value);
-    
+  onChangeRadio(e) {
+    this.radioButtonOn = true;
+    if(e.value == 1 ){
+      this.pour = false;
+    }else{
+      this.pour = true;
+    }
   }
+
+  onClickPourOrWithdraw(){
+    if(this.pour){
+      if( this.SimMathService.canPour(this.item2[0].vol ,this.item1[0].vol ,this.item1[0].volMax , this.valueVol )){
+        if(this.item1[0].vol ==0){
+          this.setChemical2to1()
+        }
+        //Calculo nuevo volumen
+        this.item1[0].vol = this.item1[0].vol + this.valueVol;
+        this.item2[0].vol = this.item2[0].vol - this.valueVol;
+        //Recalculo PH en destino 
+        this.item1[0].chemical.pH = this.SimPhService.calculatePh(this.item1[0],this.item2[0],this.valueVol)
+        console.log( this.item1[0].chemical.pH);
+        //Recalculo PH en origen si se vacio el vol
+        if(this.item2[0].vol <= 0){
+        this.item2[0].chemical.pH = 'pH inválido (el recipiente no tiene volumen)'
+        }
+      }else{
+        //Cantidad a verter invalida
+        this.alertQuantityInvalid =true;
+        this.stringAlert = 'La cantidad seleccionada a verter es inválida'
+      }
+      
+    }else{
+      if( this.SimMathService.canWithdraw(this.item1[0].vol ,this.item2[0].vol ,this.item2[0].volMax , this.valueVol )){
+        if(this.item2[0].vol ==0){
+          this.setChemical1to2()
+        }
+        this.item2[0].vol = this.item2[0].vol + this.valueVol;
+        this.item1[0].vol = this.item1[0].vol - this.valueVol;
+        //Recalculo PH en destino 
+        this.item2[0].chemical.pH = this.SimPhService.calculatePh(this.item2[0],this.item1[0], this.valueVol)
+        console.log( this.item2[0].chemical.pH);
+        //Recalculo PH en origen si se vacio el vol
+        if(this.item1[0].vol <= 0){
+          this.item1[0].chemical.pH = 'pH inválido (el recipiente no tiene volumen)'
+        }
+      }else{
+        //Cantidad a retirar invalida
+        this.alertQuantityInvalid =true;
+        this.stringAlert = 'La cantidad seleccionada a retirar es inválida'
+      }
+      
+    }
+  }
+
+  checkItemType(){ 
+    //alertas en false
+    this.alertQuantityInvalid =false;
+    // Identifico el pHMetro 
+    if(!!this.item1[0] && !!this.item2[0] && this.item1[0].id == 310 ){
+        this.phMetro = true;
+    }else{
+      if( !!this.item2[0] && !!this.item1[0] && this.item2[0].id == 310 ){
+        this.phMetro = true;
+      }else{
+        this.phMetro = false;
+      }
+    }
+    // Identifico ac fuertes , debiles , bases fuertes , debiles e instrumentos. Marco bandera para que no se les permita introductir vol
+    if(!!this.item1[0]  && (this.item1[0].id >=100 && this.item1[0].id <400 ) ){
+      this.canPour = false;
+    }else{
+      this.canPour = true;
+    }
+    if(!!this.item2[0]  && (this.item2[0].id >=100 && this.item2[0].id <400 )){
+      this.canWithdraw = false;
+    }else{
+      this.canWithdraw = true;
+    }
+  }
+
+  setChemical2to1() {
+    this.item1[0].chemical.name = this.item2[0].chemical.name ;
+    this.item1[0].chemical.concentration = this.item2[0].chemical.concentration ;
+    this.item1[0].chemical.unitConcentration = this.item2[0].chemical.unitConcentration ;
+    this.item1[0].chemical.state = this.item2[0].chemical.state ;
+    this.item1[0].chemical.id = this.item2[0].chemical.id ;
+    this.item1[0].chemical.Ka = this.item2[0].chemical.Ka ;
+    this.item1[0].chemical.Kb = this.item2[0].chemical.Kb ;
+    this.item1[0].chemical.pH = this.item2[0].chemical.pH ;
+  }
+
+  setChemical1to2() {
+    this.item2[0].chemical.name = this.item1[0].chemical.name ;
+    this.item2[0].chemical.concentration = this.item1[0].chemical.concentration ;
+    this.item2[0].chemical.unitConcentration = this.item1[0].chemical.unitConcentration ;
+    this.item2[0].chemical.state = this.item1[0].chemical.state ;
+    this.item2[0].chemical.id = this.item1[0].chemical.id ;
+    this.item2[0].chemical.Ka = this.item1[0].chemical.Ka ;
+    this.item2[0].chemical.Kb = this.item1[0].chemical.Kb ;
+    this.item2[0].chemical.pH = this.item1[0].chemical.pH ;
+  }
+
   
 
 }

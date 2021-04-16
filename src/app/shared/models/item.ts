@@ -4,9 +4,9 @@ export interface Item {
     name: string;
     id: number;
     icon:string;
-    unit:string;
-    volMax:number;
-    vol : number;
+    unit?:string;
+    volMax?:number;
+    vol ?: number;
     iconClass:string;
     data?: any;
     chemical? : Chemical;

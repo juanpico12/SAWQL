@@ -1,8 +1,8 @@
 {"items" : [
         {
-            "acidos": [
+            "acidosFuertes": [
                 {
-                    "name" : "acido acetico",
+                    "name" : "acido clorhídrico",
                     "id" : 100,
                     "icon" : "acid-item",
                     "unit" : "mL",
@@ -10,17 +10,44 @@
                     "volMax" : 1000,
                     "iconClass" : "",
                     "chemical": {
-                        "name": "H<sub>3</sub>BO<sub>3</sub>",
+                        "name": "HCl",
                         "concentration" : 1,
-                        "unitConcentration" : "mol/L"
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 1,
+                        "description" : "strongAcid",
+                        "pH" : "pH : 0"
                     }
                 }
             ]
         },
         {
-            "bases": [
+            "acidosDebiles": [
                 {
-                    "name" : "borax",
+                    "name" : "ácido acético,",
+                    "id" : 150,
+                    "icon" : "acid-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "CH<sub>3</sub>COOH,",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 2,
+                        "description" : "weakAcid",
+                        "Ka" : 1.8e-5,
+                        "pH" : "pH : 2.3784"
+                    }
+                }
+            ]
+        },
+        {
+            "basesFuertes": [
+                {
+                    "name" : "hidróxido de sodio",
                     "id" : 200,
                     "icon" : "base-item",
                     "unit" : "mL",
@@ -28,9 +55,36 @@
                     "volMax" : 1000,
                     "iconClass" : "",
                     "chemical": {
-                        "name": "NA<sub>2</sub>[B<sub>4</sub>O<sub>5</sub>(OH)<sub>4</sub>].8H<sub>2</sub>O",
+                        "name": "NaOH",
                         "concentration" : 1,
-                        "unitConcentration" : "mol/L"
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 3,
+                        "description" : "strongBase",
+                        "pH" : "pH : 14"
+                    }
+                }
+            ]
+        },
+        {
+            "basesDebiles": [
+                {
+                    "name" : "hidróxido de amonio",
+                    "id" : 250,
+                    "icon" : "base-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "NH<sub>4</sub>OH",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 4,
+                        "description" : "weakBase",
+                        "Kb" : 1.8e-5,
+                        "pH" : "pH : 11.6267"
                     }
                 }
             ]
@@ -44,7 +98,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 25,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "bureta",
@@ -53,7 +117,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 50,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 }
             ]
         },
@@ -66,7 +140,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 50,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "erlenmeyer",
@@ -75,7 +159,17 @@
                     "unit" : "mL",
                     "volMax" : 100,
                     "vol" : 0,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "erlenmeyer",
@@ -84,7 +178,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 250,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 }
             ]
         },
@@ -97,7 +201,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 50,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "matraz",
@@ -106,7 +220,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 100,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "matraz",
@@ -115,7 +239,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 250,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 }
             ]
         },
@@ -128,7 +262,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 1,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "pipeta",
@@ -137,7 +281,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 5,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "pipeta",
@@ -146,7 +300,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 10,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 }
             ]
         },
@@ -159,7 +323,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 5,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "probeta",
@@ -168,7 +342,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 10,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "probeta",
@@ -177,7 +361,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 25,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 }
             ]
         },
@@ -190,7 +384,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 50,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "vaso de precipitados",
@@ -199,7 +403,17 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 100,
-                    "iconClass" : ""
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
                 },
                 {
                     "name" : "vaso de precipitados",
@@ -208,6 +422,40 @@
                     "unit" : "mL",
                     "vol" : 0,
                     "volMax" : 250,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": null,
+                        "concentration" : null,
+                        "unitConcentration" : null,
+                        "state": null,
+                        "id" : null,
+                        "description" :null,
+                        "Kb" : null,
+                        "pH" : null
+                    }
+                }
+            ]
+        },
+        {
+            "instrumentos": [
+                {
+                    "name" : "agua",
+                    "id" : 300,
+                    "icon" : "water-item",
+                    "unit" : "mL",
+                    "vol" : 5000,
+                    "volMax" : 5000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "H<sub>2</sub>O",
+                        "state": "liquido",
+                        "pH" : "pH : 7"  
+                    }
+                },
+                {
+                    "name" : "pH-metro",
+                    "id" : 310,
+                    "icon" : "ph-meter-item",
                     "iconClass" : ""
                 }
             ]
