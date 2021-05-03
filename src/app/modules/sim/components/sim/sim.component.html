@@ -1,4 +1,4 @@
-<mat-card fxLayout="row" fxLayoutAlign="start start" class="mxs-5 mys-5  sim-container" >
+<mat-card  fxLayout="row" fxLayoutAlign="start start" class=" mts-5 pxs-5  mat-elevation-z0" >
 
     <!-- ARMARIO -->
     <div fxFlex="30" class="mrs-3 prs-2 box-toolboard">
@@ -271,23 +271,22 @@
       <div fxLayout="row" fxLayoutAlign="center center" class="mys-4">
          <!-- ITEM 1 INFO -->
         <div *ngIf="!!this.item1[0]" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" class="data-item1-box">
-          <span *ngIf="!!this.item1[0].chemical" class="text-green-darker" [innerHTML]="this.item1[0].chemical.name"></span>     
-          <br>   
-          <span class="text-accent">{{this.item1[0].name}}</span> 
-          <br>
-          <span class="text-accent" *ngIf="this.item1[0].vol != null && this.item1[0].vol != undefined">{{this.item1[0].vol}}/{{this.item1[0].volMax}} {{this.item1[0].unit}}</span>
-          <br>
-          <span class="text-accent" *ngIf="!!this.item1[0].data">{{this.item1[0].data}}</span>
-          <br>
+          <span *ngIf="!!this.item1[0].chemical" class="text-green-darker mbs-3" [innerHTML]="this.item1[0].chemical.name"></span>       
+          <span class="text-accent mbs-3">{{this.item1[0].name}}</span> 
+          <span class="text-accent mbs-3" *ngIf="this.item1[0].vol != null && this.item1[0].vol != undefined">{{this.item1[0].vol}}/{{this.item1[0].volMax}} {{this.item1[0].unit}}</span>
+          <span class="text-accent mbs-3" *ngIf="!!this.item1[0].data">{{this.item1[0].data}}</span>
+          <span class="text-accent mbs-3" *ngIf="!!this.item1[0].chemical?.description">{{this.item1[0].chemical.description}}</span>
         </div>
         <!-- ACTION PANEL -->
         <div fxFlex="50">
 
           <div *ngIf="!!this.item2[0] && !!this.item1[0]" fxLayout="column" fxLayoutAlign="space-around stretch"> 
             <!-- pH-metro TRUE -->
-            <div *ngIf="this.phMetro" fxLayout="column" fxLayoutAlign="space-around stretch">
-              <span *ngIf="!!this.item2[0].chemical?.pH">{{this.item2[0].chemical.pH }}</span>
-              <span *ngIf="!!this.item1[0].chemical?.pH">{{this.item1[0].chemical.pH }}</span>
+            <div *ngIf="this.phMetro" fxLayout="column" fxLayoutAlign="center center">
+              <span class="text-green-darker" class="mbs-2">Lectura del visor</span>
+              <h3 *ngIf="this.item2[0].chemical?.pH !=null && this.item2[0].chemical?.pH !=undefined" class="text-accent">{{"pH: " + this.item2[0].chemical.pH }}</h3>
+              <h3 *ngIf="this.item1[0].chemical?.pH!=null && this.item1[0].chemical?.pH!=undefined" class="text-accent">{{"pH: " +this.item1[0].chemical.pH }}</h3>
+              
             </div>    
             <!-- Ph-metro FALSE -->
             <div *ngIf="!this.phMetro" fxLayout="column" fxLayoutAlign="space-around stretch">
@@ -307,9 +306,9 @@
                         <mat-slider fxShow fxHide.lt-lg
                         [color]="'primary'"
                         thumbLabel
-                        tickInterval="1000"
+                        tickInterval="250"
                         min="1"
-                        max="1000"
+                        max="250"
                         [(ngModel)]="valueVol"
                       ></mat-slider>
                     </div>                   
@@ -338,19 +337,25 @@
               <mat-icon  class="material-icons-18 text-warn mts-1">report_problem</mat-icon>
               <span class="text-accent">{{ this.stringAlert}}</span>
             </div>
+            <div *ngIf="this.alert2Solutions" class="mys-2" fxLayout="row " fxLayoutAlign="center center">
+              <mat-icon  class="material-icons-18 text-warn mts-1">report_problem</mat-icon>
+              <span class="text-accent">Se soportan solo dos sustancia por solución</span>
+            </div>
           </div>
         </div>
         <!-- ITEM 2 INFO -->
         <div *ngIf="!!this.item2[0]" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" class="data-item2-box">
-          <span *ngIf="!!this.item2[0].chemical" class="text-green-darker" [innerHTML]="this.item2[0].chemical.name"></span>     
-          <br>   
-          <span class="text-accent">{{this.item2[0].name}}</span> 
-          <br>
-          <span class="text-accent" *ngIf="this.item2[0].vol != null && this.item2[0].vol != undefined">{{this.item2[0].vol}}/{{this.item2[0].volMax}} {{this.item2[0].unit}}</span>
-          <br>
-          <span class="text-accent" *ngIf="!!this.item2[0].data">{{this.item2[0].data}}</span>
-          <br>
+          <span *ngIf="!!this.item2[0].chemical" class="text-green-darker mbs-3" [innerHTML]="this.item2[0].chemical.name"></span>      
+          <span class="text-accent mbs-3">{{this.item2[0].name}}</span> 
+          <span class="text-accent mbs-3" *ngIf="this.item2[0].vol != null && this.item2[0].vol != undefined">{{this.item2[0].vol}}/{{this.item2[0].volMax}} {{this.item2[0].unit}}</span>
+          <span class="text-accent mbs-3" *ngIf="!!this.item2[0].data">{{this.item2[0].data}}</span>
+          <span class="text-accent mbs-3" *ngIf="!!this.item2[0].chemical?.description">{{this.item2[0].chemical.description}}</span>
         </div>
       </div>
     </div>
 </mat-card>
+
+
+<div fxLayout="row" fxLayoutAlign="center center">
+  <button mat-raised-button color="primary"  (click)="this.onClickSaveExperiment()" >Guardar</button>
+</div>

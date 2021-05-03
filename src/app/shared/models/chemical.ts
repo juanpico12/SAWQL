@@ -5,7 +5,8 @@ export interface Chemical {
     concentration?: number;
     state?: string,
     description? : string,
-    pH? : string,
+    pH? : number,
     Ka? : number;
-    Kb:number;
+    Kb?:number;
+    solutionOf2 ?: boolean;
  }

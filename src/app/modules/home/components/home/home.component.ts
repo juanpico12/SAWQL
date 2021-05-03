@@ -3,6 +3,7 @@ import { CdkDragDrop, DragDrop, DragRef, moveItemInArray, transferArrayItem } fr
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { LogService } from 'src/app/core/services/log.service';
 import { LoginModule } from 'src/app/modules/login/login.module';
 import { Position } from 'src/app/shared/models/position';
 @Component({
@@ -12,7 +13,7 @@ import { Position } from 'src/app/shared/models/position';
 })
 export class HomeComponent implements OnInit {
   user;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private logService: LogService) { }
   elementsInTable = ['']
 
   ngOnInit(): void {
@@ -23,6 +24,10 @@ export class HomeComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
     console.log(event);
     
+  }
+
+  onClickNewExperiment(){
+    this.logService.newLogs();
   }
 
 

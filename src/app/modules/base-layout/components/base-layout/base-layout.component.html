@@ -1,5 +1,5 @@
-<div fxLayout="column">
-    <mat-toolbar color="primary" style="min-height: 75px;">
+<div fxLayout="column" style="height: 100vh;">
+    <mat-toolbar  color="primary" fxFlex="10">
         <button mat-icon-button class="mbs-1" aria-label="Example icon-button with menu icon">
           <mat-icon color="accent">menu</mat-icon>
         </button>
@@ -26,5 +26,17 @@
             </button>
          </mat-menu>
     </mat-toolbar>
-    <router-outlet></router-outlet>
+    <div fxFlex="80" fxLayoutFill>
+        <router-outlet ></router-outlet>
+    </div>
+    
+    <!-- Footer -->
+    <div  fxFlex="10"  class="footer "  fxLayout="row" fxLayoutAlign="center center">
+        <div fxFLex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" >
+            <span class="text-secondary-darker">Copyright ©2021 </span>
+            <span class="text-secondary-darker">Todos los derechos reservados</span>
+            <span class="text-secondary-darker"> Facultad de Ingeniería - UNMdP</span>
+            
+        </div>
+    </div>
  </div>

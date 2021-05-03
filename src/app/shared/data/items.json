@@ -2,7 +2,7 @@
         {
             "acidosFuertes": [
                 {
-                    "name" : "acido clorhídrico",
+                    "name" : "recipiente de acido clorhídrico",
                     "id" : 100,
                     "icon" : "acid-item",
                     "unit" : "mL",
@@ -15,8 +15,9 @@
                         "unitConcentration" : "mol/L",
                         "state": "liquido",
                         "id" : 1,
-                        "description" : "strongAcid",
-                        "pH" : "pH : 0"
+                        "description" : "Solución ácida",
+                        "pH" : 0,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -24,7 +25,7 @@
         {
             "acidosDebiles": [
                 {
-                    "name" : "ácido acético,",
+                    "name" : "recipiente de ácido acético,",
                     "id" : 150,
                     "icon" : "acid-item",
                     "unit" : "mL",
@@ -37,9 +38,10 @@
                         "unitConcentration" : "mol/L",
                         "state": "liquido",
                         "id" : 2,
-                        "description" : "weakAcid",
+                        "description" : "Solución ácida",
                         "Ka" : 1.8e-5,
-                        "pH" : "pH : 2.3784"
+                        "pH" : 2.3784,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -47,7 +49,7 @@
         {
             "basesFuertes": [
                 {
-                    "name" : "hidróxido de sodio",
+                    "name" : "recipiente de hidróxido de sodio",
                     "id" : 200,
                     "icon" : "base-item",
                     "unit" : "mL",
@@ -60,8 +62,10 @@
                         "unitConcentration" : "mol/L",
                         "state": "liquido",
                         "id" : 3,
-                        "description" : "strongBase",
-                        "pH" : "pH : 14"
+                        "description" : "Solución básica",
+                        "pH" : 14
+                        ,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -69,7 +73,7 @@
         {
             "basesDebiles": [
                 {
-                    "name" : "hidróxido de amonio",
+                    "name" : "recipiente de hidróxido de amonio",
                     "id" : 250,
                     "icon" : "base-item",
                     "unit" : "mL",
@@ -82,9 +86,11 @@
                         "unitConcentration" : "mol/L",
                         "state": "liquido",
                         "id" : 4,
-                        "description" : "weakBase",
+                        "description" : "Solución básica",
                         "Kb" : 1.8e-5,
-                        "pH" : "pH : 11.6267"
+                        "pH" : 11.6267
+                        ,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -107,7 +113,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -126,7 +133,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -149,7 +157,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -168,7 +177,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -187,7 +197,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -210,7 +221,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -229,7 +241,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -248,7 +261,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -271,7 +285,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -290,7 +305,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -309,7 +325,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -332,7 +349,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -351,7 +369,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -370,7 +389,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -393,7 +413,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -412,7 +433,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 },
                 {
@@ -431,7 +453,8 @@
                         "id" : null,
                         "description" :null,
                         "Kb" : null,
-                        "pH" : null
+                        "pH" : null,
+                        "solutionOf2 ": false
                     }
                 }
             ]
@@ -449,7 +472,9 @@
                     "chemical": {
                         "name": "H<sub>2</sub>O",
                         "state": "liquido",
-                        "pH" : "pH : 7"  
+                        "pH" : 7,
+                        "id" : 5,
+                        "solutionOf2 ": false
                     }
                 },
                 {

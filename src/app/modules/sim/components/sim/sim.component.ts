@@ -8,6 +8,13 @@ import { Observable, of, from, Subscription } from 'rxjs';
 import { setClassMetadata } from '@angular/core/src/r3_symbols';
 import { SimMathService } from 'src/app/core/services/sim-math.service';
 import { SimPhService } from 'src/app/core/services/sim-ph.service';
+import { SOLUTION_DESCRIPTION } from 'src/app/core/enums/solution-description';
+import { Chemical } from 'src/app/shared/models/chemical';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { LogService } from 'src/app/core/services/log.service';
+import { LOG_ALERTS } from 'src/app/core/enums/logAlerts';
+import { ExperimentDBService } from 'src/app/core/services/experiment-db.service';
+import { Experiment } from 'src/app/shared/models/experiment';
 
 @Component({
   selector: 'app-sim',
@@ -15,6 +22,8 @@ import { SimPhService } from 'src/app/core/services/sim-ph.service';
   styleUrls: ['./sim.component.scss']
 })
 export class SimComponent implements OnInit {
+  SOLUTION_DESCRIPTION = SOLUTION_DESCRIPTION;
+  LOG_ALERTS =LOG_ALERTS;
   optionsLottie: AnimationOptions = {
     path: 'assets/animations/microscope.json',
   };
@@ -38,11 +47,16 @@ export class SimComponent implements OnInit {
   
 
   //**FLAGS */
+  //firstSave -> create experimente at Db , else update
+  firstSave : boolean =true;
   //pour true -> Verter , pour false -> retirar
   pour : boolean =false;
 
   //Alert invalid vol
   alertQuantityInvalid : boolean =false;
+
+  //Alert of 2 solutions
+  alert2Solutions : boolean =false;
 
   //We have a phMetro on intem1 or item2 
   phMetro : boolean = false;
@@ -54,12 +68,18 @@ export class SimComponent implements OnInit {
   //the radio button changes for first time
   radioButtonOn : boolean = false;
 
-  constructor(public SimDataService : SimDataService, public SimMathService : SimMathService, public SimPhService : SimPhService) { }
+  constructor(public SimDataService : SimDataService,
+              public SimMathService : SimMathService,
+              public SimPhService : SimPhService,
+              public authService : AuthService,
+              public logService : LogService,
+              public experimentDBService : ExperimentDBService) { }
   
   
   ngOnInit(): void {
     this.SimDataService.getItems().subscribe((data) => this.data = data)
     this.setData();
+    console.log(this.logService.getLogs());  
   }
 
   setData(){
@@ -170,6 +190,9 @@ export class SimComponent implements OnInit {
     this.item1 = [];
     this.item1[0] = item;
     this.checkItemType();
+    //LOG ACTION
+    this.logService.addLog('El usuario coloco '+this.item1[0].name+' en la mesa de trabajo (Item1)',this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0]));
+    console.log(this.logService.getLogs());  
     console.log(this.item1);
     console.log(this.item2);
     console.log(this.itemsOnTable);
@@ -222,6 +245,8 @@ export class SimComponent implements OnInit {
     this.item2 = [];
     this.item2[0] = item;
     this.checkItemType();
+    //LOG ACTION
+    this.logService.addLog('El usuario coloco '+this.item2[0].name+' en la mesa de trabajo (Item2)',this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0]));
     console.log(this.item1);
     console.log(this.item2);
     console.log(this.itemsOnTable);
@@ -273,6 +298,9 @@ export class SimComponent implements OnInit {
   }
 
   onClickPourOrWithdraw(){
+    //Generamos estos aux para usarlos en el log , ya que modificamos los chemicals orignales en el proceso
+    let chemical1Aux : Chemical = {...this.item1[0].chemical};
+    let chemical2Aux : Chemical = {...this.item2[0].chemical};
     if(this.pour){
       if( this.SimMathService.canPour(this.item2[0].vol ,this.item1[0].vol ,this.item1[0].volMax , this.valueVol )){
         if(this.item1[0].vol ==0){
@@ -282,16 +310,26 @@ export class SimComponent implements OnInit {
         this.item1[0].vol = this.item1[0].vol + this.valueVol;
         this.item2[0].vol = this.item2[0].vol - this.valueVol;
         //Recalculo PH en destino 
-        this.item1[0].chemical.pH = this.SimPhService.calculatePh(this.item1[0],this.item2[0],this.valueVol)
-        console.log( this.item1[0].chemical.pH);
-        //Recalculo PH en origen si se vacio el vol
-        if(this.item2[0].vol <= 0){
-        this.item2[0].chemical.pH = 'pH inválido (el recipiente no tiene volumen)'
+        let pH: number = this.SimPhService.calculatePh(this.item1[0],this.item2[0],this.valueVol);
+        //seteo descp
+        this.setDescription(pH,this.item1[0]);
+        console.log(pH);
+        if(!!pH){
+          this.item1[0].chemical.pH = pH;
         }
+        //Recalculo PH en origen si se vacio el vol y reseteo chemical
+        if(this.item2[0].vol <= 0){
+        this.item2[0].chemical.pH = null;
+        this.setChemicalToNull(this.item2[0])
+        }
+        //LOG ACTION
+        this.logService.addLog('El usuario vertió de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
       }else{
         //Cantidad a verter invalida
         this.alertQuantityInvalid =true;
         this.stringAlert = 'La cantidad seleccionada a verter es inválida'
+        //LOG ACTION
+        this.logService.addLog('CANTIDAD A VERTER INVÁLIDA -> El usuario quiso verter de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
       }
       
     }else{
@@ -301,17 +339,29 @@ export class SimComponent implements OnInit {
         }
         this.item2[0].vol = this.item2[0].vol + this.valueVol;
         this.item1[0].vol = this.item1[0].vol - this.valueVol;
-        //Recalculo PH en destino 
-        this.item2[0].chemical.pH = this.SimPhService.calculatePh(this.item2[0],this.item1[0], this.valueVol)
-        console.log( this.item2[0].chemical.pH);
-        //Recalculo PH en origen si se vacio el vol
-        if(this.item1[0].vol <= 0){
-          this.item1[0].chemical.pH = 'pH inválido (el recipiente no tiene volumen)'
+         //Recalculo PH en destino 
+         let pH: number = this.SimPhService.calculatePh(this.item2[0],this.item1[0],this.valueVol);
+         //seteo descp
+         console.log(pH);
+         
+         this.setDescription(pH,this.item2[0]);
+         if(!!pH){
+          this.item2[0].chemical.pH = pH;
         }
+        //Recalculo PH en origen si se vacio el vol y reseteo chemical
+        if(this.item1[0].vol <= 0){
+          this.item1[0].chemical.pH = null
+          this.setChemicalToNull(this.item1[0])
+        }
+        //LOG ACTION
+        this.logService.addLog('El usuario retiro de un/una '+this.item1[0].name+' a un/una '+this.item2[0].name+(!!chemical2Aux?.name ? ('('+chemical2Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0],this.item2[0].name+' -> '));
       }else{
         //Cantidad a retirar invalida
         this.alertQuantityInvalid =true;
         this.stringAlert = 'La cantidad seleccionada a retirar es inválida'
+        //LOG ACTION
+        this.logService.addLog('CANTIDAD A RETIRAR INVÁLIDA -> El usuario quiso retirar de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
+
       }
       
     }
@@ -320,6 +370,7 @@ export class SimComponent implements OnInit {
   checkItemType(){ 
     //alertas en false
     this.alertQuantityInvalid =false;
+    this.alert2Solutions = false;
     // Identifico el pHMetro 
     if(!!this.item1[0] && !!this.item2[0] && this.item1[0].id == 310 ){
         this.phMetro = true;
@@ -341,30 +392,142 @@ export class SimComponent implements OnInit {
     }else{
       this.canWithdraw = true;
     }
+
+    if(!!this.item1[0] && !!this.item1[0].chemical?.solutionOf2 && this.item1[0].chemical.solutionOf2 == true && this.phMetro == false){
+      this.alert2Solutions = true;
+      this.canPour = false;
+    }else{
+      if(!!this.item2[0] && !!this.item2[0].chemical?.solutionOf2 && this.item2[0].chemical.solutionOf2 == true && this.phMetro == false){
+        this.alert2Solutions = true;
+        this.canWithdraw = false;
+      }
+    }
   }
 
   setChemical2to1() {
-    this.item1[0].chemical.name = this.item2[0].chemical.name ;
-    this.item1[0].chemical.concentration = this.item2[0].chemical.concentration ;
-    this.item1[0].chemical.unitConcentration = this.item2[0].chemical.unitConcentration ;
-    this.item1[0].chemical.state = this.item2[0].chemical.state ;
-    this.item1[0].chemical.id = this.item2[0].chemical.id ;
-    this.item1[0].chemical.Ka = this.item2[0].chemical.Ka ;
-    this.item1[0].chemical.Kb = this.item2[0].chemical.Kb ;
-    this.item1[0].chemical.pH = this.item2[0].chemical.pH ;
+    let chemical : Chemical = {
+      name : this.item2[0].chemical.name,
+      concentration : this.item2[0].chemical.concentration,
+      unitConcentration : this.item2[0].chemical.unitConcentration ,
+      state : this.item2[0].chemical.state,
+      description : this.item2[0].chemical.description,
+      id : this.item2[0].chemical.id,
+      Ka : this.item2[0].chemical.Ka,
+      Kb : this.item2[0].chemical.Kb,
+      pH : this.item2[0].chemical.pH,
+    }
+
+    let item : Item = {
+      name: this.item1[0].name,
+      id: this.item1[0].id,
+      icon:this.item1[0].icon,
+      unit:this.item1[0].unit,
+      volMax:this.item1[0].volMax,
+      vol : this.item1[0].vol,
+      iconClass:this.item1[0].iconClass,
+      data: !this.item1[0].data ? this.item1[0].data : null,
+      chemical : chemical , 
+    }
+    this.item1[0] = item;
   }
 
   setChemical1to2() {
-    this.item2[0].chemical.name = this.item1[0].chemical.name ;
-    this.item2[0].chemical.concentration = this.item1[0].chemical.concentration ;
-    this.item2[0].chemical.unitConcentration = this.item1[0].chemical.unitConcentration ;
-    this.item2[0].chemical.state = this.item1[0].chemical.state ;
-    this.item2[0].chemical.id = this.item1[0].chemical.id ;
-    this.item2[0].chemical.Ka = this.item1[0].chemical.Ka ;
-    this.item2[0].chemical.Kb = this.item1[0].chemical.Kb ;
-    this.item2[0].chemical.pH = this.item1[0].chemical.pH ;
+    let chemical : Chemical = {
+      name : this.item1[0].chemical.name,
+      concentration : this.item1[0].chemical.concentration,
+      unitConcentration : this.item1[0].chemical.unitConcentration ,
+      state : this.item1[0].chemical.state,
+      description : this.item1[0].chemical.description,
+      id : this.item1[0].chemical.id,
+      Ka : this.item1[0].chemical.Ka,
+      Kb : this.item1[0].chemical.Kb,
+      pH : this.item1[0].chemical.pH,
+    }
+
+    let item : Item = {
+      name: this.item2[0].name,
+      id: this.item2[0].id,
+      icon:this.item2[0].icon,
+      unit:this.item2[0].unit,
+      volMax:this.item2[0].volMax,
+      vol : this.item2[0].vol,
+      iconClass:this.item2[0].iconClass,
+      data: !this.item2[0].data ? this.item1[0].data : null,
+      chemical : chemical , 
+    }
+    this.item2[0] = item;
   }
 
-  
+  setChemicalToNull(item: Item){
+    item.chemical.name = null ;
+    item.chemical.concentration = null ;
+    item.chemical.unitConcentration = null ;
+    item.chemical.state = null ;
+    item.chemical.id = null ;
+    item.chemical.Ka = null ;
+    item.chemical.Kb = null ;
+    item.chemical.pH = null ;
+  }
+
+  setDescription(pH : number, item : Item) {
+    //Seteo description 
+    if(!!pH){
+      if(pH == 7){
+        item.chemical.description = SOLUTION_DESCRIPTION.NEUTRA
+      }else{
+        if(pH > 7 && pH <= 14 ){
+          item.chemical.description = SOLUTION_DESCRIPTION.BASICA
+        }else{
+          if(pH < 7 && pH >= 0 ){
+            item.chemical.description = SOLUTION_DESCRIPTION.ACIDA;
+            console.log(item.chemical.description);
+            
+          }
+        }
+      }
+    }
+  }
+
+  getLogExtraDataSt(Item : Item,stInicio ?:string) : string {
+    let st : string ;
+    if( Item.vol > 0){
+      let pH : string
+      let concetracion :string;
+       Item.chemical.pH!=undefined &&  Item.chemical.pH!=null ? (pH = '  pH : '+  Item.chemical.pH) : '';
+       Item.chemical.concentration!=undefined &&  Item.chemical.concentration!=null ? (concetracion = '  Concentración : '+  Item.chemical.concentration+' '+ Item.chemical.unitConcentration ): '';
+      st  =(!!stInicio? stInicio: '')+'Contiene:  ' + Item.chemical.name + '  Volumen: ' +  Item.vol+'/'+ + Item.volMax + ' ' +  Item.unit+' '+concetracion+' '+pH ;
+    }else{
+      st = ''
+    }
+    return st ;
+  }
+
+  onClickSaveExperiment(){
+    //CREATE
+    if(this.firstSave){
+      this.firstSave = false;
+      let experiment : Experiment = {
+        date : new Date(),
+        logs : this.logService.getLogs()
+      }
+      console.log(experiment);
+      this.experimentDBService.create(experiment).then((data) => {
+        console.log('Created new item successfully!');
+        
+        console.log(data.key);
+        this.experimentDBService.setActualExperimentKey(data.key)
+      })
+    }else{
+      //UPDATE
+      let experiment : Experiment = {
+        date : new Date(),
+        logs : this.logService.getLogs()
+      }
+      this.experimentDBService.update(experiment).then((data) => {
+        console.log('Update item successfully!');      
+      })
+    }
+    
+  }
 
 }
