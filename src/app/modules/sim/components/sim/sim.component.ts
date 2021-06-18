@@ -15,6 +15,8 @@ import { LogService } from 'src/app/core/services/log.service';
 import { LOG_ALERTS } from 'src/app/core/enums/logAlerts';
 import { ExperimentDBService } from 'src/app/core/services/experiment-db.service';
 import { Experiment } from 'src/app/shared/models/experiment';
+import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sim',
@@ -44,6 +46,9 @@ export class SimComponent implements OnInit {
   vasoDePrecipitados : Item[];
   erlenmeyers : Item[]; 
   stringAlert : string ;
+
+  //Experimento actual ya guardado al menos una vez
+  actualExperiment : Experiment;
   
 
   //**FLAGS */
@@ -73,7 +78,8 @@ export class SimComponent implements OnInit {
               public SimPhService : SimPhService,
               public authService : AuthService,
               public logService : LogService,
-              public experimentDBService : ExperimentDBService) { }
+              public experimentDBService : ExperimentDBService,
+              public datePipe: DatePipe) { }
   
   
   ngOnInit(): void {
@@ -505,26 +511,69 @@ export class SimComponent implements OnInit {
   onClickSaveExperiment(){
     //CREATE
     if(this.firstSave){
-      this.firstSave = false;
-      let experiment : Experiment = {
-        date : new Date(),
-        logs : this.logService.getLogs()
-      }
-      console.log(experiment);
-      this.experimentDBService.create(experiment).then((data) => {
-        console.log('Created new item successfully!');
+      
+       Swal.fire({
+        title: 'Ingrese un título para el experimento',
+        input: 'text',
+        inputLabel: 'Título',
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'El título no puede estar en blanco'
+          }
+        }
+      }).then( data => {
+        console.log(data);
+        if(data.isConfirmed){
+          let experiment : Experiment = {
+            title : data.value,
+            date : this.datePipe.transform(new Date(), 'HH:mm dd-MM-yyyy') ,
+            logs : this.logService.getLogs()
+          }
+          
+          this.experimentDBService.create(experiment).then((dataa) => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Experimento guardado correctamente',
+            })
+            this.firstSave = false;
+            console.log('Created new item successfully!');
+            console.log(experiment);
+            console.log(dataa.key);
+            experiment.key = dataa.key;
+            this.experimentDBService.setActualExperiment(experiment);
+            this.actualExperiment = experiment;
+          },err => {
+            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Ocurrio un error al guardarlo, intente nuevamente',
+            })
+          })
+        }
         
-        console.log(data.key);
-        this.experimentDBService.setActualExperimentKey(data.key)
-      })
+      })  
     }else{
       //UPDATE
       let experiment : Experiment = {
-        date : new Date(),
+        title : this.experimentDBService.getActualExperiment().title,
+        date : this.datePipe.transform(new Date(), 'HH:mm dd-MM-yyyy'),
         logs : this.logService.getLogs()
       }
       this.experimentDBService.update(experiment).then((data) => {
-        console.log('Update item successfully!');      
+        console.log('Update item successfully!');    
+        this.experimentDBService.setActualExperiment(experiment);  
+        this.actualExperiment = experiment;
+        Swal.fire({
+          icon: 'success',
+          title: 'Experimento guardado correctamente',
+        })
+      },err => {
+        console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Ocurrio un error al guardarlo, intente nuevamente',
+        })
       })
     }
     

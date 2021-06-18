@@ -1,6 +1,8 @@
 import { Log } from "./log";
 
 export interface Experiment{
-    date : Date;
+    key? : string;
+    title : string;
+    date : string;
     logs : Log[];
 }

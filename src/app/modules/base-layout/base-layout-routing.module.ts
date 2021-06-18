@@ -30,6 +30,12 @@ const routes: Routes = [
                import('./../../modules/sim/sim.module').then((mod) => mod.SimModule),
             // canActivate: [RoleGuard],
          },
+         {
+            path: 'experimentos',
+            loadChildren: () =>
+               import('./../../modules/experiments/experiments.module').then((mod) => mod.ExperimentsModule),
+            // canActivate: [RoleGuard],
+         },
       ],
    },
 ];

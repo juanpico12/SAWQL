@@ -1,42 +1,70 @@
-<div fxLayout="column" style="height: 100vh;">
-    <mat-toolbar  color="primary" fxFlex="10">
-        <button mat-icon-button class="mbs-1" aria-label="Example icon-button with menu icon">
-          <mat-icon color="accent">menu</mat-icon>
-        </button>
-        <span class="text-accent" matTooltip="Simulador de aprendizaje web de operaciones químicas de laboratorio
-        "  matTooltipPosition="right" matTooltipClass="tooltip">SAWQL</span>
-        <span fxFlex="1 1 auto"></span>
-        
-        <span class="mxs-2 text-accent mat-h3 mb-0" >{{this.user.email}}</span>
-        <ngx-avatar src="{{this.user.photoURL}}"
-            name="{{this.user.email}}" bgColor="#6400b4" fgColor="#41ffaf"   size="50" >
-        </ngx-avatar>
-        <button  mat-icon-button class="mr-0 pr-0 mls-2"
-            [matMenuTriggerFor]="menuUser">
-            <mat-icon color="accent">logout</mat-icon>
-        </button>
+<div *ngIf="!loadingUser ; else loadingUserInfo" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="2%" style="height: 100vh;">
+  <div  >
+      <mat-toolbar  color="primary">
+          <button mat-icon-button class="mbs-1" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon color="accent">menu</mat-icon>
+          </button>
+          <span class="text-accent" matTooltip="Simulador de aprendizaje web de operaciones químicas de laboratorio
+          "  matTooltipPosition="right" matTooltipClass="tooltip">SAWQL</span>
+          <span fxFlex="1 1 auto"></span>
+          
+          <span class="mxs-2 text-accent mat-h3 mb-0" >{{this.user.data.email}}</span>
+          <ngx-avatar src="{{this.user.data.photoURL}}"
+              name="{{this.user.data.email}}" bgColor="#6400b4" fgColor="#41ffaf"   size="40" >
+          </ngx-avatar>
+          <button  mat-icon-button class="mr-0 pr-0 mls-2"
+              [matMenuTriggerFor]="menuUser">
+              <mat-icon color="accent">logout</mat-icon>
+          </button>
+  
+          <mat-menu #menuUser="matMenu">
+              <!-- <button mat-menu-item   fxLayoutAlign="start center">
+              <mat-icon>face</mat-icon>
+              <span>Mi perfil</span>
+           </button> -->
+              <button (click)="onLogOut()" mat-menu-item fxLayoutAlign="start center">
+                 <span>Cerrar Sesión</span>
+              </button>
+           </mat-menu>
+           <mat-menu #menu="matMenu">
+              <button mat-menu-item class="text-accent" [routerLink]="['principal']"   routerLinkActive="router-link-active">
+                  <mat-icon  class="text-accent"  >home</mat-icon>
+                  <span>Inicio</span>
+                </button>
+              <button mat-menu-item  class="text-accent" [routerLink]="['sim']"   routerLinkActive="router-link-active" (click)="this.onClickNewExperiment()">
+                <mat-icon  class="text-accent">science</mat-icon>
+                <span>Nuevo Experimento</span>
+              </button>
+              <button mat-menu-item  class="text-accent" *ngIf="this.user.isAdmin" [routerLink]="['experimentos']"   routerLinkActive="router-link-active">
+                <mat-icon  class="text-accent">description</mat-icon>
+                <span>Experimentos</span>
+              </button>
+            </mat-menu>
+      </mat-toolbar>
+  </div>
+  
+  <div  class="sim" style="min-height: 70vh;">
+      <router-outlet ></router-outlet>
+  </div>
+  
+  <!-- Footer -->
+  <div   class="footer py-1"  >
+      <div fxLayout="row" fxLayoutAlign="center center" >
+          <div fxFLex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" >
+              <span class="text-secondary-darker">Copyright ©2021 </span>
+              <span class="text-secondary-darker">Todos los derechos reservados</span>
+              <span class="text-secondary-darker"> Facultad de Ingeniería - UNMdP</span>
+              
+          </div>
+      </div>
+      
+  </div>
+  
+</div>
 
-        <mat-menu #menuUser="matMenu">
-            <!-- <button mat-menu-item   fxLayoutAlign="start center">
-            <mat-icon>face</mat-icon>
-            <span>Mi perfil</span>
-         </button> -->
-            <button (click)="onLogOut()" mat-menu-item fxLayoutAlign="start center">
-               <span>Cerrar Sesión</span>
-            </button>
-         </mat-menu>
-    </mat-toolbar>
-    <div fxFlex="80" fxLayoutFill>
-        <router-outlet ></router-outlet>
-    </div>
-    
-    <!-- Footer -->
-    <div  fxFlex="10"  class="footer "  fxLayout="row" fxLayoutAlign="center center">
-        <div fxFLex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" >
-            <span class="text-secondary-darker">Copyright ©2021 </span>
-            <span class="text-secondary-darker">Todos los derechos reservados</span>
-            <span class="text-secondary-darker"> Facultad de Ingeniería - UNMdP</span>
-            
-        </div>
-    </div>
- </div>
+
+ <ng-template #loadingUserInfo style="height: 100vh;">
+  <div  fxLayout="column" fxLayoutAlign="center center" >
+    <ng-lottie fxFlex="100" fxFlexOffset="15" [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 300px; max-width: 80vw;" ></ng-lottie>
+  </div>
+</ng-template>

@@ -13,6 +13,7 @@ import { MaterialModule } from './material/material.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 import { AvatarModule } from 'ngx-avatar';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent
@@ -31,7 +32,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
     
   ],
-  providers: [AuthService],
+  providers: [AuthService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

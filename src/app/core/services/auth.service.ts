@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from "@angular/router";
 import { User } from 'src/app/shared/models/user';
 import { ROUTES } from '../enums/routes';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,23 @@ export class AuthService {
   public userData: any; // Save logged in user data
   public loadingSignIn:boolean;
   private _redirectUrl: string;
+  private adminUid : string = 'e2gJ0Fur3LfVHgCw2YQZTUNCJZA2';
+  public isAdmin : boolean ;
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone,
+    private db: AngularFireDatabase // NgZone service to remove outside scope warning
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
       if (user) {
         console.log('pasoo');
-        
-        this.userData = user;
+        //check for admin 
+        user.uid ==this.adminUid ? this.isAdmin = true : this.isAdmin = false;
+        this.userData = user
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
         this.loadingSignIn=false;
@@ -48,7 +53,8 @@ export class AuthService {
   }
 
   GetUserData(){
-    return JSON.parse(localStorage.getItem('user'));;
+    return {data : JSON.parse(localStorage.getItem('user')),
+            isAdmin : this.isAdmin};
   }
   // Sign in with email/password
   SignIn(email, password) {
