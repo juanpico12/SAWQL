@@ -39,7 +39,10 @@ export class ExperimentDBService {
 
   create(experiment: Experiment): any {
     if(!!this.userEmail){
-      return this.db.database.ref(this.dbPath+'/'+this.userEmail+'/experiments').push(experiment)
+      let key = Math.round(9999999999999999 - (new Date().getTime() / 100)).toString();
+      experiment.key = key;
+      this.setActualExperiment(experiment);
+      return this.db.database.ref(this.dbPath+'/'+this.userEmail+'/experiments').child(key).set(experiment)
     }else{
       return null;
     }
@@ -62,31 +65,41 @@ export class ExperimentDBService {
     return emailAddress.replace(/\./g, ',')
  }
   //if last experiment is undefined/null it means that we are asking for the first experimients
-  getExperiments(size, lastExperiment,userMail){
+  getExperiments(size, lastExperimentKey,userMail) : Promise<any>{
     const email = this.emailToKey(userMail)
     const db = this.db.database.ref(this.dbPath+'/'+email+'/experiments')
-    let expermients : Experiment [];
-    if(!!lastExperiment){
-      db.startAfter(lastExperiment).limitToLast(size).get().then((snapshot) => {
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
+    if(!!lastExperimentKey){
+      return db.orderByKey().endBefore(lastExperimentKey).limitToLast(size).get()
+
     }else{
-      db.limitToLast(size).get().then((snapshot) => {
-        if (snapshot.exists()) {
-          console.log(snapshot.val());
-        } else {
-          console.log("No data available");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
+      return db.orderByKey().limitToLast(size).get()
+
     }
-  } 
+
+    
+  }
+
+  //if last experiment is undefined/null it means that we are asking for the first experimients
+  getExperiments2(userMail, size, startKey?) : Promise<any>{
+    const email = this.emailToKey(userMail)
+    const db = this.db.database.ref(this.dbPath+'/'+email+'/experiments')
+    if(!!startKey){
+      return db.orderByKey().startAt(startKey).limitToFirst(size+1).get()
+    }else{
+      return db.orderByKey().limitToFirst(size+1).get()
+    }
+      
+  }
+  
+  // nextPage(last,userMail,size) {
+  //   const email = this.emailToKey(userMail)
+  //     const db = this.db.database.ref(this.dbPath+'/'+email+'/experiments')
+  //     return db.orderByKey().startAfter(last.age).limit(size);
+  // }
+    
+  //   prevPage(first) {
+  //       return ref.orderBy('age').endBefore(first.age).limitToLast(3);
+  // }
+
 
 }

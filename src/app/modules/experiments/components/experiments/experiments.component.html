@@ -1,7 +1,7 @@
 
 <div fxLayout="column"   class="px-3 ">
     <div fxFlex="10" fxLayout="row" fxLayoutAlign="center center">
-        <form  (submit)="onSearchExperiments()" [formGroup]="form">
+        <form  (submit)="getExperiments()" [formGroup]="form">
             <mat-form-field class="mrs-3">
             <input matInput placeholder="Ingrese el mail del alumno" formControlName="email" required>
             <mat-error>
@@ -12,12 +12,22 @@
     
         </form>
     </div>
-    <div fxFlex="90" fxLayout="column" class="list-container" (scroll)="loadMore($event)" style="display: flex; overflow: auto;">
-    <div class="list-item"  *ngFor="let experiment of this.experiments; ">
-        {{experiment.key}}
-    </div>
+    <!-- <div *ngIf="!!this.experiments" fxFlex="90" fxLayout="column" class="list-container" (scroll)="loadMore($event)" style="display: flex; overflow: auto;">
+        <div class="list-item"  *ngFor="let experiment of this.experiments; ">
+            {{experiment}}aaa
+        </div>
     
    
+    </div> -->
+    <mat-list *ngIf="!!this.experiments" class="content">
+        <mat-list-item *ngFor="let experiment of this.experiments;">
+          <h3 matLine> {{experiment.title}} </h3>
+
+          <mat-divider></mat-divider>
+        </mat-list-item>
+    </mat-list>
+
+    <button  mat-raised-button color="primary" (click)="prevPage()" [disabled]="!prevKeys?.length">Prev</button>
+    <button  mat-raised-button color="primary" (click)="nextPage()" [disabled]="!nextKey?.length">Sig</button>
 </div>
-   
 

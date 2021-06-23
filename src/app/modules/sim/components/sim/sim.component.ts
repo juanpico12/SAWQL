@@ -536,13 +536,10 @@ export class SimComponent implements OnInit {
               icon: 'success',
               title: 'Experimento guardado correctamente',
             })
-            this.firstSave = false;
             console.log('Created new item successfully!');
             console.log(experiment);
-            console.log(dataa.key);
-            experiment.key = dataa.key;
-            this.experimentDBService.setActualExperiment(experiment);
             this.actualExperiment = experiment;
+            this.firstSave = false;
           },err => {
             console.log(err);
             Swal.fire({
