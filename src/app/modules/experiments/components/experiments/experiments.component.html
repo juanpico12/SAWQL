@@ -19,13 +19,43 @@
     
    
     </div> -->
-    <mat-list *ngIf="!!this.experiments" class="content">
-        <mat-list-item *ngFor="let experiment of this.experiments;">
-          <h3 matLine> {{experiment.title}} </h3>
+    <div  *ngIf="!!this.experiments" fxLayout="column" fxLayoutAlign="center stretch">
+        <div  *ngFor="let experiment of this.experiments;">
 
+          <mat-expansion-panel fxFlex="100" fxLayout="row" fxLayoutAlign="start center" class="mb-0 mxs-3 mat-elevation-z0" >
+            <mat-expansion-panel-header fxFlex="100" fxLayout="row" fxLayoutAlign="center center" class="px-0">
+              <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="mat-18 text-accent mrs-2">event</mat-icon>
+                <span class="mb-0"> {{experiment.date }} </span>
+                <mat-icon class="mat-18 text-accent mxs-2">remove</mat-icon>
+                <!-- <span class="text-accent">&nbsp;~&nbsp; </span> -->
+                <span class="text-secondary"> Experimento:&nbsp;</span>
+                <span class="mb-0 text-accent"> {{experiment.title }} </span>
+              </mat-panel-title>
+              <div fxFlex fxLayout="row" fxLayoutAlign="end end" >
+                <span class="text-secondary-darker mrs-2">Ver logs</span>
+              </div>
+              
+              <!-- <mat-panel-description fxFlex="10" fxLayoutAlign="end center" class="mr-0"> 
+                <div fxLayout="row" >
+                    
+                    <mat-icon >view_list</mat-icon>
+                </div>
+                
+              </mat-panel-description> -->
+              
+            </mat-expansion-panel-header>
+            <!-- <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
+                <div class="mxs-2 mys-2"  *ngFor="let matraz of this.matraces" [cdkDragData]="matraz" cdkDrag>
+                    <app-sim-item [iconSvg]="matraz.icon" [vol]="matraz.vol"  [name]="matraz.name" [id]="matraz.id" [unit]="matraz.unit" [volMax]="matraz.volMax"></app-sim-item>
+                </div>
+            </div> -->
+            
+          </mat-expansion-panel>
           <mat-divider></mat-divider>
-        </mat-list-item>
-    </mat-list>
+          
+        </div>
+    </div>
 
     <button  mat-raised-button color="primary" (click)="prevPage()" [disabled]="!prevKeys?.length">Prev</button>
     <button  mat-raised-button color="primary" (click)="nextPage()" [disabled]="!nextKey?.length">Sig</button>

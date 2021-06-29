@@ -35,7 +35,6 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
         this.loadingSignIn=false;
-       
       } else {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
@@ -75,6 +74,10 @@ export class AuthService {
         this.SetUserData(result.user);
       }).catch((error) => {
         window.alert(error.message)
+        setTimeout(() => {
+          this.loadingSignIn=false;
+        },1000)
+        
       })
   }
 

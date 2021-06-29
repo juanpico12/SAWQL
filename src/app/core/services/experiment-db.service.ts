@@ -42,6 +42,7 @@ export class ExperimentDBService {
       let key = Math.round(9999999999999999 - (new Date().getTime() / 100)).toString();
       experiment.key = key;
       this.setActualExperiment(experiment);
+     
       return this.db.database.ref(this.dbPath+'/'+this.userEmail+'/experiments').child(key).set(experiment)
     }else{
       return null;
@@ -91,15 +92,6 @@ export class ExperimentDBService {
       
   }
   
-  // nextPage(last,userMail,size) {
-  //   const email = this.emailToKey(userMail)
-  //     const db = this.db.database.ref(this.dbPath+'/'+email+'/experiments')
-  //     return db.orderByKey().startAfter(last.age).limit(size);
-  // }
-    
-  //   prevPage(first) {
-  //       return ref.orderBy('age').endBefore(first.age).limitToLast(3);
-  // }
 
 
 }

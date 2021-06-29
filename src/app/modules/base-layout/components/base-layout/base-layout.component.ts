@@ -35,6 +35,7 @@ export class BaseLayoutComponent implements OnInit {
   }
 
   onClickNewExperiment(){
+    window.location.reload();
     this.logService.newLogs();
   }
   animationCreated(animationItem: AnimationItem): void {
