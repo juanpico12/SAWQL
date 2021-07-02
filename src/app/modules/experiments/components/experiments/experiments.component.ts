@@ -76,6 +76,7 @@ export class ExperimentsComponent implements OnInit {
         console.log(this.nextKey);
         
       } else {
+        this.experiments= [];
         console.log("No data available");
       }
     }).catch((error) => {
@@ -87,6 +88,16 @@ export class ExperimentsComponent implements OnInit {
     return this.formBuilder.group({
        [this.EMAIL]: ['', [CustomValidators.required('Mail de usuario requerido'),CustomValidators.email('Mail inválido')]],
     });
+  }
+
+  onChangeSize(e){
+    console.log(e);
+    if(!!e){
+      if(e > 10){
+        this.size = 10
+      }
+      this.getExperiments()
+    }
   }
 
 }

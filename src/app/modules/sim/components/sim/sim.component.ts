@@ -329,13 +329,13 @@ export class SimComponent implements OnInit {
         this.setChemicalToNull(this.item2[0])
         }
         //LOG ACTION
-        this.logService.addLog('El usuario vertió de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
+        this.logService.addLog('El usuario vertió de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
       }else{
         //Cantidad a verter invalida
         this.alertQuantityInvalid =true;
         this.stringAlert = 'La cantidad seleccionada a verter es inválida'
         //LOG ACTION
-        this.logService.addLog('CANTIDAD A VERTER INVÁLIDA -> El usuario quiso verter de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
+        this.logService.addLog('Cantidad a verter inválida -> El usuario quiso verter de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : ' ' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
       }
       
     }else{
@@ -366,7 +366,7 @@ export class SimComponent implements OnInit {
         this.alertQuantityInvalid =true;
         this.stringAlert = 'La cantidad seleccionada a retirar es inválida'
         //LOG ACTION
-        this.logService.addLog('CANTIDAD A RETIRAR INVÁLIDA -> El usuario quiso retirar de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
+        this.logService.addLog('Cantidad a verter inválida -> El usuario quiso retirar de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : ' ' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
 
       }
       

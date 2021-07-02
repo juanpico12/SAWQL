@@ -93,13 +93,47 @@ export class SimPhService {
               pH = this.calculateAfvsAd(Cnf, Cnd ,ItemNewPh.chemical.Ka)
             }else{
               if(Item2.chemical.id == this.SOLUTION_TYPES.ACIDO_DEBIL && ItemNewPh.chemical.id == this.SOLUTION_TYPES.ACIDO_FUERTE ){
-                //EN EL DESTINO TENEMOS FUERTE Y AGREGAMOS ACIDO DEBIL
+                //EN EL DESTINO TENEMOS ACIDO FUERTE Y AGREGAMOS ACIDO DEBIL
                 //vid = vol  vif= volAnt 
                 let Cnd : number = Item2.chemical.concentration * vol / (vol+volAnt);
                 let Cnf : number = ItemNewPh.chemical.concentration * volAnt / (vol+volAnt);
                 pH = this.calculateAfvsAd(Cnf, Cnd ,Item2.chemical.Ka)
               }else{
-                pH = Item2.chemical.pH
+                //BASE FUERTE vs BASE DEBIL
+                if(Item2.chemical.id == this.SOLUTION_TYPES.BASE_FUERTE && ItemNewPh.chemical.id == this.SOLUTION_TYPES.BASE_DEBIL ){
+                  //EN EL DESTINO TENEMOS BASE_DEBIL Y AGREGAMOS BASE_FUERTE
+                  //vid = volAnt  vif= vol 
+                  let Cnd : number = ItemNewPh.chemical.concentration * volAnt / (vol+volAnt);
+                  let Cnf : number = Item2.chemical.concentration * vol / (vol+volAnt);
+                  pH = this.calculateBfvsBd(Cnf , Cnd , ItemNewPh.chemical.Kb)
+                }else{
+                  if(Item2.chemical.id == this.SOLUTION_TYPES.BASE_DEBIL && ItemNewPh.chemical.id == this.SOLUTION_TYPES.BASE_FUERTE ){
+                    //EN EL DESTINO TENEMOS BASE_FUERTE Y AGREGAMOS BASE_DEBIL
+                    //vid = vol  vif= volAnt 
+                    let Cnd : number = Item2.chemical.concentration * vol / (vol+volAnt);
+                    let Cnf : number = ItemNewPh.chemical.concentration * volAnt / (vol+volAnt);
+                    pH = this.calculateBfvsBd(Cnf, Cnd ,Item2.chemical.Kb)
+                  }else{
+                    //ACIDO FUERTE vs BASE DEBIL
+                    if(Item2.chemical.id == this.SOLUTION_TYPES.ACIDO_FUERTE && ItemNewPh.chemical.id == this.SOLUTION_TYPES.BASE_DEBIL ){
+                      //EN EL DESTINO TENEMOS BASE_DEBIL Y AGREGAMOS ACIDO_FUERTE
+                      let nH : number = Item2.chemical.concentration * vol;
+                      let nOH : number = ItemNewPh.chemical.concentration * volAnt;
+                      pH = this.calculateAfvsBd(nH, nOH , volAnt ,vol, ItemNewPh.chemical.Kb )
+                    }else{
+                      if(Item2.chemical.id == this.SOLUTION_TYPES.BASE_DEBIL && ItemNewPh.chemical.id == this.SOLUTION_TYPES.ACIDO_FUERTE ){
+                        //EN EL DESTINO TENEMOS ACIDO FUERTE Y AGREGAMOS BASE DEBIL
+                        let nH : number = ItemNewPh.chemical.concentration * volAnt;
+                        let nOH : number = Item2.chemical.concentration * vol;
+                        pH = this.calculateAfvsBd(nH, nOH ,volAnt ,vol,Item2.chemical.Kb )
+                      }else{
+                        pH = Item2.chemical.pH
+        
+                      }
+                    }               
+                  }
+                }
+               
               }
             }
           }
@@ -150,9 +184,42 @@ export class SimPhService {
     return pH
   }
 
+  calculateAfvsBd(nH : number, nOH:number , vol1  : number , vol2 : number ,kb : number) : number {
+    let result : number = nH - nOH ;
+    let pH : number;
+    let vf : number  = vol1 + vol2 ;
+    const kw : number = 1e-14;
+    let ka : number = kw/kb;
+    console.log(result);
+    
+    if(result == 0) {
+      let csi :number = nH;
+      
+      pH = -Math.log10(this.calculateQuadratic(1,ka,-(ka*csi)))
+    }else{
+      //nH > nOH
+      if(result >0){
+        pH =  -Math.log10(result/vf)
+      }
+      //nH < nOH
+      else{
+        let cbe : number = (nOH - nH)/vf
+        let csal : number = (nH/vf);
+        let x : number = this.calculateQuadratic(1,(csal*kb),-(kb*cbe));
+        pH =  -Math.log10(1e-14/x)
+      }
+    }
+    return pH
+  }
+
   calculateAfvsAd(cnf ,cnd , ka): number {
-    let x : number = this.calculateQuadratic(-1,(cnf+ka),-(cnd*ka));
+    let x : number = this.calculateQuadratic(1,(cnf+ka),-(cnd*ka));
     return  -Math.log10(cnf+x)
+  }
+
+  calculateBfvsBd(cnf,cnd,kb) : number {
+    let x : number = this.calculateQuadratic(1,(cnf+kb),-(cnd*kb));
+    return  -Math.log10(1e-14/(cnf+x))
   }
 
   setChemical1to2(item1 : Item , item2 : Item ,Fc :number) : Chemical {

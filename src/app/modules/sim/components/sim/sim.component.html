@@ -1,4 +1,4 @@
-<mat-card  fxLayout="row" fxLayoutAlign="start start" class=" pxs-5  mat-elevation-z0" >
+<mat-card  fxLayout="row" fxLayoutAlign="start start" class=" pxs-5  mat-elevation-z0" style="min-height: 70vh">
 
     <!-- ARMARIO -->
     <div fxFlex="30" class="mrs-3 prs-2 box-toolboard">
@@ -356,7 +356,7 @@
 </mat-card>
 
 
-<div fxLayout="column" fxLayoutAlign="center center">
+<div fxLayout="column" fxLayoutAlign="center center" class="mbs-3">
   <span *ngIf="!this.firstSave" class="text-secondary mbs-2">{{'Trabajando en '+this.actualExperiment.title+' .Último guardado: '+this.actualExperiment.date}} </span>
   <button mat-raised-button color="primary"  (click)="this.onClickSaveExperiment()" >Guardar</button>
 </div>

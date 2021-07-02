@@ -43,22 +43,23 @@
       </mat-toolbar>
   </div>
   
-  <div  class="sim" style="min-height: 70vh;">
+  <div  class="sim" style="min-height: 90vh;overflow: scroll;">
       <router-outlet ></router-outlet>
+        <!-- Footer -->
+      <div   class="footer py-1" >
+        <div fxLayout="row" fxLayoutAlign="center center" >
+            <div fxFLex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" >
+                <span class="text-secondary-darker">Copyright ©2021 </span>
+                <span class="text-secondary-darker">Todos los derechos reservados</span>
+                <span class="text-secondary-darker"> Facultad de Ingeniería - UNMdP</span>
+                
+            </div>
+        </div>
+        
+    </div>
   </div>
   
-  <!-- Footer -->
-  <div   class="footer py-1"  >
-      <div fxLayout="row" fxLayoutAlign="center center" >
-          <div fxFLex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" >
-              <span class="text-secondary-darker">Copyright ©2021 </span>
-              <span class="text-secondary-darker">Todos los derechos reservados</span>
-              <span class="text-secondary-darker"> Facultad de Ingeniería - UNMdP</span>
-              
-          </div>
-      </div>
-      
-  </div>
+
   
 </div>
 

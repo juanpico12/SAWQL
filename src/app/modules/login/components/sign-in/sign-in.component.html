@@ -30,13 +30,13 @@
 
 
 
-  <div fxLayout="column" fxFlex.lt-md="100" fxFlex.gt-sm="75"  fxLayoutAlign="center center" fxFlexOrder.lt-md="2"
+  <div fxLayout="column" fxFlex.lt-md="100" fxFlex.gt-sm="75"  fxLayoutAlign="space-around center" fxFlexOrder.lt-md="2"
    style="background-color: white" >
-    <div   fxLayout="column" fxLayoutAlign="center center" class="mbs-3">
+    <div   fxLayout="column wrap" fxLayoutAlign="center center">
       <img  src="assets/logos/logoSawql.png" class="logo2 mbs-5"  />
       <h3 class="text-green-darker"> SIMULADOR DE OPERACIONES QUÍMICAS DE LABORATORIO </h3>
     </div>
-    <div fxFlex="50" class="mys-5 pxs-5 pts-5" fxLayout="column" fxLayoutAlign="start stretch">
+    <div class=" pxs-5 " fxLayout="column" fxLayoutAlign="start stretch" >
       <ng-container *ngIf="!this.authService.loadingSignIn; else loadingSignIn">
         <mat-card  style="min-width: 350px;">
           <mat-card-content >
@@ -90,8 +90,8 @@
       
     </div>
     
-    <div fxLayoutAlign="center center" fxLayout="column">
-      <img  src="assets/logos/logoFiunmdp.jpg" class="logo mts-5"  />
+    <div fxLayoutAlign="center center" fxLayout="column" >
+      <img  src="assets/logos/logoFiunmdp.jpg" class="logo"   />
     </div>
   </div>
 </div>

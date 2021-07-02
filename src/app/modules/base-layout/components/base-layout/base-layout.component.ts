@@ -4,6 +4,7 @@ import { LogService } from 'src/app/core/services/log.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-base-layout',
   templateUrl: './base-layout.component.html',
@@ -19,7 +20,8 @@ export class BaseLayoutComponent implements OnInit {
   };
   constructor(private authService: AuthService,
               private logService: LogService, 
-              public afAuth: AngularFireAuth,) { }
+              public afAuth: AngularFireAuth,
+              private router: Router ) { }
 
   ngOnInit(): void {
       this.afAuth.authState.subscribe(user => {
@@ -35,7 +37,10 @@ export class BaseLayoutComponent implements OnInit {
   }
 
   onClickNewExperiment(){
-    window.location.reload();
+    //Si ya estoy en sim, recargo la pag para que se reinicie el sim 
+    if(this.router.url.includes('sim')){
+      window.location.reload();
+    }
     this.logService.newLogs();
   }
   animationCreated(animationItem: AnimationItem): void {
