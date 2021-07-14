@@ -39,7 +39,12 @@ export class SimItemComponent implements OnInit,OnChanges {
       this.chemicalNameString = this.chemical.name + ' ';
     }
     if(!!this.volMax ){
-      this.volumeString = this.vol+'/'+ +this.volMax + ' ' + this.unit;
+      //its a matraz
+      if(this.id == 10 ){
+        this.volumeString = this.volMax + ' ' + this.unit;
+      }else{
+        this.volumeString = this.vol+'/'+ +this.volMax + ' ' + this.unit;
+      }
       this.tooltipData = 'Nombre: '+ this.name +'\n   Id: '+ this.id + ' \n Volumen: '+this.volumeString  +' \n ';
     }else{
       this.tooltipData = 'Nombre: '+ this.name +'\n   Id: '+ this.id ;

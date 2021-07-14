@@ -53,11 +53,11 @@ export class SimPhService {
              break; 
           } 
           case this.SOLUTION_TYPES.BASE_DEBIL: { 
-            pH =  - Math.log10(1e-14/Fc) ;
+              pH =  - Math.log10(1e-14 /this.calculateQuadratic(1,solution.chemical.Ka,(Fc*solution.chemical.Kb))) ; 
             break; 
           } 
           case this.SOLUTION_TYPES.BASE_FUERTE: { 
-              pH =  - Math.log10(1e-14 /this.calculateQuadratic(1,solution.chemical.Ka,(Fc*solution.chemical.Kb))) ; 
+              pH =  - Math.log10(1e-14/Fc) ;
             break; 
           } 
           default: { 
@@ -70,6 +70,7 @@ export class SimPhService {
           ItemNewPh.chemical.name=  ItemNewPh.chemical.name +' + '+ Item2.chemical.name;
           //Ya tenemos dos soluciones 
           ItemNewPh.chemical.solutionOf2 =true ; 
+          
         }  
         // BASE FUERTE vs ACIDO FUERTE
         if(Item2.chemical.id == this.SOLUTION_TYPES.BASE_FUERTE && ItemNewPh.chemical.id == this.SOLUTION_TYPES.ACIDO_FUERTE ){
@@ -149,7 +150,7 @@ export class SimPhService {
     return (InitialConcentration * InitialVol) / FinalVol;
   }
 
-  calculateQuadratic(a : number ,b : number ,c : number ) : number{
+  calculateQuadratic(a : number ,b : number ,c : number ,p1 ?: number  ,p2 ?: number) : number{
     let disc;
     disc=(b*b)-(4*a*c); 
     console.log(disc);
@@ -159,8 +160,16 @@ export class SimPhService {
     let x1 : number =  (-b+Math.sqrt(disc))/(2*a);
     let x2 : number =  (-b-Math.sqrt(disc))/(2*a);
     console.log(x1+ ' ' + x2);
-    
-    return x1 > x2 ? x1 : x2 ;
+    if(!!p1 && ((p1 + x1) > 0) && ((p2 - x1) > 0) ){
+      return x1
+    }else{
+      if(!!p1 && ((p1 + x2) > 0) && ((p2 - x2) > 0) ){
+        return x2
+      }else{
+        return x1 > x2 ? x1 : x2 ;
+      }
+     
+    }
   }
 
   calculateAfvsBf(nH : number, nOH:number , vol1  : number , vol2 : number) : number {
@@ -205,7 +214,7 @@ export class SimPhService {
       else{
         let cbe : number = (nOH - nH)/vf
         let csal : number = (nH/vf);
-        let x : number = this.calculateQuadratic(1,(csal*kb),-(kb*cbe));
+        let x : number = this.calculateQuadratic(1,(csal*kb),-(kb*cbe),csal,cbe);
         pH =  -Math.log10(1e-14/x)
       }
     }
@@ -213,12 +222,12 @@ export class SimPhService {
   }
 
   calculateAfvsAd(cnf ,cnd , ka): number {
-    let x : number = this.calculateQuadratic(1,(cnf+ka),-(cnd*ka));
+    let x : number = this.calculateQuadratic(1,(cnf+ka),-(cnd*ka),cnf,cnd);
     return  -Math.log10(cnf+x)
   }
 
   calculateBfvsBd(cnf,cnd,kb) : number {
-    let x : number = this.calculateQuadratic(1,(cnf+kb),-(cnd*kb));
+    let x : number = this.calculateQuadratic(1,(cnf+kb),-(cnd*kb),cnf,cnd);
     return  -Math.log10(1e-14/(cnf+x))
   }
 

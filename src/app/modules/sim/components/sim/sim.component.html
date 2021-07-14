@@ -1,4 +1,4 @@
-<mat-card  fxLayout="row" fxLayoutAlign="start start" class=" pxs-5  mat-elevation-z0" style="min-height: 70vh">
+<mat-card  fxLayout="row" fxLayoutAlign="start start" class=" pxs-5  mat-elevation-z0" >
 
     <!-- ARMARIO -->
     <div fxFlex="30" class="mrs-3 prs-2 box-toolboard">
@@ -337,9 +337,13 @@
               <mat-icon  class="material-icons-18 text-warn mts-1">report_problem</mat-icon>
               <span class="text-accent">{{ this.stringAlert}}</span>
             </div>
-            <div *ngIf="this.alert2Solutions" class="mys-2" fxLayout="row " fxLayoutAlign="center center">
+            <div *ngIf="this.alert2Solutions " class="mys-2" fxLayout="row " fxLayoutAlign="center center">
               <mat-icon  class="material-icons-18 text-warn mts-1">report_problem</mat-icon>
               <span class="text-accent">Se soportan solo dos sustancia por solución</span>
+            </div>
+            <div *ngIf="this.alertMatrazQuantityInvalid" class="mys-2" fxLayout="row " fxLayoutAlign="center center">
+              <mat-icon  class="material-icons-18 text-warn mbs-2">report_problem</mat-icon>
+              <span class="text-accent" style="text-align: center;">En un matraz aforado no se debe colocar un volumen distinto al de su aforo</span>
             </div>
           </div>
         </div>
@@ -356,7 +360,12 @@
 </mat-card>
 
 
-<div fxLayout="column" fxLayoutAlign="center center" class="mbs-3">
+<div *ngIf="!this.savingExperiment" fxLayout="column" fxLayoutAlign="center center" class="mbs-3">
   <span *ngIf="!this.firstSave" class="text-secondary mbs-2">{{'Trabajando en '+this.actualExperiment.title+' .Último guardado: '+this.actualExperiment.date}} </span>
   <button mat-raised-button color="primary"  (click)="this.onClickSaveExperiment()" >Guardar</button>
+</div>
+
+<div *ngIf="this.savingExperiment" fxLayout="column" fxLayoutAlign="center center" class="mbs-5">
+  <mat-spinner diameter="50"></mat-spinner>
+  <!-- <ng-lottie fxFlex="100" fxFlexOffset="15" [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 200px; max-width: 80vw;" ></ng-lottie> -->
 </div>

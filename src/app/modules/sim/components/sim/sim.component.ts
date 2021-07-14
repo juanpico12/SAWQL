@@ -26,9 +26,6 @@ import { DatePipe } from '@angular/common';
 export class SimComponent implements OnInit {
   SOLUTION_DESCRIPTION = SOLUTION_DESCRIPTION;
   LOG_ALERTS =LOG_ALERTS;
-  optionsLottie: AnimationOptions = {
-    path: 'assets/animations/microscope.json',
-  };
   valueVol : number = 0;
   item1 : Item []= [];
   item2 : Item[]=  [];
@@ -47,11 +44,20 @@ export class SimComponent implements OnInit {
   erlenmeyers : Item[]; 
   stringAlert : string ;
 
+
+  //Lottie
+  optionsLottie: AnimationOptions = {
+    path: 'assets/animations/microscope.json',
+  };
+
   //Experimento actual ya guardado al menos una vez
   actualExperiment : Experiment;
   
 
   //**FLAGS */
+  //Guardando/Actualizacion exp
+  savingExperiment : boolean = false;
+
   //firstSave -> create experimente at Db , else update
   firstSave : boolean =true;
   //pour true -> Verter , pour false -> retirar
@@ -59,6 +65,9 @@ export class SimComponent implements OnInit {
 
   //Alert invalid vol
   alertQuantityInvalid : boolean =false;
+
+  //Alert invalid matraz quantity
+  alertMatrazQuantityInvalid : boolean =false;
 
   //Alert of 2 solutions
   alert2Solutions : boolean =false;
@@ -304,72 +313,103 @@ export class SimComponent implements OnInit {
   }
 
   onClickPourOrWithdraw(){
+
     //Generamos estos aux para usarlos en el log , ya que modificamos los chemicals orignales en el proceso
     let chemical1Aux : Chemical = {...this.item1[0].chemical};
     let chemical2Aux : Chemical = {...this.item2[0].chemical};
     if(this.pour){
-      if( this.SimMathService.canPour(this.item2[0].vol ,this.item1[0].vol ,this.item1[0].volMax , this.valueVol )){
-        if(this.item1[0].vol ==0){
-          this.setChemical2to1()
-        }
-        //Calculo nuevo volumen
-        this.item1[0].vol = this.item1[0].vol + this.valueVol;
-        this.item2[0].vol = this.item2[0].vol - this.valueVol;
-        //Recalculo PH en destino 
-        let pH: number = this.SimPhService.calculatePh(this.item1[0],this.item2[0],this.valueVol);
-        //seteo descp
-        this.setDescription(pH,this.item1[0]);
-        console.log(pH);
-        if(!!pH){
-          this.item1[0].chemical.pH = pH;
-        }
-        //Recalculo PH en origen si se vacio el vol y reseteo chemical
-        if(this.item2[0].vol <= 0){
-        this.item2[0].chemical.pH = null;
-        this.setChemicalToNull(this.item2[0])
-        }
-        //LOG ACTION
-        this.logService.addLog('El usuario vertió de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
+      //nos fijamos si es un matraz el destino para asegurarnos que se vierta el vol aforado
+      if(this.item1[0].id == 10 && (this.item1[0].vol + this.valueVol) != this.item1[0].volMax){
+         //Se vertio en el matraz una cantidad mayor o menos a su aforo
+         this.alertMatrazQuantityInvalid =true;
+         this.logService.addLog('Cantidad a verter en matraz inválida -> El usuario quiso verter de un/una '+this.item2[0].name+' a un matraz de '+this.item1[0].volMax+' ml '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.ERROR);
+        
       }else{
-        //Cantidad a verter invalida
-        this.alertQuantityInvalid =true;
-        this.stringAlert = 'La cantidad seleccionada a verter es inválida'
-        //LOG ACTION
-        this.logService.addLog('Cantidad a verter inválida -> El usuario quiso verter de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : ' ' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
+        if( this.SimMathService.canPour(this.item2[0].vol ,this.item1[0].vol ,this.item1[0].volMax , this.valueVol )){
+          if(this.item1[0].vol ==0){
+            this.setChemical2to1()
+          }
+          //Calculo nuevo volumen
+          this.item1[0].vol = this.item1[0].vol + this.valueVol;
+          this.item2[0].vol = this.item2[0].vol - this.valueVol;
+          //Recalculo PH en destino 
+          let pH: number = this.SimPhService.calculatePh(this.item1[0],this.item2[0],this.valueVol);
+          //seteo descp
+          this.setDescription(pH,this.item1[0]);
+          console.log(pH);
+          if(!!pH){
+            this.item1[0].chemical.pH = pH;
+          }
+          //Recalculo PH en origen si se vacio el vol y reseteo chemical
+          if(this.item2[0].vol <= 0){
+          this.item2[0].chemical.pH = null;
+          this.setChemicalToNull(this.item2[0])
+          }
+          //LOG ACTION
+          this.logService.addLog('El usuario vertió de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
+        }else{
+          //Cantidad a verter invalida
+          this.alertQuantityInvalid =true;
+          this.stringAlert = 'La cantidad seleccionada a verter es inválida'
+          //LOG ACTION
+          console.log('pasooo');
+          
+          this.logService.addLog('Cantidad a verter inválida -> El usuario quiso verter de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : ' ' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
+        }
       }
+
       
     }else{
-      if( this.SimMathService.canWithdraw(this.item1[0].vol ,this.item2[0].vol ,this.item2[0].volMax , this.valueVol )){
-        if(this.item2[0].vol ==0){
-          this.setChemical1to2()
-        }
-        this.item2[0].vol = this.item2[0].vol + this.valueVol;
-        this.item1[0].vol = this.item1[0].vol - this.valueVol;
-         //Recalculo PH en destino 
-         let pH: number = this.SimPhService.calculatePh(this.item2[0],this.item1[0],this.valueVol);
-         //seteo descp
-         console.log(pH);
-         
-         this.setDescription(pH,this.item2[0]);
-         if(!!pH){
-          this.item2[0].chemical.pH = pH;
-        }
-        //Recalculo PH en origen si se vacio el vol y reseteo chemical
-        if(this.item1[0].vol <= 0){
-          this.item1[0].chemical.pH = null
-          this.setChemicalToNull(this.item1[0])
-        }
-        //LOG ACTION
-        this.logService.addLog('El usuario retiro de un/una '+this.item1[0].name+' a un/una '+this.item2[0].name+(!!chemical2Aux?.name ? ('('+chemical2Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0],this.item2[0].name+' -> '));
+      //nos fijamos si es un matraz el destino para asegurarnos que se vierta el vol aforado
+      if(this.item2[0].id == 10 && (this.item2[0].vol + this.valueVol) != this.item2[0].volMax){
+        //Se vertio en el matraz una cantidad mayor o menos a su aforo
+        this.alertMatrazQuantityInvalid =true;
+        this.logService.addLog('Cantidad a verter en matraz inválida -> El usuario quiso retirar de un/una '+this.item1[0].name+' a un matraz de '+this.item2[0].volMax+' ml '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.ERROR);
       }else{
-        //Cantidad a retirar invalida
-        this.alertQuantityInvalid =true;
-        this.stringAlert = 'La cantidad seleccionada a retirar es inválida'
-        //LOG ACTION
-        this.logService.addLog('Cantidad a verter inválida -> El usuario quiso retirar de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : ' ' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.WARN);
-
+        if( this.SimMathService.canWithdraw(this.item1[0].vol ,this.item2[0].vol ,this.item2[0].volMax , this.valueVol )){
+          if(this.item2[0].vol ==0){
+            this.setChemical1to2()
+          }
+          this.item2[0].vol = this.item2[0].vol + this.valueVol;
+          this.item1[0].vol = this.item1[0].vol - this.valueVol;
+           //Recalculo PH en destino 
+           let pH: number = this.SimPhService.calculatePh(this.item2[0],this.item1[0],this.valueVol);
+           //seteo descp
+           console.log(pH);
+           
+           this.setDescription(pH,this.item2[0]);
+           if(!!pH){
+            this.item2[0].chemical.pH = pH;
+          }
+          //Recalculo PH en origen si se vacio el vol y reseteo chemical
+          if(this.item1[0].vol <= 0){
+            this.item1[0].chemical.pH = null
+            this.setChemicalToNull(this.item1[0])
+          }
+          //LOG ACTION
+          this.logService.addLog('El usuario retiro de un/una '+this.item1[0].name+' a un/una '+this.item2[0].name+(!!chemical2Aux?.name ? ('('+chemical2Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0],this.item2[0].name+' -> '));
+        }else{
+          //Cantidad a retirar invalida
+          this.alertQuantityInvalid =true;
+          this.stringAlert = 'La cantidad seleccionada a retirar es inválida'
+          //LOG ACTION
+          this.logService.addLog('Cantidad a retirar inválida -> El usuario quiso retirar de un/una '+this.item1[0].name+' a un/una '+this.item2[0].name+( !!chemical2Aux?.name ? ('('+chemical2Aux.name+')' ) : ' ' )+' '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.WARN);
+  
+        }
+        
       }
       
+    }
+
+    //No permito que vuelva a verter/retirar otra sustancia 
+    if(!!this.item1[0] && !!this.item1[0].chemical?.solutionOf2 && this.item1[0].chemical.solutionOf2 == true && this.phMetro == false){
+      this.alert2Solutions = true;
+      this.canPour = false;
+    }else{
+      if(!!this.item2[0] && !!this.item2[0].chemical?.solutionOf2 && this.item2[0].chemical.solutionOf2 == true && this.phMetro == false){
+        this.alert2Solutions = true;
+        this.canWithdraw = false;
+      }
     }
   }
 
@@ -377,6 +417,7 @@ export class SimComponent implements OnInit {
     //alertas en false
     this.alertQuantityInvalid =false;
     this.alert2Solutions = false;
+    this.alertMatrazQuantityInvalid = false;
     // Identifico el pHMetro 
     if(!!this.item1[0] && !!this.item2[0] && this.item1[0].id == 310 ){
         this.phMetro = true;
@@ -530,12 +571,14 @@ export class SimComponent implements OnInit {
             date : this.datePipe.transform(new Date(), 'HH:mm dd-MM-yyyy') ,
             logs : this.logService.getLogs()
           }
-          
+          //loading 
+          this.savingExperiment = true;
           this.experimentDBService.create(experiment).then((dataa) => {
             Swal.fire({
               icon: 'success',
               title: 'Experimento guardado correctamente',
             })
+            this.savingExperiment = false;
             console.log('Created new item successfully!');
             console.log(experiment);
             this.actualExperiment = experiment;
@@ -546,12 +589,14 @@ export class SimComponent implements OnInit {
               icon: 'error',
               title: 'Ocurrio un error al guardarlo, intente nuevamente',
             })
+            this.savingExperiment = false;
           })
         }
         
       })  
     }else{
       //UPDATE
+      this.savingExperiment = true;
       let experiment : Experiment = {
         title : this.experimentDBService.getActualExperiment().title,
         date : this.datePipe.transform(new Date(), 'HH:mm dd-MM-yyyy'),
@@ -561,11 +606,13 @@ export class SimComponent implements OnInit {
         console.log('Update item successfully!');    
         this.experimentDBService.setActualExperiment(experiment);  
         this.actualExperiment = experiment;
+        this.savingExperiment = false;
         Swal.fire({
           icon: 'success',
           title: 'Experimento guardado correctamente',
         })
       },err => {
+        this.savingExperiment = false;
         console.log(err);
         Swal.fire({
           icon: 'error',

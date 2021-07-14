@@ -1,5 +1,5 @@
-<div *ngIf="!loadingUser ; else loadingUserInfo" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="2%" style="height: 100vh;">
-  <div  >
+<div *ngIf="!loadingUser ; else loadingUserInfo" fxLayout="column" fxLayoutAlign="space-between stretch"  style="height: 100vh;">
+  <div  style="height: 20vh;">
       <mat-toolbar  color="primary">
           <button mat-icon-button class="mbs-1" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <mat-icon color="accent">menu</mat-icon>
@@ -43,10 +43,13 @@
       </mat-toolbar>
   </div>
   
-  <div  class="sim" style="min-height: 90vh;overflow: scroll;">
-      <router-outlet ></router-outlet>
+  <div  class="sim" style="height: 100vh;overflow: scroll;">
+      <div style="min-height: 75vh;">
+        <router-outlet ></router-outlet>
+      </div>
+      
         <!-- Footer -->
-      <div   class="footer py-1" >
+      <div style="min-height: 5vh;"  class="footer py-1" >
         <div fxLayout="row" fxLayoutAlign="center center" >
             <div fxFLex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" >
                 <span class="text-secondary-darker">Copyright ©2021 </span>
