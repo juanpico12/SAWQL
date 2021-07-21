@@ -1,10 +1,10 @@
 <div *ngIf="!loadingUser ; else loadingUserInfo" fxLayout="column" fxLayoutAlign="space-between stretch"  style="height: 100vh;">
   <div  style="height: 20vh;">
-      <mat-toolbar  color="primary">
+      <mat-toolbar style="background-color: white;">
           <button mat-icon-button class="mbs-1" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-            <mat-icon color="accent">menu</mat-icon>
+            <mat-icon color="primary">menu</mat-icon>
           </button>
-          <span class="text-accent" matTooltip="Simulador de aprendizaje web de operaciones químicas de laboratorio
+          <span class="text-primary" matTooltip="Simulador de aprendizaje web de operaciones químicas de laboratorio
           "  matTooltipPosition="right" matTooltipClass="tooltip">SAWQL</span>
           <span fxFlex="1 1 auto"></span>
           
@@ -14,7 +14,7 @@
           </ngx-avatar>
           <button  mat-icon-button class="mr-0 pr-0 mls-2"
               [matMenuTriggerFor]="menuUser">
-              <mat-icon color="accent">logout</mat-icon>
+              <mat-icon color="primary">logout</mat-icon>
           </button>
   
           <mat-menu #menuUser="matMenu">
@@ -52,9 +52,9 @@
       <div style="min-height: 5vh;"  class="footer py-1" >
         <div fxLayout="row" fxLayoutAlign="center center" >
             <div fxFLex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" >
-                <span class="text-secondary-darker">Copyright ©2021 </span>
-                <span class="text-secondary-darker">Todos los derechos reservados</span>
-                <span class="text-secondary-darker"> Facultad de Ingeniería - UNMdP</span>
+                <span class="text-secondary-lighter">Copyright ©2021 </span>
+                <span class="text-secondary-lighter">Todos los derechos reservados</span>
+                <span class="text-secondary-lighter"> Facultad de Ingeniería - UNMdP</span>
                 
             </div>
         </div>

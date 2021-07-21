@@ -4,3 +4,17 @@
     max-width: 100%;
     border: dotted #ccc 2px;
   }
+
+.home-container{
+  background-image: url('../../../../../assets/logos/home.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  background-color: white;
+  min-height: 80vh;
+  overflow: visible;
+  max-width: 100vw;
+
+}

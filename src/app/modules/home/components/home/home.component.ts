@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   elementsInTable = ['']
 
   ngOnInit(): void {
-    
+
   }
 
 

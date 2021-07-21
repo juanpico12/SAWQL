@@ -38,9 +38,25 @@
         </div>
     </div>
 </div> -->
+
 <div  fxLayout="column" fxLayoutAlign="center center" >
-    <button mat-raised-button color="primary" [routerLink]="['../sim']"   routerLinkActive="router-link-active" (click)="this.onClickNewExperiment()">Iniciar Experimento</button>
+    <div class="home-container" fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.xs="center center" >
+        <div class="prs-5" fxFlex="40" fxFlex.sm = "30" fxFlex.xs="60"  fxLayout="column" fxLayoutAlign="start center">
+            <h1 style="color: white;" class="prs-5">¡Bienvenidos a SAWQL!</h1>
+            <h3 style="color: white;">SAWQL (simulador de aprendizaje web de operaciones quimicas de laboratorio)<br><br>
+
+                El departamento de Informática en conjunto con el departamento de química de la facultad de ingeniería de la UNMdP desarrollaron este sistema para brindarles a los estudiantes una solución frente a la falta de recursos, tiempo y accesibilidad del laboratorio físico.</h3>
+            <button class="mts-2" mat-raised-button color="primary" [routerLink]="['../sim']"   routerLinkActive="router-link-active" (click)="this.onClickNewExperiment()">Iniciar Experimento</button>
+        </div>
+        
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" class="mts-4">
+        <h1 class="text-green-darker">Video Tutorial </h1>
+    </div>
+   
 </div>
+
+
 
 
 
