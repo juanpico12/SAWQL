@@ -1,16 +1,26 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ExperimentDBService } from 'src/app/core/services/experiment-db.service';
 import { CustomValidators } from 'src/app/core/validators/custom-validators';
 import { Experiment } from 'src/app/shared/models/experiment';
 import * as _ from "lodash";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 @Component({
   selector: 'app-experiments',
   templateUrl: './experiments.component.html',
   styleUrls: ['./experiments.component.scss'],
 })
 export class ExperimentsComponent implements OnInit {
+   // Lottie
+    optionsLottie: AnimationOptions = {
+    path: 'assets/animations/atom.json',
+  };
   experiments : Experiment[] = [];
+  loadingPdf : boolean = false;
+  openMatExpansion : string = null;
   nextKey : any =null;
   prevKeys : any[] = [];
   nextFlag : any =false;
@@ -23,6 +33,9 @@ export class ExperimentsComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.createSearchExperimentsForm();
     
+  }
+
+  animationCreated(animationItem: AnimationItem): void {
   }
 
   nextPage(){
@@ -98,6 +111,47 @@ export class ExperimentsComponent implements OnInit {
       }
       this.getExperiments()
     }
+  }
+
+  onClickDownloadPDF(experiment,i) {
+    console.log(i);
+    
+    console.log(experiment);
+    console.log(experiment.key);
+    this.openMatExpansion = experiment.key;
+    this.loadingPdf =true;
+    setTimeout(() => {
+      // Extraemos el
+    const DATA = document.getElementById(i);
+    console.log(DATA);
+    
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+
+    html2canvas(DATA, options).then((canvas) => {
+
+      const img = canvas.toDataURL('image/PNG');
+
+      // Add image Canvas to PDF
+      const bufferX = 40;
+      const bufferY = 70;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.text('Alumno : '+this.form.get(this.EMAIL).value,120,50,null,0)
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      this.loadingPdf = false;
+      docResult.save(experiment.date+'_'+experiment.title+'_'+this.form.get(this.EMAIL).value);
+      this.openMatExpansion = null;
+    });
+    }, 1000);
+    
+   
   }
 
 }

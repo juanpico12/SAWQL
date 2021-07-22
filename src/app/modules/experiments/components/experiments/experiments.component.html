@@ -1,5 +1,6 @@
 
 <div fxLayout="row" fxLayoutAlign="start start"   class="px-3 pts-5" style="min-height: 80vh;">
+
     <div fxFlex="100" fxLayout="column" fxLayoutAlign="center center">
         <form  (submit)="getExperiments()" [formGroup]="form">
             <mat-form-field class="mrs-3" style="min-width: 220px;">
@@ -11,46 +12,66 @@
             <button  mat-raised-button color="primary" type="submit">Buscar</button>
     
         </form>
+        <div *ngIf="this.loadingPdf" fxLayout="row" fxLayoutAlign="center center"   class="spinner">
+          <ng-lottie fxFlex="100"  [options]="optionsLottie" (animationCreated)="animationCreated($event)" style="width: 200px;max-width: 80vw;" ></ng-lottie>
+        </div>
         <div fxFlex  fxLayout="column" fxLayoutAlign="center stretch" class="mbs-3">
-          <div  *ngFor="let experiment of this.experiments;">
-  
-            <mat-expansion-panel class="mb-0 mxs-3 mat-elevation-z0" style="min-width:80vw;">
-              <mat-expansion-panel-header   class="px-1 ">
-                <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
-                  <mat-icon class="mat-18 text-accent mrs-2">event</mat-icon>
-                  <span class="mb-0"> {{experiment.date }} </span>
-                  <mat-icon class="mat-18 text-accent mxs-2">remove</mat-icon>
-                  <!-- <span class="text-accent">&nbsp;~&nbsp; </span> -->
-                  <span class="text-secondary"> Experimento:&nbsp;</span>
-                  <span class="mb-0 text-accent"> {{experiment.title }} </span>
-                </mat-panel-title>
-                <div fxFlex fxLayout="row" fxLayoutAlign="end end" >
-                  <span class="text-secondary mrs-2">Ver logs</span>
-                </div>
-                
-              </mat-expansion-panel-header>
-              <div  *ngIf="!!experiment.logs" >
-                  <div   *ngFor="let log of experiment.logs" fxLayout="column" fxLayoutAlign="start stretch" class="mbs-3">
-                      
-                      <h3  class="text-secondary-darker mb-0" fxLayout="row" fxLayoutAlign="start center">
-                        <mat-icon *ngIf="log.alert ==0" class="mat-icon-small text-primary">fiber_manual_record</mat-icon>
-                        <mat-icon *ngIf="log.alert ==1" class="mat-icon-small yellow-icon">fiber_manual_record</mat-icon>
-                        <mat-icon *ngIf="log.alert ==2" class="mat-icon-small red-icon" color='red'>fiber_manual_record</mat-icon>
-                        {{log.st}} 
-                      </h3> 
-                      <div *ngIf="!!log.extraData" fxLayout="row" fxLayoutAlign="start end">
-                        <mat-icon class="mat-18 mls-2 text-secondary">subdirectory_arrow_right</mat-icon>
-                        <span class="mls-3 mts-1 text-secondary" >{{log.extraData}} </span>
-                      </div>
-                      
-                  </div>
-              </div>
-              <mat-divider></mat-divider>
+
+          <mat-accordion displayMode="default" [multi]="false"
+                         >
+                         <div  *ngFor="let experiment of this.experiments;let i = index;" >
+                          <div fxLayout="row"  fxLayoutAlign="start start" >
+                            <mat-expansion-panel fxFlex="95" class="mb-0 mxs-3 mat-elevation-z0" style="min-width:80vw;" [expanded]="experiment.key == this.openMatExpansion" id="{{i}}">
+                              <mat-expansion-panel-header   class="px-1 ">
+                                <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                                  <mat-icon class="mat-18 text-accent mrs-2">event</mat-icon>
+                                  <span class="mb-0"> {{experiment.date }} </span>
+                                  <mat-icon class="mat-18 text-accent mxs-2">remove</mat-icon>
+                                  <!-- <span class="text-accent">&nbsp;~&nbsp; </span> -->
+                                  <span class="text-secondary"> Experimento:&nbsp;</span>
+                                  <span class="mb-0 text-accent"> {{experiment.title }} </span>
+                                </mat-panel-title>
+                                
+                                <div fxFlex fxLayout="row" fxLayoutAlign="end end" >
+                                  
+                                  <span class="text-secondary mrs-2">Ver logs</span>
+                                </div>
+                                
+                              </mat-expansion-panel-header>
+                              <div  *ngIf="!!experiment.logs" >
+                                  <div   *ngFor="let log of experiment.logs"  fxLayout="column" fxLayoutAlign="start stretch" class="mbs-3">
+                                      
+                                      <h3  class="text-secondary-darker mb-0" fxLayout="row" fxLayoutAlign="start center">
+                                        <mat-icon *ngIf="log.alert ==0" class="mat-icon-small text-primary">fiber_manual_record</mat-icon>
+                                        <mat-icon *ngIf="log.alert ==1" class="mat-icon-small yellow-icon">fiber_manual_record</mat-icon>
+                                        <mat-icon *ngIf="log.alert ==2" class="mat-icon-small red-icon" color='red'>fiber_manual_record</mat-icon>
+                                        {{log.st}} 
+                                      </h3> 
+                                      <div *ngIf="!!log.extraData" fxLayout="row" fxLayoutAlign="start end">
+                                        <mat-icon class="mat-18 mls-2 text-secondary">subdirectory_arrow_right</mat-icon>
+                                        <span class="mls-3 mts-1 text-secondary" >{{log.extraData}} </span>
+                                      </div>
+                                      
+                                  </div>
+                              </div>
+                              <mat-divider></mat-divider>
+                              
+                            </mat-expansion-panel>
+                            <div fxFlex="5" > 
+                              <button   mat-icon-button [disabled]="this.loadingPdf" class="mat-18 text-accent mxs-2" matTooltip="Descargar logs en formato PDF" (click)="this.onClickDownloadPDF(experiment,i)"><mat-icon>picture_as_pdf</mat-icon></button>
               
-            </mat-expansion-panel>
-           
-            
-          </div>
+                            </div>
+                          </div>
+                          
+                          
+                         
+                          
+                        </div>
+          </mat-accordion>
+          <!-- LOADING PDF -->
+          <!-- <mat-spinner fxFlex="100" *ngIf="this.loadingPdf"  ></mat-spinner> -->
+
+
           <div fxLayout="row" fxLayoutAlign="center start" class="mts-2">
             <mat-form-field *ngIf="!!this.experiments && this.experiments.length > 0" class="mrs-3" appearance="outline" style="max-width:80px ;"> 
               <mat-label>Cantidad</mat-label>
