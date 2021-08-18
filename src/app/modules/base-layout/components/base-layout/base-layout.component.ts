@@ -26,6 +26,8 @@ export class BaseLayoutComponent implements OnInit {
   ngOnInit(): void {
       this.afAuth.authState.subscribe(user => {
         if(!!user){
+          console.log(user);
+          
           this.user= this.authService.GetUserData();
           this.loadingUser = false;
         }

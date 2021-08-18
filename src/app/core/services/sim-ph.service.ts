@@ -17,6 +17,7 @@ export class SimPhService {
     let pH  : number;
     let volAnt : number = ItemNewPh.vol - vol ;
     console.log(ItemNewPh);
+    console.log(Item2);
     if(volAnt > 0 ){
       //Estoy agregando agua vs acf, acd, bf,bd || acf, acd, bf,bd vs agua
       if(Item2.id == 300 || ItemNewPh.chemical.id== this.SOLUTION_TYPES.AGUA){
@@ -128,8 +129,24 @@ export class SimPhService {
                         let nOH : number = Item2.chemical.concentration * vol;
                         pH = this.calculateAfvsBd(nH, nOH ,volAnt ,vol,Item2.chemical.Kb )
                       }else{
-                        pH = Item2.chemical.pH
-        
+                        //ACIDO DEBIL vs BASE FUERTE
+                        if(Item2.chemical.id == this.SOLUTION_TYPES.ACIDO_DEBIL && ItemNewPh.chemical.id == this.SOLUTION_TYPES.BASE_FUERTE ){
+                          //EN EL DESTINO TENEMOS BASE FUERTE Y AGREGAMOS ACIDO DEBIL
+                          let nH : number = Item2.chemical.concentration * vol;
+                          let nOH : number = ItemNewPh.chemical.concentration * volAnt;
+                          pH = this.calculateAdvsBf(nH, nOH , volAnt ,vol, Item2.chemical.Ka )
+
+                        }else{
+                          if(Item2.chemical.id == this.SOLUTION_TYPES.BASE_FUERTE && ItemNewPh.chemical.id == this.SOLUTION_TYPES.ACIDO_DEBIL ){
+                            //EN EL DESTINO TENEMOS ACIDO_DEBIL Y AGREGAMOS BASE_FUERTE
+                            let nH : number = ItemNewPh.chemical.concentration * volAnt;
+                            let nOH : number = Item2.chemical.concentration * vol;
+                            
+                            pH = this.calculateAdvsBf(nH, nOH ,volAnt ,vol,ItemNewPh.chemical.Ka )
+                          }else{
+                            pH = Item2.chemical.pH
+                          } 
+                        }
                       }
                     }               
                   }
@@ -140,7 +157,7 @@ export class SimPhService {
           }
         }
       }
-    }else{
+    } else{
       pH= Item2.chemical.pH;
     }
     return pH ;
@@ -193,33 +210,77 @@ export class SimPhService {
     return pH
   }
 
-  calculateAfvsBd(nH : number, nOH:number , vol1  : number , vol2 : number ,kb : number) : number {
+  calculateAfvsBd(nH : number, nOH:number , vol1  : number , vol2 : number ,ka : number) : number {
+    //vol 1 -> volumen anterior
+    //vol 2 -> volumen a verter
     let result : number = nH - nOH ;
     let pH : number;
     let vf : number  = vol1 + vol2 ;
     const kw : number = 1e-14;
-    let ka : number = kw/kb;
+    let kb : number = kw/ka;
     console.log(result);
     
     if(result == 0) {
-      let csi :number = nH;
+      let csi :number = nH/vf;
       
       pH = -Math.log10(this.calculateQuadratic(1,ka,-(ka*csi)))
     }else{
       //nH > nOH
       if(result >0){
-        pH =  -Math.log10(result/vf)
+        let H = result/vf
+        pH =  -(Math.log10(H))
       }
       //nH < nOH
       else{
         let cbe : number = (nOH - nH)/vf
         let csal : number = (nH/vf);
-        let x : number = this.calculateQuadratic(1,(csal*kb),-(kb*cbe),csal,cbe);
+        let x : number = this.calculateQuadratic(1,(csal+kb),-(kb*cbe),csal,cbe);
         pH =  -Math.log10(1e-14/x)
       }
     }
     return pH
   }
+
+  calculateAdvsBf(nH : number, nOH:number , vol1  : number , vol2 : number ,ka : number) : number {
+    let result : number = nH - nOH ;
+    let pH : number;
+    let vf : number  = vol1 + vol2 ;
+    const kw : number = 1e-14;
+    let kb : number = kw/ka;
+    console.log(result);
+    
+    if(result == 0) {
+      let csi :number = nH/vf;
+      console.log(kb);
+      console.log(this.calculateQuadratic(1,kb,-(kb*csi)));
+      let pOH= - Math.log10(this.calculateQuadratic(1,kb,-(kb*csi)))
+      pH =14 -  pOH
+    }else{
+      //nH < nOH
+      if(result <0){
+        let OH = (nOH-nH)/vf;
+        let pOH=-(Math.log10(OH))
+        pH = 14 - pOH;
+      }
+      //nH > nOH
+      else{
+        console.log('paso');
+
+        
+        let cae : number = (nH - nOH)/vf
+        let csal : number = (nOH/vf);
+        let x : number = this.calculateQuadratic(1,(csal+ka),-(ka*cae),csal,cae);
+        console.log(cae);
+        console.log(csal);
+        console.log(x);
+        
+        pH = - Math.log10(x)
+      }
+    }
+    return pH
+  }
+
+  
 
   calculateAfvsAd(cnf ,cnd , ka): number {
     let x : number = this.calculateQuadratic(1,(cnf+ka),-(cnd*ka),cnf,cnd);
@@ -230,6 +291,8 @@ export class SimPhService {
     let x : number = this.calculateQuadratic(1,(cnf+kb),-(cnd*kb),cnf,cnd);
     return  -Math.log10(1e-14/(cnf+x))
   }
+
+
 
   setChemical1to2(item1 : Item , item2 : Item ,Fc :number) : Chemical {
     let chemical : Chemical = {

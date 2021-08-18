@@ -31,10 +31,39 @@
 
  .container-item{
   cursor: move;
+
  }
 
  ::ng-deep .tooltip{
   white-space: pre-line;
   
  }
+
+.delete-icon{
+  font-size: 30px;
+      width: 30px;
+      height: 30px;
+      min-height: 30px;
+ }
+ .delete-icon-icon{
+  // font-size: 25px;
+  //     width: 25px;
+  //     height: 25px;
+  //     min-height: 25px;
+  transform: 0.2;
+ }
+
+.delete-icon  ::ng-deep .mat-button-wrapper{
+   padding: 0;
+ }
+
+ .container-delete{
+  display: none!important;
+  position: absolute;
+  margin-bottom: 5rem;
+   margin-left: 4rem;
+}
+.container-item:hover .container-delete{
+ display: block!important;
+}
 

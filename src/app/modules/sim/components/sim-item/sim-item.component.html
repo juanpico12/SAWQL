@@ -1,5 +1,10 @@
 
-<div class="container-item"  fxLayout="column"  fxLayoutAlign="center center" [matTooltip]="this.tooltipData" matTooltipClass="tooltip">
+<div class="container-item"  fxLayout="column"  fxLayoutAlign="center center" [matTooltip]="this.tooltipData" matTooltipClass="tooltip"  >
+    <div *ngIf="this.delete"  class="container-delete" >
+        <button fxFlex="100" mat-mini-fab color="accent" aria-label="Example icon button with a delete icon" class="delete-icon" (click)="this.onClickDelete($event)">
+          <mat-icon class="delete-icon-icon text-primary " fxLayoutAlign="center center" >delete</mat-icon>
+        </button>
+    </div>
     <span *ngIf="!!this.chemicalNameString" class="text-green-darker" [innerHTML]="chemicalNameString"></span>
     <mat-icon  class="icon-size " *ngIf="this.icon" >{{ icon }}</mat-icon>
     <mat-icon   class="icon-size "  [ngClass]="iconSvgClass"  *ngIf="this.iconSvg" [svgIcon]="iconSvg" ></mat-icon>

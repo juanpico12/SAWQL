@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+
 import { Chemical } from 'src/app/shared/models/chemical';
 
 @Component({
@@ -18,13 +19,16 @@ export class SimItemComponent implements OnInit,OnChanges {
   @Input() vol: number;
   @Input() unit: number;
   @Input() chemical: Chemical;
+  @Input() delete: boolean =false;
+  @Output() onClickDeleteEvent = new EventEmitter();
+  showDelete : boolean = false;
   tooltipData : string;
   volumeString : string;
   chemicalNameString : string = null;
   constructor() { }
 
   ngOnInit(): void {
-
+    
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -32,6 +36,10 @@ export class SimItemComponent implements OnInit,OnChanges {
     //Add '${implements OnChanges}' to the class.
     this.setVolumeString();
 
+  }
+
+  onClickDelete(e){
+    this.onClickDeleteEvent.emit(e);
   }
 
   setVolumeString(){
