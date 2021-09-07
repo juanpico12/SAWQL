@@ -3,57 +3,37 @@
   <div fxHide fxShow.gt-sm fxFlex="25" fxLayout="column wrap"
       [style.background-image]="'url(./../../../../../assets/vertical-login.jpg)'"
       fxLayoutAlign="space-between center" class="img-overlay-side">
-      <div>
 
-      </div>
-      <div fxLayoutAlign="center start">
-        <!-- <img
-           src="{{env.actualTheme === themes.ADOMICILIO ? 'assets/logos/ADomicilio horizontal.png':'assets/logos/logoCompletoSinFondo.png'}}"
-           class="logo" /> -->
-        
-      <div fxLayoutAlign="center center" fxLayout="column">
-         <!-- <div fxLayoutAlign="center center">
-            <b class=" mat-h3 mts-1" style="color: white;margin: 0; opacity: 1;">
-               Powered by
-            </b>
-            <img class="logoTramontech" src="assets/logos/simfinix/logotext.png">
-         </div> -->
-         <!-- <span class="text-secondary-lighter" style=" opacity: 1;">
-            v&nbsp;{{pjson.version}}
-         </span> -->
-         
-     </div>
-      </div>
-   </div>
+  </div>
 
 
 
 
 
   <div fxLayout="column" fxFlex.lt-md="100" fxFlex.gt-sm="75"  fxLayoutAlign="space-around center" fxFlexOrder.lt-md="2"
-   style="background-color: white" >
-    <div   fxLayout="column wrap" fxLayoutAlign="center center">
-      <img  src="assets/logos/logoSawql.png" class="logo2 mbs-5"  />
-      <h3 class="text-green-darker"> SIMULADOR DE OPERACIONES QUÍMICAS DE LABORATORIO </h3>
+   style="background-color: white"  >
+    <div   fxLayout="column wrap" fxLayoutAlign="center center" class="pys-1">
+      <img  src="assets/logos/logoSawql.png" class="logo2 pbs-2"  />
+      <h3 class="text-green-darker mb-0 pbs-2"> SIMULADOR DE OPERACIONES QUÍMICAS DE LABORATORIO </h3>
     </div>
     <div class=" pxs-5 " fxLayout="column" fxLayoutAlign="start stretch" >
       <ng-container *ngIf="!this.authService.loadingSignIn; else loadingSignIn">
         <mat-card  style="min-width: 350px;">
           <mat-card-content >
             <!-- Google LogIn -->
-            <div fxLayout="column" fxLayoutAlign="center center" class="mys-2">
-                <span  class="mat-h1 text-green-darker">Inicia sesión con Google</span>
+            <div fxLayout="column" fxLayoutAlign="center center" class="pys-2">
+                <span  class="mat-h1 text-green-darker mbs-0 pbs-2">Inicia sesión con Google</span>
                 <button mat-icon-button  color="accent" aria-label="Google LogIn" (click)="this.onClickGoogleLogIn()">
                   <mat-icon svgIcon="google" class="google-icon"></mat-icon>
                 </button>    
             </div>
-            <h3 fxLayout="row" fxLayoutAlign="center center" class="text-green-darker">O</h3>
+            <h3 fxLayout="row" fxLayoutAlign="center center" class="text-green-darker mbs-0 pbs-2">O</h3>
             <form [formGroup]="form" fxLayout="column" (submit)="onLogin()">
               <!-- <mat-error *ngIf="loginInvalid">
                 The username and password were not recognised
               </mat-error> -->
               <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-form-field fxFlex="75">
+                <mat-form-field fxFlex="75" >
                   <input matInput placeholder="Email" formControlName="email" required>
                   <mat-error>
                     Ingrese un email válido porfavor
@@ -69,14 +49,14 @@
                 </mat-form-field>
               </div>
               
-              <div fxLayout="row" fxLayoutAlign="center center" class="mts-2">
+              <div fxLayout="row" fxLayoutAlign="center center" class="pts-2">
                 <button fxFlex="20" mat-raised-button color="primary" type="submit">Login</button>
               </div>
             </form>
-            <div fxLayout="row" fxLayoutAlign="center center" class="mts-4 mbs-2">
+            <div fxLayout="row" fxLayoutAlign="center center" class="pts-4 pbs-2">
               <button mat-button class="text-green-darker" routerLink="forgot-password">¿Olvidaste tu contraseña?</button>
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center" class="mys-2">
+            <div fxLayout="row" fxLayoutAlign="center center" class="pys-2">
               <span>¿No tienes una cuenta? <button mat-button  class="redirect text-green-darker" (click)="this.openDialog($event)">Registrate</button></span>
             </div>
           </mat-card-content>
