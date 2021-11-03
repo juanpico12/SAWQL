@@ -41,7 +41,7 @@
                               <div  *ngIf="!!experiment.logs" >
                                   <div   *ngFor="let log of experiment.logs"  fxLayout="column" fxLayoutAlign="start stretch" class="mbs-3">
                                       
-                                      <h3  class="text-secondary-darker mb-0" fxLayout="row" fxLayoutAlign="start center">
+                                       <h3  class="text-secondary-darker mb-0" fxLayout="row" fxLayoutAlign="start center">
                                         <mat-icon *ngIf="log.alert ==0" class="mat-icon-small text-primary">fiber_manual_record</mat-icon>
                                         <mat-icon *ngIf="log.alert ==1" class="mat-icon-small yellow-icon">fiber_manual_record</mat-icon>
                                         <mat-icon *ngIf="log.alert ==2" class="mat-icon-small red-icon" color='red'>fiber_manual_record</mat-icon>
@@ -49,7 +49,7 @@
                                       </h3> 
                                       <div *ngIf="!!log.extraData" fxLayout="row" fxLayoutAlign="start end">
                                         <mat-icon class="mat-18 mls-2 text-secondary">subdirectory_arrow_right</mat-icon>
-                                        <span class="mls-3 mts-1 text-secondary" >{{log.extraData}} </span>
+                                        <span class="mls-3 mts-1 text-secondary" [innerHTML]="log.extraData" ></span>
                                       </div>
                                       
                                   </div>

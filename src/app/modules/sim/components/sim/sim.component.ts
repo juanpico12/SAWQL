@@ -344,9 +344,9 @@ export class SimComponent implements OnInit {
         this.alert2Solutions = true;
         this.canPour = false;
       }else{
-            //nos fijamos si es un matraz el destino para asegurarnos que se vierta el vol aforado
-          if(this.item1[0].id == 10 && (this.item1[0].vol + this.valueVol) != this.item1[0].volMax){
-            //Se vertio en el matraz una cantidad mayor o menos a su aforo
+          //nos fijamos si es un matraz el destino para asegurarnos que se vierta <= al vol aforado
+          if(this.item1[0].id == 10 && (this.item1[0].vol + this.valueVol) > this.item1[0].volMax){
+            //Se vertio en el matraz una cantidad mayor  a su aforo
             this.alertMatrazQuantityInvalid =true;
             this.logService.addLog('Cantidad a verter en matraz inválida -> El usuario quiso verter de un/una '+this.item2[0].name+' a un matraz de '+this.item1[0].volMax+' ml '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.ERROR);
           
@@ -393,9 +393,9 @@ export class SimComponent implements OnInit {
         this.alert2Solutions = true;
         this.canWithdraw = false;
       }else{
-                //nos fijamos si es un matraz el destino para asegurarnos que se vierta el vol aforado
-      if(this.item2[0].id == 10 && (this.item2[0].vol + this.valueVol) != this.item2[0].volMax){
-        //Se vertio en el matraz una cantidad mayor o menos a su aforo
+      //nos fijamos si es un matraz el destino para asegurarnos que se vierta <= al vol aforado
+      if(this.item2[0].id == 10 && (this.item2[0].vol + this.valueVol) > this.item2[0].volMax){
+        //Se vertio en el matraz una cantidad mayor  a su aforo
         this.alertMatrazQuantityInvalid =true;
         this.logService.addLog('Cantidad a verter en matraz inválida -> El usuario quiso retirar de un/una '+this.item1[0].name+' a un matraz de '+this.item2[0].volMax+' ml '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.ERROR);
       }else{
@@ -575,9 +575,11 @@ export class SimComponent implements OnInit {
     if( Item.vol > 0){
       let pH : string
       let concetracion :string;
+      let volumen : string;
        Item.chemical.pH!=undefined &&  Item.chemical.pH!=null ? (pH = '  pH : '+  Item.chemical.pH) : '';
-       Item.chemical.concentration!=undefined &&  Item.chemical.concentration!=null ? (concetracion = '  Concentración : '+  Item.chemical.concentration+' '+ Item.chemical.unitConcentration ): '';
-      st  =(!!stInicio? stInicio: '')+'Contiene:  ' + Item.chemical.name + '  Volumen: ' +  Item.vol+'/'+ + Item.volMax + ' ' +  Item.unit+' '+concetracion+' '+pH ;
+       Item.chemical.concentration!=undefined &&  Item.chemical.concentration!=null ? (concetracion = '  Concentración : '+  Item.chemical.concentration+' '+ Item.chemical.unitConcentration ): concetracion = '';
+       (Item.id !=300 && !!Item.vol && !!Item.volMax ) ? volumen = ('  Volumen: ' +  Item.vol+'/'+ + Item.volMax + ' ' +  Item.unit) :  volumen = '';
+      st  =(!!stInicio? stInicio: '')+'Contiene:  ' + Item.chemical.name +' '+ volumen +' '+concetracion+' '+pH ;
     }else{
       st = ''
     }

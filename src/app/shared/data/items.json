@@ -4,7 +4,7 @@
                 {
                     "name" : "recipiente de acido clorhídrico",
                     "id" : 100,
-                    "icon" : "acid-item",
+                    "icon" : "acidoFuerte-item",
                     "unit" : "mL",
                     "vol" : 1000,
                     "volMax" : 1000,
@@ -19,15 +19,53 @@
                         "pH" : 0,
                         "solutionOf2 ": false
                     }
+                },
+                {
+                    "name" : "recipiente de ácido nítrico",
+                    "id" : 101,
+                    "icon" : "acidoFuerte-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "HNO<sub>3</sub>",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 1,
+                        "description" : "Solución ácida",
+                        "pH" : 0,
+                        "solutionOf2 ": false
+                    }
+                },
+                {
+                    "name" : "recipiente de ácido perclórico",
+                    "id" : 102,
+                    "icon" : "acidoFuerte-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "HClO<sub>4</sub>",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 1,
+                        "description" : "Solución ácida",
+                        "pH" : 0,
+                        "solutionOf2 ": false
+                    }
                 }
             ]
         },
         {
             "acidosDebiles": [
                 {
-                    "name" : "recipiente de ácido acético,",
+                    "name" : "recipiente de ácido acético",
                     "id" : 150,
-                    "icon" : "acid-item",
+                    "icon" : "acidoDebil-item",
                     "unit" : "mL",
                     "vol" : 1000,
                     "volMax" : 1000,
@@ -43,6 +81,46 @@
                         "pH" : 2.3784,
                         "solutionOf2 ": false
                     }
+                },
+                {
+                    "name" : "recipiente de ácido fórmico",
+                    "id" : 151,
+                    "icon" : "acidoDebil-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "HCOOH",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 2,
+                        "description" : "Solución ácida",
+                        "Ka" : 1.8e-4,
+                        "pH" : 1.875,
+                        "solutionOf2 ": false
+                    }
+                },
+                {
+                    "name" : "recipiente de ácido hipocloroso ",
+                    "id" : 152,
+                    "icon" : "acidoDebil-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "HClO",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 2,
+                        "description" : "Solución ácida",
+                        "Ka" : 3e-8,
+                        "pH" : 3.761,
+                        "solutionOf2 ": false
+                    }
                 }
             ]
         },
@@ -51,13 +129,53 @@
                 {
                     "name" : "recipiente de hidróxido de sodio",
                     "id" : 200,
-                    "icon" : "base-item",
+                    "icon" : "baseFuerte-item",
                     "unit" : "mL",
                     "vol" : 1000,
                     "volMax" : 1000,
                     "iconClass" : "",
                     "chemical": {
                         "name": "NaOH",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 3,
+                        "description" : "Solución básica",
+                        "pH" : 14
+                        ,
+                        "solutionOf2 ": false
+                    }
+                },
+                {
+                    "name" : "recipiente de hidróxido de litio",
+                    "id" : 201,
+                    "icon" : "baseFuerte-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "LiOH",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 3,
+                        "description" : "Solución básica",
+                        "pH" : 14
+                        ,
+                        "solutionOf2 ": false
+                    }
+                },
+                {
+                    "name" : "recipiente de hidróxido de potasio",
+                    "id" : 202,
+                    "icon" : "baseFuerte-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "KOH",
                         "concentration" : 1,
                         "unitConcentration" : "mol/L",
                         "state": "liquido",
@@ -75,7 +193,7 @@
                 {
                     "name" : "recipiente de hidróxido de amonio",
                     "id" : 250,
-                    "icon" : "base-item",
+                    "icon" : "baseDebil-item",
                     "unit" : "mL",
                     "vol" : 1000,
                     "volMax" : 1000,
@@ -92,7 +210,49 @@
                         ,
                         "solutionOf2 ": false
                     }
-                }
+                },
+                {
+                    "name" : "recipiente de anilina",
+                    "id" : 251,
+                    "icon" : "baseDebil-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "C<sub>5</sub>H<sub>5</sub>NH<sub>2</sub>",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 4,
+                        "description" : "Solución básica",
+                        "Kb" : 4.3e-10,
+                        "pH" : 9.317
+                        ,
+                        "solutionOf2 ": false
+                    }
+                },
+                {
+                    "name" : "recipiente de hidracina",
+                    "id" : 252,
+                    "icon" : "baseDebil-item",
+                    "unit" : "mL",
+                    "vol" : 1000,
+                    "volMax" : 1000,
+                    "iconClass" : "",
+                    "chemical": {
+                        "name": "N<sub>2</sub>H<sub>4</sub> ",
+                        "concentration" : 1,
+                        "unitConcentration" : "mol/L",
+                        "state": "liquido",
+                        "id" : 4,
+                        "description" : "Solución básica",
+                        "Kb" : 1.3e-6,
+                        "pH" : 11.057
+                        ,
+                        "solutionOf2 ": false
+                    }
+                } 
             ]
         },
         {
@@ -466,8 +626,8 @@
                     "id" : 300,
                     "icon" : "water-item",
                     "unit" : "mL",
-                    "vol" : 5000,
-                    "volMax" : 5000,
+                    "vol" : 99999999,
+                    "volMax" : 99999999,
                     "iconClass" : "",
                     "chemical": {
                         "name": "H<sub>2</sub>O",

@@ -34,8 +34,10 @@ export class AppComponent {
     this.generalService.addIcon('vasos-de-precipitados-item', 'vasos-de-precipitados-item.svg');
     this.generalService.addIcon('probeta-item', 'probeta-item.svg');
     this.generalService.addIcon('bureta-item', 'bureta-item.svg');
-    this.generalService.addIcon('acid-item', 'acid-item.svg');
-    this.generalService.addIcon('base-item', 'base-item.svg');
+    this.generalService.addIcon('acidoFuerte-item', 'acidoFuerte-item.svg');
+    this.generalService.addIcon('acidoDebil-item', 'acidoDebil-item.svg');
+    this.generalService.addIcon('baseFuerte-item', 'baseFuerte-item.svg');
+    this.generalService.addIcon('baseDebil-item', 'baseDebil-item.svg');
     this.generalService.addIcon('water-item', 'water-item.svg');
     this.generalService.addIcon('ph-meter-item', 'ph-meter-item.svg');
   }

@@ -129,13 +129,13 @@
                   </mat-panel-title>
                 </mat-expansion-panel-header>
             
-                <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div  cdkDrag>
-                    <div class="mxs-2 mys-2" *ngFor="let acido of this.acidosFuertes" [cdkDragData]="acido"  cdkDrag>
-                      <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
+                <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end"  class="mts-1 pbs-1 item-toolboard-box">
+                  <!-- <div  cdkDrag > -->
+                    <div class="mxs-2 mys-2" *ngFor="let acido of this.acidosFuertes" [cdkDragData]="acido"   cdkDrag>
+                      <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical" [chemicalConcentration]="this.acido.chemical?.concentration" [chemicalUnitConcentration]="this.acido.chemical.unitConcentration" [chemicalName]="this.acido.chemical.name"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
   
                     </div>
-                  </div>
+                  <!-- </div> -->
                 </div>
               </mat-expansion-panel>
               <!-- ACIDOS DEBILES -->
@@ -147,12 +147,12 @@
                 </mat-expansion-panel-header>
             
                 <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div  cdkDrag>
+
                     <div class="mxs-2 mys-2" *ngFor="let acido of this.acidosDebiles" [cdkDragData]="acido"  cdkDrag>
-                      <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
+                      <app-sim-item [iconSvg]="this.acido.icon" [chemical]="this.acido.chemical" [chemicalConcentration]="this.acido.chemical?.concentration" [chemicalUnitConcentration]="this.acido.chemical.unitConcentration" [chemicalName]="this.acido.chemical.name"  [vol]="this.acido.vol" [iconSvgClass]="this.acido.iconClass" [name]="this.acido.name" [id]="this.acido.id" [unit]="this.acido.unit" [volMax]="this.acido.volMax"></app-sim-item>
   
                     </div>
-                  </div>
+
                 </div>
               </mat-expansion-panel>
 
@@ -176,11 +176,11 @@
                 </mat-expansion-panel-header>
             
                 <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div  cdkDrag>
+
                     <div class="mxs-2 mys-2" *ngFor="let base of this.basesFuertes" [cdkDragData]="base"  cdkDrag>
-                      <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical"  [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
+                      <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical" [chemicalConcentration]="this.base.chemical?.concentration" [chemicalUnitConcentration]="this.base.chemical.unitConcentration" [chemicalName]="this.base.chemical.name" [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
                     </div>
-                  </div>
+
                 </div>
               </mat-expansion-panel>
               <!-- BASES DEBILES -->
@@ -192,11 +192,11 @@
                 </mat-expansion-panel-header>
             
                 <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
-                  <div  cdkDrag>
+
                     <div class="mxs-2 mys-2" *ngFor="let base of this.basesDebiles" [cdkDragData]="base"  cdkDrag>
-                      <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical"  [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
+                      <app-sim-item [iconSvg]="this.base.icon" [chemical]="this.base.chemical" [chemicalConcentration]="this.base.chemical?.concentration" [chemicalUnitConcentration]="this.base.chemical.unitConcentration" [chemicalName]="this.base.chemical.name"  [vol]="this.base.vol" [iconSvgClass]="this.base.iconClass" [name]="this.base.name" [id]="this.base.id" [unit]="this.base.unit" [volMax]="this.base.volMax"></app-sim-item>
                     </div>
-                  </div>
+
                 </div>
               </mat-expansion-panel>
 
@@ -214,7 +214,7 @@
             </mat-expansion-panel-header>
             <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
                 <div class="mxs-2 mys-2" *ngFor="let instrument of this.instrumentos" [cdkDragData]="instrument"  cdkDrag>
-                  <app-sim-item [iconSvg]="this.instrument.icon" [iconSvgClass]="this.instrument.iconClass" [vol]="this.instrument.vol" [name]="this.instrument.name" [id]="this.instrument.id" [unit]="this.instrument.unit" [volMax]="this.instrument.volMax"></app-sim-item>
+                  <app-sim-item [iconSvg]="this.instrument.icon" [iconSvgClass]="this.instrument.iconClass" [showVol]="false" [vol]="this.instrument.vol" [name]="this.instrument.name" [id]="this.instrument.id" [unit]="this.instrument.unit" [volMax]="this.instrument.volMax"></app-sim-item>
                 </div>
             </div>
 
@@ -231,7 +231,7 @@
     <div fxFlex="70" class="img-overlay-side " cdkDropListGroup>
       <h1 fxLayout="row" fxLayoutAlign="start start" class="mbs-1 mls-3">Mesa de Trabajo</h1>
       <div cdkDropList cdkDropListOrientation="horizontal" id="table" class="table mxs-2 mys-1" (cdkDropListDropped)="dropTable($event)" [cdkDropListData]="this.itemsOnTable">
-        <app-sim-item *ngFor="let item of this.itemsOnTable" class="example-box mrs-1" (onClickDeleteEvent)="this.onClickDeleteItemFromArray($event,item)" [delete]="'true'" [iconSvg]="this.item.icon" [iconSvgClass]="this.item.iconClass" [name]="this.item.name" [id]="this.item.id" [unit]="this.item.unit" [volMax]="this.item.volMax" [vol]="this.item.vol" [cdkDragData]="this.item" cdkDrag>
+        <app-sim-item *ngFor="let item of this.itemsOnTable" class="example-box mrs-2 mls-2" (onClickDeleteEvent)="this.onClickDeleteItemFromArray($event,item)" [delete]="'true'" [iconSvg]="this.item.icon" [iconSvgClass]="this.item.iconClass" [name]="this.item.name" [id]="this.item.id" [unit]="this.item.unit" [volMax]="this.item.volMax" [vol]="this.item.vol" [chemicalConcentration]="this.item.chemical?.concentration" [chemicalUnitConcentration]="this.item.chemical?.unitConcentration" [chemicalName]="this.item.chemical?.name" [cdkDragData]="this.item" cdkDrag>
         </app-sim-item>
 
         
@@ -247,7 +247,7 @@
                 [cdkDropListAutoScrollDisabled]="true" 
                 [cdkDropListData]="this.item1"
                 >
-                <app-sim-item *ngIf="!!this.item1[0]" (onClickDeleteEvent)="this.onClickDeleteItem1($event,item1[0])"  [iconSvg]="this.item1[0].icon" [delete]="'true'" [iconSvgClass]="this.item1[0].iconClass" [name]="this.item1[0].name" [id]="this.item1[0].id" [unit]="this.item1[0].unit" [volMax]="this.item1[0].volMax" [vol]="this.item1[0].vol"  [cdkDragData]="this.item1[0]" cdkDrag></app-sim-item>
+                <app-sim-item *ngIf="!!this.item1[0]" (onClickDeleteEvent)="this.onClickDeleteItem1($event,item1[0])"  [iconSvg]="this.item1[0].icon" [delete]="'true'" [iconSvgClass]="this.item1[0].iconClass" [name]="this.item1[0].name" [id]="this.item1[0].id" [unit]="this.item1[0].unit" [volMax]="this.item1[0].volMax" [vol]="this.item1[0].vol" [chemicalConcentration]="this.item1[0].chemical?.concentration" [chemicalUnitConcentration]="this.item1[0].chemical?.unitConcentration" [chemicalName]="this.item1[0].chemical?.name"  [cdkDragData]="this.item1[0]" cdkDrag></app-sim-item>
               </div>
             </div>
             <div  fxLayout="column" fxLayoutAlign="center center" class="middle-items">
@@ -265,7 +265,7 @@
                 [cdkDropListAutoScrollDisabled]="true"
                 [cdkDropListData]="this.item2"
                 >
-                <app-sim-item  *ngIf="!!this.item2[0]" (onClickDeleteEvent)="this.onClickDeleteItem2($event,item2[0])" [iconSvg]="this.item2[0].icon" [delete]="'true'" [iconSvgClass]="this.item2[0].iconClass" [name]="this.item2[0].name" [id]="this.item2[0].id" [unit]="this.item2[0].unit" [volMax]="this.item2[0].volMax" [vol]="this.item2[0].vol"  [cdkDragData]="this.item2[0]"   cdkDrag></app-sim-item>
+                <app-sim-item  *ngIf="!!this.item2[0]" (onClickDeleteEvent)="this.onClickDeleteItem2($event,item2[0])" [iconSvg]="this.item2[0].icon" [delete]="'true'" [iconSvgClass]="this.item2[0].iconClass" [name]="this.item2[0].name" [id]="this.item2[0].id" [unit]="this.item2[0].unit" [volMax]="this.item2[0].volMax" [vol]="this.item2[0].vol" [chemicalConcentration]="this.item2[0].chemical?.concentration" [chemicalUnitConcentration]="this.item2[0].chemical?.unitConcentration" [chemicalName]="this.item2[0].chemical?.name"  [cdkDragData]="this.item2[0]"   cdkDrag></app-sim-item>
               </div>
             </div>
       </div>  
@@ -275,7 +275,7 @@
         <div *ngIf="!!this.item1[0]" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" class="data-item1-box">
           <span *ngIf="!!this.item1[0].chemical" class="text-green-darker mbs-3" [innerHTML]="this.item1[0].chemical.name"></span>       
           <span class="text-accent mbs-3">{{this.item1[0].name}}</span> 
-          <span class="text-accent mbs-3" *ngIf="this.item1[0].vol != null && this.item1[0].vol != undefined">{{this.item1[0].vol}}/{{this.item1[0].volMax}} {{this.item1[0].unit}}</span>
+          <span class="text-accent mbs-3" *ngIf="this.item1[0].vol != null && this.item1[0].vol != undefined && this.item1[0].id != 300">{{this.item1[0].vol}}/{{this.item1[0].volMax}} {{this.item1[0].unit}}</span>
           <span class="text-accent mbs-3" *ngIf="!!this.item1[0].data">{{this.item1[0].data}}</span>
           <span class="text-accent mbs-3" *ngIf="!!this.item1[0].chemical?.description">{{this.item1[0].chemical.description}}</span>
         </div>
@@ -345,7 +345,7 @@
             </div>
             <div *ngIf="this.alertMatrazQuantityInvalid" class="mys-2" fxLayout="row " fxLayoutAlign="center center">
               <mat-icon  class="material-icons-18 text-warn mbs-2">report_problem</mat-icon>
-              <span class="text-accent" style="text-align: center;">En un matraz aforado no se debe colocar un volumen distinto al de su aforo</span>
+              <span class="text-accent" style="text-align: center;">En un matraz aforado no se debe colocar un volumen mayor al de su aforo</span>
             </div>
           </div>
         </div>
@@ -353,7 +353,7 @@
         <div *ngIf="!!this.item2[0]" fxFlex="25" fxLayout="column" fxLayoutAlign="center center" class="data-item2-box">
           <span *ngIf="!!this.item2[0].chemical" class="text-green-darker mbs-3" [innerHTML]="this.item2[0].chemical.name"></span>      
           <span class="text-accent mbs-3">{{this.item2[0].name}}</span> 
-          <span class="text-accent mbs-3" *ngIf="this.item2[0].vol != null && this.item2[0].vol != undefined">{{this.item2[0].vol}}/{{this.item2[0].volMax}} {{this.item2[0].unit}}</span>
+          <span class="text-accent mbs-3" *ngIf="this.item2[0].vol != null && this.item2[0].vol != undefined && this.item2[0].id != 300">{{this.item2[0].vol}}/{{this.item2[0].volMax}} {{this.item2[0].unit}}</span>
           <span class="text-accent mbs-3" *ngIf="!!this.item2[0].data">{{this.item2[0].data}}</span>
           <span class="text-accent mbs-3" *ngIf="!!this.item2[0].chemical?.description">{{this.item2[0].chemical.description}}</span>
         </div>

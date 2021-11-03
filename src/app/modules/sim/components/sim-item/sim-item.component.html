@@ -5,10 +5,11 @@
           <mat-icon class="delete-icon-icon text-primary " fxLayoutAlign="center center" >delete</mat-icon>
         </button>
     </div>
-    <span *ngIf="!!this.chemicalNameString" class="text-green-darker" [innerHTML]="chemicalNameString"></span>
+    <span><span *ngIf="!!this.chemicalNameString" class="text-green-darker" [innerHTML]="chemicalNameString"></span><span *ngIf="!!this.concentracionString" class="text-accent" >{{ this.concentracionString + ' '}}</span></span>
     <mat-icon  class="icon-size " *ngIf="this.icon" >{{ icon }}</mat-icon>
     <mat-icon   class="icon-size "  [ngClass]="iconSvgClass"  *ngIf="this.iconSvg" [svgIcon]="iconSvg" ></mat-icon>
     <!-- <h4 class="mbs-0 "  [ngClass]="class">{{this.name}}</h4> -->
-    <span class="">{{ this.volumeString}}</span>
+    <!-- <span  class="">{{ this.concentracionString}}</span> -->
+    <span *ngIf="this.showVol" class="">{{ this.volumeString}}</span>
 </div>
 

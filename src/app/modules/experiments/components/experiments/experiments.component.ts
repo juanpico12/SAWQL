@@ -78,7 +78,8 @@ export class ExperimentsComponent implements OnInit {
   // }
 
   getExperiments(key?){
-    this.experimentDBService.getExperiments2(this.form.get('email').value,this.size,key).then((snapshot) => {
+    let email = this.form.get('email').value.toLowerCase() ;
+    this.experimentDBService.getExperiments2(email,this.size,key).then((snapshot) => {
       if (snapshot.exists()) {
         
         this.experiments = Object.values(snapshot.val())
@@ -146,12 +147,21 @@ export class ExperimentsComponent implements OnInit {
       return doc;
     }).then((docResult) => {
       this.loadingPdf = false;
-      docResult.save(experiment.date+'_'+experiment.title+'_'+this.form.get(this.EMAIL).value);
+      docResult.save(experiment.date+'_'+experiment.title+'_'+this.nameOnEmail(this.form.get(this.EMAIL).value));
       this.openMatExpansion = null;
     });
     }, 1000);
     
    
   }
+
+  nameOnEmail(email : string){
+    if(!!email){
+      return email.split("@")[0]
+    }else{
+      ''
+    }
+  }
+  
 
 }

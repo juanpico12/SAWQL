@@ -19,6 +19,17 @@ export class SimPhService {
     console.log(ItemNewPh);
     console.log(Item2);
     if(volAnt > 0 ){
+      console.log('PASOOO');
+      
+      //ESTAMOS MEZCLANDO DOS SUSTANCIAS, RECALCULAMOS NOMBRE (Si no es la misma sustancia)
+      if(ItemNewPh.chemical.id != Item2.chemical.id ){
+        console.log('paso');
+        
+        ItemNewPh.chemical.name=  ItemNewPh.chemical.name +' + '+ Item2.chemical.name;
+        //Ya tenemos dos soluciones 
+        ItemNewPh.chemical.solutionOf2 =true ; 
+        
+      }  
       //Estoy agregando agua vs acf, acd, bf,bd || acf, acd, bf,bd vs agua
       if(Item2.id == 300 || ItemNewPh.chemical.id== this.SOLUTION_TYPES.AGUA){
         let water : Item;
@@ -49,12 +60,12 @@ export class SimPhService {
              break; 
           } 
           case this.SOLUTION_TYPES.ACIDO_DEBIL: { 
-              pH = - Math.log10( this.calculateQuadratic(1,solution.chemical.Ka,(Fc*solution.chemical.Ka))) ;
+              pH = - Math.log10( this.calculateQuadratic(1,solution.chemical.Ka,-(Fc*solution.chemical.Ka),null,Fc)) ;
              //statements; 
              break; 
           } 
           case this.SOLUTION_TYPES.BASE_DEBIL: { 
-              pH =  - Math.log10(1e-14 /this.calculateQuadratic(1,solution.chemical.Ka,(Fc*solution.chemical.Kb))) ; 
+              pH =  - Math.log10(1e-14 /this.calculateQuadratic(1,solution.chemical.Ka,-(Fc*solution.chemical.Kb),null,Fc)) ; 
             break; 
           } 
           case this.SOLUTION_TYPES.BASE_FUERTE: { 
@@ -66,13 +77,7 @@ export class SimPhService {
           } 
        }
       }else{
-        //ESTAMOS MEZCLANDO DOS SUSTANCIAS, RECALCULAMOS NOMBRE (Si no es la misma sustancia)
-        if(ItemNewPh.chemical.id != Item2.chemical.id ){
-          ItemNewPh.chemical.name=  ItemNewPh.chemical.name +' + '+ Item2.chemical.name;
-          //Ya tenemos dos soluciones 
-          ItemNewPh.chemical.solutionOf2 =true ; 
-          
-        }  
+        
         // BASE FUERTE vs ACIDO FUERTE
         if(Item2.chemical.id == this.SOLUTION_TYPES.BASE_FUERTE && ItemNewPh.chemical.id == this.SOLUTION_TYPES.ACIDO_FUERTE ){
           //EN EL DESTINO TENEMOS ACIDO FUERTE Y AGREGAMOS BASE FUERTE
@@ -223,7 +228,7 @@ export class SimPhService {
     if(result == 0) {
       let csi :number = nH/vf;
       
-      pH = -Math.log10(this.calculateQuadratic(1,ka,-(ka*csi)))
+      pH = -Math.log10(this.calculateQuadratic(1,ka,-(ka*csi),null,csi))
     }else{
       //nH > nOH
       if(result >0){
@@ -252,8 +257,8 @@ export class SimPhService {
     if(result == 0) {
       let csi :number = nH/vf;
       console.log(kb);
-      console.log(this.calculateQuadratic(1,kb,-(kb*csi)));
-      let pOH= - Math.log10(this.calculateQuadratic(1,kb,-(kb*csi)))
+      console.log(this.calculateQuadratic(1,kb,-(kb*csi),null,csi));
+      let pOH= - Math.log10(this.calculateQuadratic(1,kb,-(kb*csi),null,csi))
       pH =14 -  pOH
     }else{
       //nH < nOH
