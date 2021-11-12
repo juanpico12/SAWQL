@@ -15,7 +15,7 @@ export class AuthService {
   public userData: any; // Save logged in user data
   public loadingSignIn:boolean;
   private _redirectUrl: string;
-  private adminUid : string = 'e2gJ0Fur3LfVHgCw2YQZTUNCJZA2';
+  private adminUid : string = '8kquqPycP7dwTkyo5VWmKj3Sk3U2';
   public isAdmin : boolean ;
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
