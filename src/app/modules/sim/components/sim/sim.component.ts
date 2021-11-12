@@ -270,10 +270,11 @@ export class SimComponent implements OnInit {
 
   dropTable(e: CdkDragDrop<string[]>){
     console.log(e.item);
-    //SET FALSE THIS.POUR TO RESET THE ACTION PANEL VIEW
-    if((!!this.item1 && !!this.item2)){
-      this.pour = false;
-    }
+    // //SET VALUE TO CERO
+    // if((!!this.item1 && !!this.item2)){
+    //   // this.pour = false;
+    //   this.valueVol =0 ;
+    // }
     if (e.previousContainer === e.container) {
       moveItemInArray(this.itemsOnTable, e.previousIndex, e.currentIndex);
     } else { 
@@ -340,6 +341,8 @@ export class SimComponent implements OnInit {
     let chemical2Aux : Chemical = {...this.item2[0].chemical};
     if(this.pour){
       //No permito que vuelva a verter otra sustancia si ya tiene 2
+      console.log(this.item1[0].chemical.solutionOf2);
+      console.log(this.item1[0]);
       if(!!this.item1[0] && !!this.item1[0].chemical?.solutionOf2 && this.item1[0].chemical.solutionOf2 == true && this.phMetro == false){
         this.alert2Solutions = true;
         this.canPour = false;
@@ -497,6 +500,7 @@ export class SimComponent implements OnInit {
       Ka : this.item2[0].chemical.Ka,
       Kb : this.item2[0].chemical.Kb,
       pH : this.item2[0].chemical.pH,
+      solutionOf2 : this.item2[0].chemical.solutionOf2
     }
 
     let item : Item = {
@@ -524,6 +528,7 @@ export class SimComponent implements OnInit {
       Ka : this.item1[0].chemical.Ka,
       Kb : this.item1[0].chemical.Kb,
       pH : this.item1[0].chemical.pH,
+      solutionOf2 : this.item1[0].chemical.solutionOf2
     }
 
     let item : Item = {
@@ -549,6 +554,7 @@ export class SimComponent implements OnInit {
     item.chemical.Ka = null ;
     item.chemical.Kb = null ;
     item.chemical.pH = null ;
+    item.chemical.solutionOf2 = null;
   }
 
   setDescription(pH : number, item : Item) {

@@ -8,7 +8,7 @@ export class SimMathService {
   constructor() { }
 
   canPour(volFrom, volTo, volMaxTo , quantity) : boolean {
-    if( quantity > volFrom || (quantity + volTo > volMaxTo)){
+    if( quantity > volFrom || (quantity + volTo > volMaxTo) || quantity <=0){
       return false;
     }else{
       return true;
@@ -16,7 +16,7 @@ export class SimMathService {
   }
 
   canWithdraw(volTo, volFrom, volMaxFrom , quantity) : boolean {
-    if( quantity > volTo || (quantity + volFrom > volMaxFrom)){
+    if( quantity > volTo || (quantity + volFrom > volMaxFrom) || quantity <=0){
       return false;
     }else{
       return true;

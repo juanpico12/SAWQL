@@ -1,8 +1,8 @@
 
 .box{
     height: 95px;
-    width: 150px;
-    max-width: 250px;
+    width: auto;
+    min-width: 150px;
     border-width: 3px;
     border-style: solid;
     overflow: hidden;

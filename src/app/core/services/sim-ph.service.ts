@@ -21,13 +21,16 @@ export class SimPhService {
     if(volAnt > 0 ){
       console.log('PASOOO');
       
+      console.log(ItemNewPh.chemical.id);
+      console.log(Item2.chemical.id);
       //ESTAMOS MEZCLANDO DOS SUSTANCIAS, RECALCULAMOS NOMBRE (Si no es la misma sustancia)
-      if(ItemNewPh.chemical.id != Item2.chemical.id ){
+      if(ItemNewPh.id != Item2.id ){
         console.log('paso');
         
         ItemNewPh.chemical.name=  ItemNewPh.chemical.name +' + '+ Item2.chemical.name;
         //Ya tenemos dos soluciones 
         ItemNewPh.chemical.solutionOf2 =true ; 
+        console.log(ItemNewPh.chemical.solutionOf2);
         
       }  
       //Estoy agregando agua vs acf, acd, bf,bd || acf, acd, bf,bd vs agua
@@ -49,6 +52,8 @@ export class SimPhService {
           Fc=  this.calculateFc(solution.chemical.concentration, vol , water.vol);
           //Asigno nueva concentracion y chemical general para que no quede el del H20
           ItemNewPh.chemical = this.setChemical1to2(Item2 ,ItemNewPh ,Fc)
+          console.log(ItemNewPh.chemical);
+          
         }
         console.log(Fc);
         
@@ -310,6 +315,7 @@ export class SimPhService {
       Ka :  item1.chemical.Ka,
       Kb :  item1.chemical.Kb,
       pH :  item1.chemical.pH,
+      solutionOf2 : item2.chemical.solutionOf2,
     }
 
     return chemical
