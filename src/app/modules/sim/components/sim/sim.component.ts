@@ -37,6 +37,7 @@ export class SimComponent implements OnInit {
   basesFuertes : Item[];
   basesDebiles : Item[];
   instrumentos : Item[];
+  agua : Item[];
   matraces : Item[];
   buretas : Item[];
   pipetas : Item[];
@@ -82,6 +83,9 @@ export class SimComponent implements OnInit {
 
   //the radio button changes for first time
   radioButtonOn : boolean = false;
+
+  //enrasar option 
+  enrasarOption : boolean = false;
 
   constructor(public SimDataService : SimDataService,
               public SimMathService : SimMathService,
@@ -146,6 +150,10 @@ export class SimComponent implements OnInit {
           this.instrumentos= itemArray.instrumentos;
            break; 
         }  
+        case 'agua': { 
+          this.agua= itemArray.agua;
+           break; 
+        }  
         
         default: { 
            //statements; 
@@ -208,6 +216,9 @@ export class SimComponent implements OnInit {
     this.checkItemType();
     //LOG ACTION
     this.logService.addLog('El usuario coloco '+this.item1[0].name+' en la mesa de trabajo (Item1)',this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0]));
+    //Enrasar option only when its a matraz
+    this.item1[0].id == 10 || this.item2[0]?.id == 10 ? this.enrasarOption=true : this.enrasarOption=false;
+
     console.log(this.logService.getLogs());  
     console.log(this.item1);
     console.log(this.item2);
@@ -263,6 +274,9 @@ export class SimComponent implements OnInit {
     this.checkItemType();
     //LOG ACTION
     this.logService.addLog('El usuario coloco '+this.item2[0].name+' en la mesa de trabajo (Item2)',this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0]));
+    //Enrasar option only when its a matraz
+    this.item2[0].id == 10 || this.item1[0]?.id == 10 ? this.enrasarOption=true : this.enrasarOption=false;
+
     console.log(this.item1);
     console.log(this.item2);
     console.log(this.itemsOnTable);
@@ -340,6 +354,10 @@ export class SimComponent implements OnInit {
     let chemical1Aux : Chemical = {...this.item1[0].chemical};
     let chemical2Aux : Chemical = {...this.item2[0].chemical};
     if(this.pour){
+      //Calculo automaticamente el valueVol si se utiliza la opcion ENRASAR
+      if(this.enrasarOption){
+        this.valueVol = this.item1[0].volMax - this.item1[0].vol;
+      }
       //No permito que vuelva a verter otra sustancia si ya tiene 2
       console.log(this.item1[0].chemical.solutionOf2);
       console.log(this.item1[0]);
@@ -359,8 +377,8 @@ export class SimComponent implements OnInit {
               this.setChemical2to1()
             }
             //Calculo nuevo volumen
-            this.item1[0].vol = this.item1[0].vol + this.valueVol;
-            this.item2[0].vol = this.item2[0].vol - this.valueVol;
+              this.item1[0].vol = this.item1[0].vol + this.valueVol;
+              this.item2[0].vol = this.item2[0].vol - this.valueVol;
             //Recalculo PH en destino 
             let pH: number = this.SimPhService.calculatePh(this.item1[0],this.item2[0],this.valueVol);
             //seteo descp
@@ -391,6 +409,9 @@ export class SimComponent implements OnInit {
 
       
     }else{
+      if(this.enrasarOption){
+        this.valueVol = this.item2[0].volMax - this.item2[0].vol;
+      }
       //No permito que vuelva a verter otra sustancia si ya tiene 2
       if(!!this.item2[0] && !!this.item2[0].chemical?.solutionOf2 && this.item2[0].chemical.solutionOf2 == true && this.phMetro == false){
         this.alert2Solutions = true;

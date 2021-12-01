@@ -142,7 +142,7 @@ export class ExperimentsComponent implements OnInit {
       const imgProps = (doc as any).getImageProperties(img);
       const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.text('Alumno : '+this.form.get(this.EMAIL).value,120,50,null,0)
+      doc.text('Estudiante : '+this.form.get(this.EMAIL).value,120,50,null,0)
       doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
       return doc;
     }).then((docResult) => {

@@ -28,7 +28,7 @@ export class AuthService {
     logged in and setting up null when logged out */
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        console.log('pasoo');
+        console.log('pasoo uid:'+user.uid);
         //check for admin 
         user.uid ==this.adminUid ? this.isAdmin = true : this.isAdmin = false;
         this.userData = user

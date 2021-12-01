@@ -622,6 +622,16 @@
         {
             "instrumentos": [
                 {
+                    "name" : "pH-metro",
+                    "id" : 310,
+                    "icon" : "ph-meter-item",
+                    "iconClass" : ""
+                }
+            ]
+        },
+        {
+            "agua": [
+                {
                     "name" : "agua",
                     "id" : 300,
                     "icon" : "water-item",
@@ -636,12 +646,6 @@
                         "id" : 5,
                         "solutionOf2 ": false
                     }
-                },
-                {
-                    "name" : "pH-metro",
-                    "id" : 310,
-                    "icon" : "ph-meter-item",
-                    "iconClass" : ""
                 }
             ]
         }

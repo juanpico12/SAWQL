@@ -219,6 +219,24 @@
             </div>
 
           </mat-expansion-panel>
+          <!-- Agua -->
+          <mat-expansion-panel class="mb-0 mat-elevation-z0">
+            <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
+              <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
+                  Agua
+              </mat-panel-title>
+              <mat-panel-description fxFlex="20">
+                <mat-icon class="icon-size-description-panel" [svgIcon]="'water-item'" ></mat-icon>
+              </mat-panel-description>
+              
+            </mat-expansion-panel-header>
+            <div cdkDropList  [cdkDropListConnectedTo]="['item1','item2','table']" fxLayout="row wrap" fxLayoutAlign="space-around end" class="mts-1 pbs-1 item-toolboard-box">
+                <div class="mxs-2 mys-2" *ngFor="let agua of this.agua" [cdkDragData]="agua"  cdkDrag>
+                  <app-sim-item [iconSvg]="this.agua.icon" [iconSvgClass]="this.agua.iconClass" [showVol]="false" [vol]="this.agua.vol" [name]="this.agua.name" [id]="this.agua.id" [unit]="this.agua.unit" [volMax]="this.agua.volMax"></app-sim-item>
+                </div>
+            </div>
+
+          </mat-expansion-panel>
           
           </mat-accordion>
     </div>
@@ -290,9 +308,19 @@
               <h3 *ngIf="this.item1[0].chemical?.pH!=null && this.item1[0].chemical?.pH!=undefined" class="text-accent">{{"pH: " +this.item1[0].chemical.pH }}</h3>
               
             </div>    
-            <!-- Ph-metro FALSE -->
-            <div *ngIf="!this.phMetro" fxLayout="column" fxLayoutAlign="space-around stretch">
-              <div fxLayout="row" fxLayoutAlign="center center" style="height: 110px;">
+            <!-- enrasarOption TRUE -->
+            <div *ngIf="this.enrasarOption" fxLayout="column" fxLayoutAlign="center center">
+              <span class="text-green-darker" class="mbs-2">Enrasar matraz</span>
+              <mat-radio-group  class="mls-3"  fxLayout="column" fxLayoutAlign="space-around center"  aria-label="Select an option"  (change)="this.onChangeRadio($event)">
+                <mat-radio-button  [disabled]="!this.canWithdraw" color="primary"  value="1 "> <mat-icon class="mts-2 material-icons-18 text-primary" [ngClass]="{'text-secondary': !this.canWithdraw}">east</mat-icon></mat-radio-button>
+                <mat-radio-button [disabled]="!this.canPour" color="primary" value="2"> <mat-icon class="mts-2 material-icons-18 text-primary" [ngClass]="{'text-secondary': !this.canPour}">west</mat-icon></mat-radio-button>
+              </mat-radio-group>
+              <button *ngIf="this.pour!=null && this.pour!=undefined && this.pour" [disabled]="!this.canPour" fxFlex="25" mat-stroked-button color="accent" (click)="this.onClickPourOrWithdraw()" disa>Enrasar<mat-icon class="mls-1 mts-1 material-icons-18 text-primary">west</mat-icon></button>
+              <button *ngIf="this.pour!=null && this.pour!=undefined && !this.pour" [disabled]="!this.canWithdraw" fxFlex="25" mat-stroked-button color="accent" (click)="this.onClickPourOrWithdraw()" disa>Enrasar<mat-icon class="mls-1 mts-1 material-icons-18 text-primary">east</mat-icon></button>
+            </div> 
+            <!-- Ph-metro FALSE && enrasarOption FALSE -->
+            <div *ngIf="!this.phMetro && !this.enrasarOption" fxLayout="column" fxLayoutAlign="space-around stretch">
+              <div  fxLayout="row" fxLayoutAlign="center center" style="height: 110px;">
                 <!-- RADIO BUTTONS (VERTER/RETIRAR) -->
                 <div  fxFlex="40" fxLayout="column" fxLayoutAlign="center center"> 
                   <h3 class="mbs-0">Verter</h3>
@@ -341,7 +369,7 @@
             </div>
             <div *ngIf="this.alert2Solutions " class="mys-2" fxLayout="row " fxLayoutAlign="center center">
               <mat-icon  class="material-icons-18 text-warn mts-1">report_problem</mat-icon>
-              <span class="text-accent">Se soportan solo dos sustancia por solución</span>
+              <span class="text-accent">Este simulador actualmente admite un maximo de dos sustancias agregadas</span>
             </div>
             <div *ngIf="this.alertMatrazQuantityInvalid" class="mys-2" fxLayout="row " fxLayoutAlign="center center">
               <mat-icon  class="material-icons-18 text-warn mbs-2">report_problem</mat-icon>
