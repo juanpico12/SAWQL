@@ -355,9 +355,9 @@ export class SimComponent implements OnInit {
     let chemical2Aux : Chemical = {...this.item2[0].chemical};
     if(this.pour){
       //Calculo automaticamente el valueVol si se utiliza la opcion ENRASAR
-      if(this.enrasarOption){
-        this.valueVol = this.item1[0].volMax - this.item1[0].vol;
-      }
+      // if(this.enrasarOption){
+      //   this.valueVol = this.item1[0].volMax - this.item1[0].vol;
+      // }
       //No permito que vuelva a verter otra sustancia si ya tiene 2
       console.log(this.item1[0].chemical.solutionOf2);
       console.log(this.item1[0]);
@@ -409,9 +409,9 @@ export class SimComponent implements OnInit {
 
       
     }else{
-      if(this.enrasarOption){
-        this.valueVol = this.item2[0].volMax - this.item2[0].vol;
-      }
+      // if(this.enrasarOption){
+      //   this.valueVol = this.item2[0].volMax - this.item2[0].vol;
+      // }
       //No permito que vuelva a verter otra sustancia si ya tiene 2
       if(!!this.item2[0] && !!this.item2[0].chemical?.solutionOf2 && this.item2[0].chemical.solutionOf2 == true && this.phMetro == false){
         this.alert2Solutions = true;
@@ -470,6 +470,16 @@ export class SimComponent implements OnInit {
     //     this.canWithdraw = false;
     //   }
     // }
+  }
+
+  onClickenrasarOption(){
+    if(this.pour){
+      this.valueVol = this.item1[0].volMax - this.item1[0].vol;
+    }else{
+      this.valueVol = this.item2[0].volMax - this.item2[0].vol;
+    }
+    console.log(this.valueVol);
+    
   }
 
   checkItemType(){ 

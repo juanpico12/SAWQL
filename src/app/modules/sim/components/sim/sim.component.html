@@ -309,7 +309,7 @@
               
             </div>    
             <!-- enrasarOption TRUE -->
-            <div *ngIf="this.enrasarOption" fxLayout="column" fxLayoutAlign="center center">
+            <!-- <div *ngIf="this.enrasarOption" fxLayout="column" fxLayoutAlign="center center">
               <span class="text-green-darker" class="mbs-2">Enrasar matraz</span>
               <mat-radio-group  class="mls-3"  fxLayout="column" fxLayoutAlign="space-around center"  aria-label="Select an option"  (change)="this.onChangeRadio($event)">
                 <mat-radio-button  [disabled]="!this.canWithdraw" color="primary"  value="1 "> <mat-icon class="mts-2 material-icons-18 text-primary" [ngClass]="{'text-secondary': !this.canWithdraw}">east</mat-icon></mat-radio-button>
@@ -317,9 +317,9 @@
               </mat-radio-group>
               <button *ngIf="this.pour!=null && this.pour!=undefined && this.pour" [disabled]="!this.canPour" fxFlex="25" mat-stroked-button color="accent" (click)="this.onClickPourOrWithdraw()" disa>Enrasar<mat-icon class="mls-1 mts-1 material-icons-18 text-primary">west</mat-icon></button>
               <button *ngIf="this.pour!=null && this.pour!=undefined && !this.pour" [disabled]="!this.canWithdraw" fxFlex="25" mat-stroked-button color="accent" (click)="this.onClickPourOrWithdraw()" disa>Enrasar<mat-icon class="mls-1 mts-1 material-icons-18 text-primary">east</mat-icon></button>
-            </div> 
-            <!-- Ph-metro FALSE && enrasarOption FALSE -->
-            <div *ngIf="!this.phMetro && !this.enrasarOption" fxLayout="column" fxLayoutAlign="space-around stretch">
+            </div>  -->
+            <!-- Ph-metro FALSE -->
+            <div *ngIf="!this.phMetro" class="mts-5" fxLayout="column" fxLayoutAlign="space-around stretch">
               <div  fxLayout="row" fxLayoutAlign="center center" style="height: 110px;">
                 <!-- RADIO BUTTONS (VERTER/RETIRAR) -->
                 <div  fxFlex="40" fxLayout="column" fxLayoutAlign="center center"> 
@@ -331,21 +331,29 @@
                 </div>
                  
                   <!-- Quantity Input and Slider -->
-                  <div class=" mxs-3" fxFlex="60" fxLayout="row" fxLayoutAlign="space-around end"> 
-                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center">
-                      <mat-form-field  fxFlex="35" fxFlex.lt-lg="100" class="mts-5" appearance="outline">
-                        <mat-label>Cantidad (mL)</mat-label>
-                        <input matInput type="number" [(ngModel)]="valueVol" >
-                      </mat-form-field>
-                        <mat-slider fxShow fxHide.lt-lg
-                        [color]="'primary'"
-                        thumbLabel
-                        tickInterval="250"
-                        min="1"
-                        max="250"
-                        [(ngModel)]="valueVol"
-                      ></mat-slider>
-                    </div>                   
+                  <div class=" mxs-3 " fxFlex="100" fxLayout="column" fxLayoutAlign="center center"> 
+                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center">
+                          <div fxLayout="row" fxFlex.lt-lg="100" fxFlex.sm="70" fxLayoutAlign="start center">
+                            <mat-form-field fxFlex="90"   appearance="outline">
+                              <mat-label>Cantidad (mL)</mat-label>
+                              <input matInput type="number" [(ngModel)]="valueVol" >
+                            </mat-form-field>
+                          </div>
+                         
+                            <mat-slider fxShow fxHide.lt-lg
+                            [color]="'primary'"
+                            thumbLabel
+                            tickInterval="250"
+                            min="1"
+                            max="250"
+                            [(ngModel)]="valueVol"
+                            class="mbs-2"
+                          ></mat-slider>
+                        </div>
+                        
+                        <button *ngIf="this.enrasarOption" (click)="this.onClickenrasarOption()" class="text-accent" mat-stroked-button> Enrasar </button>
+
+    
                   </div>
               </div>
               <!-- ACTION Button -->
@@ -369,7 +377,7 @@
             </div>
             <div *ngIf="this.alert2Solutions " class="mys-2" fxLayout="row " fxLayoutAlign="center center">
               <mat-icon  class="material-icons-18 text-warn mts-1">report_problem</mat-icon>
-              <span class="text-accent">Este simulador actualmente admite un maximo de dos sustancias agregadas</span>
+              <span class="text-accent">Este simulador actualmente admite un maximo de dos agregados</span>
             </div>
             <div *ngIf="this.alertMatrazQuantityInvalid" class="mys-2" fxLayout="row " fxLayoutAlign="center center">
               <mat-icon  class="material-icons-18 text-warn mbs-2">report_problem</mat-icon>
