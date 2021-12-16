@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { LogService } from 'src/app/core/services/log.service';
 import { LoginModule } from 'src/app/modules/login/login.module';
 import { Position } from 'src/app/shared/models/position';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,7 +15,7 @@ import { Position } from 'src/app/shared/models/position';
 })
 export class HomeComponent implements OnInit {
   user;
-  constructor(private authService: AuthService,private logService: LogService) { }
+  constructor(private authService: AuthService,private logService: LogService, private _sanitizer: DomSanitizer) { }
   elementsInTable = ['']
 
   ngOnInit(): void {
@@ -29,6 +31,19 @@ export class HomeComponent implements OnInit {
   onClickNewExperiment(){
     this.logService.newLogs();
   }
+
+  getVideoIframe(url) {
+    var video, results;
+ 
+    if (url === null) {
+        return '';
+    }
+    results = url.match('[\\?&]v=([^&#]*)');
+    video   = (results === null) ? url : results[1];
+ 
+    return this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + video);   
+}
+
 
 
 }

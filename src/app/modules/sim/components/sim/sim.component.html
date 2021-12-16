@@ -205,10 +205,10 @@
             <mat-expansion-panel class="mb-0 mat-elevation-z0">
             <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center" style="min-height: 60px;">
               <mat-panel-title fxFlex="80" fxLayout="row" fxLayoutAlign="start center">
-                  Instrumentos
+                  pH-metro
               </mat-panel-title>
               <mat-panel-description fxFlex="20">
-                <mat-icon class="icon-size-description-panel" [svgIcon]="'chemTools'" ></mat-icon>
+                <mat-icon class="icon-size-description-panel" [svgIcon]="'ph-meter-item'" ></mat-icon>
               </mat-panel-description>
               
             </mat-expansion-panel-header>
@@ -351,7 +351,7 @@
                           ></mat-slider>
                         </div>
                         
-                        <button *ngIf="this.enrasarOption" (click)="this.onClickenrasarOption()" class="text-accent" mat-stroked-button> Enrasar </button>
+                        <button *ngIf="this.enrasarOption" (click)="this.onClickenrasarOption()" [disabled]="" class="text-accent" mat-stroked-button> Enrasar </button>
 
     
                   </div>

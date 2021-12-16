@@ -4,12 +4,13 @@ import { HomeComponent } from './components/home/home.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { MaterialModule } from 'src/app/material/material.module';
 
+
 @NgModule({
   declarations: [HomeComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    MaterialModule
+    MaterialModule,
   ]
 })
 export class HomeModule { }

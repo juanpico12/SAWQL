@@ -29,7 +29,7 @@ import { DatePipe } from '@angular/common';
     MaterialModule,
     HttpClientModule,
     AvatarModule,
-    FormsModule
+    FormsModule,
     
   ],
   providers: [AuthService,DatePipe],

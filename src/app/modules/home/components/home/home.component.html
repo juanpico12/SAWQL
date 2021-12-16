@@ -40,7 +40,7 @@
 </div> -->
 
 <div  fxLayout="column" fxLayoutAlign="center center" >
-    <div class="home-container" fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.xs="center center" >
+    <div fxFlex="50" class="home-container" fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.xs="center center" >
         <div class="prs-5" fxFlex="40" fxFlex.sm = "30" fxFlex.xs="60"  fxLayout="column" fxLayoutAlign="start center">
             <h1 style="color: white;" class="prs-5">¡Bienvenidos a SAWQL!</h1>
             <h3 style="color: white;">SAWQL (simulador de aprendizaje web de operaciones quimicas de laboratorio)<br><br>
@@ -50,10 +50,12 @@
         </div>
         
     </div>
-    <div fxLayout="row" fxLayoutAlign="center center" class="mts-4">
+    <div fxFlex="5" fxLayout="row" fxLayoutAlign="center center" class="mts-4">
         <h1 class="text-green-darker">Video Tutorial </h1>
+        
     </div>
-   
+    <div class="pbs-2" fxFlex="45"   ><iframe  width="1000rem" height="439rem" [src]="this.getVideoIframe('YOn5Sai087s')" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <!-- <div  class="pbs-2"fxFlex="45" fxHide fxShow.lt-sm  ><iframe  width="500rem" height="219rem" [src]="this.getVideoIframe('YOn5Sai087s')" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div> -->
 </div>
 
 
