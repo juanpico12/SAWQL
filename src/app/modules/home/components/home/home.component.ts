@@ -15,12 +15,14 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
   user;
+  hideIframe : boolean =true;
   constructor(private authService: AuthService,private logService: LogService, private _sanitizer: DomSanitizer) { }
   elementsInTable = ['']
 
   ngOnInit(): void {
 
   }
+  
 
 
   drop(event: CdkDragDrop<string[]>) {
@@ -34,13 +36,13 @@ export class HomeComponent implements OnInit {
 
   getVideoIframe(url) {
     var video, results;
- 
+    console.log('pasoooo')
     if (url === null) {
         return '';
     }
     results = url.match('[\\?&]v=([^&#]*)');
     video   = (results === null) ? url : results[1];
- 
+
     return this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube-nocookie.com/embed/' + video);   
 }
 

@@ -15,7 +15,7 @@ export class AuthService {
   public userData: any; // Save logged in user data
   public loadingSignIn:boolean;
   private _redirectUrl: string;
-  private adminUid : string = '8kquqPycP7dwTkyo5VWmKj3Sk3U2';
+  private adminUid : string[] = ['8kquqPycP7dwTkyo5VWmKj3Sk3U2','e2gJ0Fur3LfVHgCw2YQZTUNCJZA2'];
   public isAdmin : boolean ;
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -29,8 +29,10 @@ export class AuthService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         console.log('pasoo uid:'+user.uid);
-        //check for admin 
-        user.uid ==this.adminUid ? this.isAdmin = true : this.isAdmin = false;
+        //check for admin
+        this.adminUid.forEach(( uid) => {
+          user.uid == uid ? this.isAdmin = true : this.isAdmin = false;
+        }) 
         this.userData = user
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));

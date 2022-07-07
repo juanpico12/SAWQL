@@ -24,6 +24,8 @@ export class LogService {
   }
 
   addLog(st : string,alert : number, extraData ?: string ){
+   console.log(st)
+   console.log(extraData)
     let log : Log = {
       st : st,
       extraData : !!extraData ? extraData : null,

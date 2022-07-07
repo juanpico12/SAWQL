@@ -45,7 +45,7 @@
                                         <mat-icon *ngIf="log.alert ==0" class="mat-icon-small text-primary">fiber_manual_record</mat-icon>
                                         <mat-icon *ngIf="log.alert ==1" class="mat-icon-small yellow-icon">fiber_manual_record</mat-icon>
                                         <mat-icon *ngIf="log.alert ==2" class="mat-icon-small red-icon" color='red'>fiber_manual_record</mat-icon>
-                                        {{log.st}} 
+                                        <span [innerHTML]="log.st"></span>
                                       </h3> 
                                       <div *ngIf="!!log.extraData" fxLayout="row" fxLayoutAlign="start end">
                                         <mat-icon class="mat-18 mls-2 text-secondary">subdirectory_arrow_right</mat-icon>

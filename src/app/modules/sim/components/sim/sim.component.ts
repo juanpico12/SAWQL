@@ -353,6 +353,7 @@ export class SimComponent implements OnInit {
     //Generamos estos aux para usarlos en el log , ya que modificamos los chemicals orignales en el proceso
     let chemical1Aux : Chemical = {...this.item1[0].chemical};
     let chemical2Aux : Chemical = {...this.item2[0].chemical};
+    console.log('chemical2Aux')
     if(this.pour){
       //Calculo automaticamente el valueVol si se utiliza la opcion ENRASAR
       // if(this.enrasarOption){
