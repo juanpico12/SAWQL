@@ -170,7 +170,7 @@ export class SimPhService {
     } else{
       pH= Item2.chemical.pH;
     }
-    return pH ;
+    return Math.round((pH + Number.EPSILON) * 100) / 100 ;
   }
 
   calculateFc(InitialConcentration, InitialVol , FinalVol) : number{

@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { Item } from 'src/app/shared/models/item';
 import { AnimationItem } from 'lottie-web';
@@ -22,7 +22,8 @@ import { LottieEventsFacade } from 'ngx-lottie/src/events-facade';
 @Component({
   selector: 'app-sim',
   templateUrl: './sim.component.html',
-  styleUrls: ['./sim.component.scss']
+  styleUrls: ['./sim.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class SimComponent implements OnInit {
   SOLUTION_DESCRIPTION = SOLUTION_DESCRIPTION;
@@ -45,6 +46,7 @@ export class SimComponent implements OnInit {
   vasoDePrecipitados : Item[];
   erlenmeyers : Item[]; 
   stringAlert : string ;
+  
 
 
   //Lottie
@@ -87,13 +89,18 @@ export class SimComponent implements OnInit {
   //enrasar option 
   enrasarOption : boolean = false;
 
+  //enrasar flag when clicks enrasarButton 
+  enrasarFlag : boolean = false;
+
+
   constructor(public SimDataService : SimDataService,
               public SimMathService : SimMathService,
               public SimPhService : SimPhService,
               public authService : AuthService,
               public logService : LogService,
               public experimentDBService : ExperimentDBService,
-              public datePipe: DatePipe) { }
+              public datePipe: DatePipe,
+              public changeDetectorRef : ChangeDetectorRef) { }
   
   
   ngOnInit(): void {
@@ -167,6 +174,8 @@ export class SimComponent implements OnInit {
   }
 
   dropItem1(event: CdkDragDrop<string[]>) {
+
+    this.valueVol = 0
     let item : Item = {
       name: event.item.data.name,
       id: event.item.data.id,
@@ -217,8 +226,16 @@ export class SimComponent implements OnInit {
     //LOG ACTION
     this.logService.addLog('El usuario coloco '+this.item1[0].name+' en la mesa de trabajo (Item1)',this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0]));
     //Enrasar option only when its a matraz
-    this.item1[0].id == 10 || this.item2[0]?.id == 10 ? this.enrasarOption=true : this.enrasarOption=false;
-
+    if(!!this.item1[0]  && this.item1[0].id == 10 && this.pour == true ){
+      this.enrasarOption = true;
+    }else{
+      if(!!this.item2[0] && this.item2[0].id == 10 && this.pour == false ){
+        this.enrasarOption = true;
+      }else{
+        this.enrasarOption = false;
+      }
+     
+    }
     console.log(this.logService.getLogs());  
     console.log(this.item1);
     console.log(this.item2);
@@ -227,6 +244,8 @@ export class SimComponent implements OnInit {
   }
 
   dropItem2(event: CdkDragDrop<string[]>) {   
+
+    this.valueVol = 0
     let item : Item = {
       name: event.item.data.name,
       id: event.item.data.id,
@@ -275,8 +294,16 @@ export class SimComponent implements OnInit {
     //LOG ACTION
     this.logService.addLog('El usuario coloco '+this.item2[0].name+' en la mesa de trabajo (Item2)',this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0]));
     //Enrasar option only when its a matraz
-    this.item2[0].id == 10 || this.item1[0]?.id == 10 ? this.enrasarOption=true : this.enrasarOption=false;
-
+    if(!!this.item1[0]  && this.item1[0].id == 10 && this.pour == true ){
+      this.enrasarOption = true;
+    }else{
+      if(!!this.item2[0] && this.item2[0].id == 10 && this.pour == false ){
+        this.enrasarOption = true;
+      }else{
+        this.enrasarOption = false;
+      }
+     
+    }
     console.log(this.item1);
     console.log(this.item2);
     console.log(this.itemsOnTable);
@@ -284,6 +311,7 @@ export class SimComponent implements OnInit {
 
   dropTable(e: CdkDragDrop<string[]>){
     console.log(e.item);
+
     // //SET VALUE TO CERO
     // if((!!this.item1 && !!this.item2)){
     //   // this.pour = false;
@@ -340,11 +368,22 @@ export class SimComponent implements OnInit {
   }
 
   onChangeRadio(e) {
+
     this.radioButtonOn = true;
     if(e.value == 1 ){
       this.pour = false;
     }else{
       this.pour = true;
+    }
+    if(!!this.item1[0]  && this.item1[0].id == 10 && this.pour == true ){
+      this.enrasarOption = true;
+    }else{
+      if(!!this.item2[0] && this.item2[0].id == 10 && this.pour == false ){
+        this.enrasarOption = true;
+      }else{
+        this.enrasarOption = false;
+      }
+     
     }
   }
 
@@ -354,6 +393,7 @@ export class SimComponent implements OnInit {
     let chemical1Aux : Chemical = {...this.item1[0].chemical};
     let chemical2Aux : Chemical = {...this.item2[0].chemical};
     console.log('chemical2Aux')
+
     if(this.pour){
       //Calculo automaticamente el valueVol si se utiliza la opcion ENRASAR
       // if(this.enrasarOption){
@@ -394,7 +434,14 @@ export class SimComponent implements OnInit {
             this.setChemicalToNull(this.item2[0])
             }
             //LOG ACTION
-            this.logService.addLog('El usuario vertió de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
+            if (this.enrasarFlag) {
+              //Entra aca si se enraso en vez de verter una cantidad x
+              this.logService.addLog('El usuario retiro de un/una '+this.item2[0].name+' y enrasó a un '+this.item1[0].name+(!!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+' agregando a este  '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
+            } else {
+              this.logService.addLog('El usuario vertió de un/una '+this.item2[0].name+' a un/una '+this.item1[0].name+( !!chemical1Aux?.name ? ('('+chemical1Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical2Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item1[0],this.item1[0].name+' -> '));
+            }
+            
+            
           }else{
             //Cantidad a verter invalida
             this.alertQuantityInvalid =true;
@@ -445,7 +492,13 @@ export class SimComponent implements OnInit {
               this.setChemicalToNull(this.item1[0])
             }
             //LOG ACTION
-            this.logService.addLog('El usuario retiro de un/una '+this.item1[0].name+' a un/una '+this.item2[0].name+(!!chemical2Aux?.name ? ('('+chemical2Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0],this.item2[0].name+' -> '));
+            if (this.enrasarFlag) {
+              //Entra aca si se enraso en vez de verter una cantidad x
+              this.logService.addLog('El usuario retiro de un/una '+this.item1[0].name+' y enrasó a un '+this.item2[0].name+(!!chemical2Aux?.name ? ('('+chemical2Aux.name+')' ) : '' )+' agregando a este  '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0],this.item2[0].name+' -> '));
+            } else {
+              this.logService.addLog('El usuario retiro de un/una '+this.item1[0].name+' a un/una '+this.item2[0].name+(!!chemical2Aux?.name ? ('('+chemical2Aux.name+')' ) : '' )+' '+this.valueVol+' ml de '+chemical1Aux.name,this.LOG_ALERTS.NORMAL,this.getLogExtraDataSt(this.item2[0],this.item2[0].name+' -> '));
+            }
+            
           }else{
             //Cantidad a retirar invalida
             this.alertQuantityInvalid =true;
@@ -474,12 +527,25 @@ export class SimComponent implements OnInit {
   }
 
   onClickenrasarOption(){
+    this.enrasarFlag = true;
+    let chemical1Aux : Chemical = {...this.item1[0].chemical};
+    let chemical2Aux : Chemical = {...this.item2[0].chemical};
     if(this.pour){
       this.valueVol = this.item1[0].volMax - this.item1[0].vol;
     }else{
       this.valueVol = this.item2[0].volMax - this.item2[0].vol;
     }
-    console.log(this.valueVol);
+    this.onClickPourOrWithdraw();
+    //LOG ACTION
+    if(this.pour){
+      
+    }else{
+      
+    }
+    
+    this.valueVol =0;
+    
+    this.enrasarFlag = false;
     
   }
 

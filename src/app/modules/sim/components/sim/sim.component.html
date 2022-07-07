@@ -324,15 +324,15 @@
                 <!-- RADIO BUTTONS (VERTER/RETIRAR) -->
                 <div  fxFlex="40" fxLayout="column" fxLayoutAlign="center center"> 
                   <h3 class="mbs-0">Verter</h3>
-                  <mat-radio-group  class="mls-3"  fxLayout="column" fxLayoutAlign="space-around center"  aria-label="Select an option"  (change)="this.onChangeRadio($event)">
-                    <mat-radio-button  [disabled]="!this.canWithdraw" color="primary"  value="1 "> <mat-icon class="mts-2 material-icons-18 text-primary" [ngClass]="{'text-secondary': !this.canWithdraw}">east</mat-icon></mat-radio-button>
-                    <mat-radio-button [disabled]="!this.canPour" color="primary" value="2"> <mat-icon class="mts-2 material-icons-18 text-primary" [ngClass]="{'text-secondary': !this.canPour}">west</mat-icon></mat-radio-button>
+                  <mat-radio-group  class="mls-3"  fxLayout="column" fxLayoutAlign="space-around center"  aria-label="Select an option" name="buttonGroup"  (change)="this.onChangeRadio($event)" >
+                    <mat-radio-button  [checked] ="!this.pour"  [disabled]="!this.canWithdraw" color="primary"  value="1 " name="buttonGroup"  > <mat-icon class="mts-2 material-icons-18 text-primary" [ngClass]="{'text-secondary': !this.canWithdraw}">east</mat-icon></mat-radio-button>
+                    <mat-radio-button  [checked] ="this.pour" [disabled]="!this.canPour" color="primary" value="2" name="buttonGroup"  > <mat-icon class="mts-2 material-icons-18 text-primary" [ngClass]="{'text-secondary': !this.canPour}">west</mat-icon></mat-radio-button>
                   </mat-radio-group>
                 </div>
                  
                   <!-- Quantity Input and Slider -->
                   <div class=" mxs-3 " fxFlex="100" fxLayout="column" fxLayoutAlign="center center"> 
-                        <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center">
+                        <div   fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center">
                           <div fxLayout="row" fxFlex.lt-lg="100" fxFlex.sm="70" fxLayoutAlign="start center">
                             <mat-form-field fxFlex="90"   appearance="outline">
                               <mat-label>Cantidad (mL)</mat-label>
@@ -340,7 +340,7 @@
                             </mat-form-field>
                           </div>
                          
-                            <mat-slider fxShow fxHide.lt-lg
+                            <mat-slider   fxShow fxHide.lt-lg
                             [color]="'primary'"
                             thumbLabel
                             tickInterval="250"
