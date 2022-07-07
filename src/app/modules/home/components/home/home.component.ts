@@ -18,9 +18,16 @@ export class HomeComponent implements OnInit {
   hideIframe : boolean =true;
   constructor(private authService: AuthService,private logService: LogService, private _sanitizer: DomSanitizer) { }
   elementsInTable = ['']
-
+  video : string;
+  urlYoutube : string = 'YOn5Sai087s'
+  results : RegExpMatchArray;
+  urlSanitized : SafeResourceUrl;
   ngOnInit(): void {
-
+    this.results = this.urlYoutube.match('[\\?&]v=([^&#]*)');
+    this.video   = (this.results === null) ? this.urlYoutube : this.results[1];
+    this.urlSanitized = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube-nocookie.com/embed/' + this.video);
+    console.log(this.urlSanitized);
+    
   }
   
 
@@ -37,9 +44,11 @@ export class HomeComponent implements OnInit {
   getVideoIframe(url) {
     var video, results;
     console.log('pasoooo')
+    
     if (url === null) {
         return '';
     }
+
     results = url.match('[\\?&]v=([^&#]*)');
     video   = (results === null) ? url : results[1];
 
