@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { GeneralService } from './core/services/general.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { ConsoleToggleService } from './core/services/console-toogle.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 export class AppComponent {
   title = 'SAWQL';
   items: Observable<any[]>;
-  constructor(firestore: AngularFirestore ,private generalService: GeneralService,overlayContainer: OverlayContainer,) {
+  constructor(firestore: AngularFirestore ,private generalService: GeneralService,overlayContainer: OverlayContainer,private consoleToggleService: ConsoleToggleService) {
+    this.consoleToggleService.disableConsoleInProduction();
     this.items = firestore.collection('items').valueChanges();
     overlayContainer.getContainerElement().classList.add('sawql-theme');
   }
