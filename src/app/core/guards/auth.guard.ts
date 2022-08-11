@@ -31,7 +31,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
    }
 
    checkLogin(url): boolean {
+      console.log('entro al guard');
       if (this.authService.isLoggedIn == true) {
+         console.log('esta logueado');
+         
          return true;
       }
       // Store the attempted URL for redirecting

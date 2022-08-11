@@ -40,10 +40,10 @@ export class SignInComponent implements OnInit {
   }
 
   onLogin(){
-    console.log(this.form.get('email').value);
-    console.log(this.form.get('password').value);
+    // console.log(this.form.get('email').value);
+    // console.log(this.form.get('password').value);
 
-    this.authService.SignIn(this.form.get('email').value,this.form.get('password').value)
+    this.authService.SignIn(this.form.get('email').value,this.form.get('password').value).then(e => console.log(this.authService.GetUserData()))
   }
 
   createLoginForm(): FormGroup {

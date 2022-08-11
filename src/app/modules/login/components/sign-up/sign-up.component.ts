@@ -26,8 +26,8 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUp(){
-    console.log(this.form.get('email').value);
-    console.log(this.form.get('password').value);
+    // console.log(this.form.get('email').value);
+    // console.log(this.form.get('password').value);
     
     this.authService.SignUp(this.form.get('email').value,this.form.get('password').value)
   }

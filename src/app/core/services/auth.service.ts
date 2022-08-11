@@ -37,6 +37,8 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
         this.loadingSignIn=false;
+        console.log(this.loadingSignIn);
+        
       } else {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
@@ -153,7 +155,7 @@ export class AuthService {
     // Returns true when user is looged in and email is verified
     get isLoggedIn(): boolean {
       const user = JSON.parse(localStorage.getItem('user'));    
-      return (user !== null && user.emailVerified !== false) ? true : false;
+      return (user !== null ) ? true : false;
     }
 
     // Reset Forggot password
